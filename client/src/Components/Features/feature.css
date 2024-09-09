@@ -1,0 +1,96 @@
+.feature-section{
+    width: 100%;
+}
+
+.feature-section .feature-container{
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 40px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-section .feature-container .feature-row{
+    width: 100%;
+    background-color: #E5E4D8;
+    border-radius: 20px;
+    /* height: 100px; */
+    padding: 40px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.feature-section .feature-container .feature-row .feature-main-col{
+    width: 21;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.feature-section .feature-container .feature-row .feature-main-col .content{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.feature-section .feature-container .feature-row .feature-main-col .content h3{
+    font-size: 19px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.feature-section .feature-container .feature-row .feature-main-col .content p{
+    font-size: 13px;
+    margin: 0;
+}
+
+.feature-section .feature-container .feature-row .feature-main-col .icon{
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 5px;
+}
+
+.feature-section .feature-container .feature-row .feature-main-col .icon i{
+    font-size: 50px;
+}
+
+@media (max-width:750px) {
+    .feature-section .feature-container .feature-row{
+        width: 100%;
+        background-color: #E5E4D8;
+        border-radius: 20px;
+        padding: 40px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        flex-direction: column;
+        gap: 20px;
+    
+    }
+    
+    .feature-section .feature-container .feature-row .feature-main-col{
+        width: 23;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .feature-section .feature-container{
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

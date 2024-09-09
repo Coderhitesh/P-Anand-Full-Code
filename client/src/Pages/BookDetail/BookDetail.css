@@ -1,0 +1,10 @@
+.course-description ul {
+    list-style-type: disc; /* This sets the list style to dots */
+    margin-left: 20px; /* Adds some margin to the left to space out the dots */
+    padding-left: 20px; /* Adds padding to align the dots nicely */
+}
+
+.course-description li {
+    margin-bottom: 10px; /* Adds some space between each list item */
+    line-height: 1.6; /* Increases line height for better readability */
+}
