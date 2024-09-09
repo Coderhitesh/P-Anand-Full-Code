@@ -21,7 +21,7 @@ function TopRatedBook() {
 
   const handleFetchCourse = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-course');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
       const allCourse = res.data.data;
       const filter = allCourse.filter((item) => item.courseRating >= 4.0);
       setTopRate(filter);
@@ -32,7 +32,7 @@ function TopRatedBook() {
 
   const handleFetchCategory = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-category');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
       setCategory(res.data.data);
     } catch (error) {
       console.log(error);
@@ -41,7 +41,7 @@ function TopRatedBook() {
 
   const handleFetchTeacher = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-teacher');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher');
       setTeacher(res.data.data);
     } catch (error) {
       console.log(error);

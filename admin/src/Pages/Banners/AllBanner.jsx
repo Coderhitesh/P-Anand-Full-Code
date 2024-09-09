@@ -12,7 +12,7 @@ const AllBanner = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-banner');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-banner');
             const reverseData = res.data.data;
             const main = reverseData.reverse();
             setBanners(main);
@@ -45,7 +45,7 @@ const AllBanner = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:9000/api/v1/delete-banner/${id}`);
+                    await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-banner/${id}`);
                     toast.success("Banner Deleted Successfully");
                     handleFetch();
                     Swal.fire({
@@ -65,7 +65,7 @@ const AllBanner = () => {
         try {
             const newActiveStatus = !currentActive;
             console.log('status',newActiveStatus)
-            await axios.put(`http://localhost:9000/api/v1/update-baner/${id}`, { active: newActiveStatus });
+            await axios.put(`https://www.api.panandacademy.com/api/v1/update-baner/${id}`, { active: newActiveStatus });
             // Update the local state
             setBanners(prevBanners =>
                 prevBanners.map(banner =>

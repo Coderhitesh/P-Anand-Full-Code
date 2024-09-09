@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const AddVideo = () => {
     const [videoUrl, setVideoUrl] = useState('');
     const [isActive, setIsActive] = useState(true);
-    const BackendUrl = "http://localhost:9000/api/v1"
+    const BackendUrl = "https://www.api.panandacademy.com/api/v1"
 
     const handleSubmit = async (e) => {
         e.preventDefault();

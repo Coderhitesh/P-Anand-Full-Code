@@ -53,7 +53,7 @@ function AddBookBundle() {
 
         if (value) {
             try {
-                const res = await axios.get(`http://localhost:9000/api/v1/get-book-by-category/${value}`);
+                const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-book-by-category/${value}`);
                 // console.log(res.data.data)
                 setCourses(res.data.data); // Update courses based on the selected category
             } catch (error) {
@@ -108,7 +108,7 @@ function AddBookBundle() {
     // Fetch categories for the dropdown
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-book-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category');
             // console.log(res.data.data)
             setCategories(res.data.data);
         } catch (error) {
@@ -118,7 +118,7 @@ function AddBookBundle() {
 
     const handleFetchTag = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-book-tag')
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag')
             setAllTag(res.data.data)
         } catch (error) {
             console.log(error)
@@ -148,7 +148,7 @@ function AddBookBundle() {
                 }
             }
 
-            const response = await axios.post('http://localhost:9000/api/v1/create-book-bundle', formDataToSend, {
+            const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-book-bundle', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

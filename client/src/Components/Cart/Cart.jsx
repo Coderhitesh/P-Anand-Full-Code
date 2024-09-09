@@ -22,7 +22,7 @@ function Cart() {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:9000/api/v1/get-products-by-session/${session}`);
+            const response = await axios.get(`https://www.api.panandacademy.com/api/v1/get-products-by-session/${session}`);
             console.log(response.data.cart);
             if (response.data) {
                 setCartItems(response.data.cart);
@@ -46,7 +46,7 @@ function Cart() {
     const removeProduct = async (productId) => {
 
         try {
-            const response = await axios.post(`http://localhost:9000/api/v1/remove-product`, {
+            const response = await axios.post(`https://www.api.panandacademy.com/api/v1/remove-product`, {
                 productId,
                 sessionId: session
             });
@@ -68,7 +68,7 @@ function Cart() {
     const deleteAll = async()=>{
         // console.log(session)
         try {
-            const res  = await axios.post('http://localhost:9000/api/v1/delete-by-session',{session})
+            const res  = await axios.post('https://www.api.panandacademy.com/api/v1/delete-by-session',{session})
             console.log(res.data)
         } catch (error) {
             
@@ -101,7 +101,7 @@ function Cart() {
                 };
     
                 try {
-                    const response = await axios.post('http://localhost:9000/api/v1/Make-Order', cartData, {
+                    const response = await axios.post('https://www.api.panandacademy.com/api/v1/Make-Order', cartData, {
                         headers: {
                             Authorization: `Bearer ${userToken}`
                         }
@@ -122,7 +122,7 @@ function Cart() {
                 };
     
                 try {
-                    const response = await axios.post('http://localhost:9000/api/v1/Make-Order', cartData, {
+                    const response = await axios.post('https://www.api.panandacademy.com/api/v1/Make-Order', cartData, {
                         headers: {
                             Authorization: `Bearer ${userToken}`
                         }

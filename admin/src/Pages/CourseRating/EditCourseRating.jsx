@@ -16,7 +16,7 @@ function EditCourseRating() {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-course');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
       setCourses(res.data.data);
     } catch (error) {
       console.error('Error fetching courses:', error);
@@ -25,7 +25,7 @@ function EditCourseRating() {
 
   const fetchCourseRating = async () => {
     try {
-      const res = await axios.get(`http://localhost:9000/api/v1/get-single-course-rating/${id}`);
+      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-course-rating/${id}`);
       setFormData({
         courseId: res.data.data.courseId,
         rating: res.data.data.rating
@@ -66,7 +66,7 @@ function EditCourseRating() {
     setIsLoading(true);
 
     try {
-      await axios.put(`http://localhost:9000/api/v1/update-course-rating/${id}`, {
+      await axios.put(`https://www.api.panandacademy.com/api/v1/update-course-rating/${id}`, {
         courseId: formData.courseId,
         rating: formData.rating
       });

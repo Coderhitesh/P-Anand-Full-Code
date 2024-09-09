@@ -7,7 +7,7 @@ const AllUsers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await axios.get('http://localhost:9000/api/v1/AllUser');
+                const res = await axios.get('https://www.api.panandacademy.com/api/v1/AllUser');
                 // console.log(res.data.data)
                 setUsers(res.data.data);
             } catch (error) {

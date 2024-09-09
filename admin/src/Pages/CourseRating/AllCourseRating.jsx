@@ -17,12 +17,12 @@ function AllCourseRating() {
 
     const handleFetch = async () => {
         try {
-            const resRatings = await axios.get('http://localhost:9000/api/v1/get-all-course-rating');
+            const resRatings = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course-rating');
             const reverseData = resRatings.data.data.reverse();
             setTeacherRating(reverseData);
             paginateData(reverseData, currentPage);
 
-            const resTeachers = await axios.get('http://localhost:9000/api/v1/get-all-course');
+            const resTeachers = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
             setTeachers(resTeachers.data.data);
 
             
@@ -33,7 +33,7 @@ function AllCourseRating() {
 
     const handleFetchCAtegory = async() => {
         try {
-            const resCategory = await axios.get('http://localhost:9000/api/v1/get-all-category')
+            const resCategory = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category')
             setCategory(resCategory.data.data)
         } catch (error) {
             console.log(error)
@@ -62,7 +62,7 @@ function AllCourseRating() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:9000/api/v1/delete-course-rating/${id}`);
+                    await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-course-rating/${id}`);
                     toast.success("Rating Deleted Successfully");
                     handleFetch(); // Re-fetch ratings after deletion
                     Swal.fire({

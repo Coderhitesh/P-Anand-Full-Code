@@ -48,7 +48,7 @@ const Signin = () => {
         setLoading(true)
         event.preventDefault()
         try{
-            const response = await axios.post("http://localhost:9000/api/v1/Create-User",formData)
+            const response = await axios.post("https://www.api.panandacademy.com/api/v1/Create-User",formData)
             console.log(response.data);
             setLoading(false)
             toast.success('Registration Successfully !!')

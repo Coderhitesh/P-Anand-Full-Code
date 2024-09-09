@@ -14,7 +14,7 @@ const AllTags = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-tag');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
             const reverseData = res.data.data
             const main = reverseData.reverse()
             setTags(main)
@@ -48,7 +48,7 @@ const AllTags = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`http://localhost:9000/api/v1/delete-tag/${id}`);
+                    const res = await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-tag/${id}`);
                     console.log(res.data);
                     toast.success("Tag Deleted Successfully");
                     handleFetch();

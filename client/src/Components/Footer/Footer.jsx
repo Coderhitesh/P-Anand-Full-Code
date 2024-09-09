@@ -7,7 +7,7 @@ function Footer() {
     const [category, setCategory] = useState([])
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-category')
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category')
             setCategory(res.data.data)
         } catch (error) {
             console.log(error)

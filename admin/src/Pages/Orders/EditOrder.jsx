@@ -11,7 +11,7 @@ const EditOrder = () => {
 
     const fetchOrderDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:9000/api/v1/single-order/${id}`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-order/${id}`);
             setOrder(res.data.data); // Ensure to access `data` from the response
             setLoading(false);
         } catch (error) {

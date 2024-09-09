@@ -13,7 +13,7 @@ function Topcategory() {
 
   const handleFetchCategory = async (pageNumber) => {
     try {
-      const res = await axios.get(`http://localhost:9000/api/v1/get-all-category?page=${pageNumber}`);
+      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-category?page=${pageNumber}`);
       setCategory((prevCategories) => [...prevCategories, ...res.data.data]);
     } catch (error) {
       console.log(error);

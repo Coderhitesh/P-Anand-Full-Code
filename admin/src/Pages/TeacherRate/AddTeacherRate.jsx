@@ -14,7 +14,7 @@ function AddTeacherRate() {
 
   const handleFetchingTeacher = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-teacher');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher');
       setTeacher(res.data.data);
     } catch (error) {
       console.error('Error fetching teachers:', error);
@@ -51,7 +51,7 @@ function AddTeacherRate() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:9000/api/v1/create-teacher-rating', {
+      const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-teacher-rating', {
         teacherId: formData.teacherId,
         rating: formData.rating
       });

@@ -17,7 +17,7 @@ function AddBookTag() {
 
     const fetchTags = async () => {
         try {
-            const response = await axios.get('http://localhost:9000/api/v1/get-all-tag');
+            const response = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
             setTags(response.data.data); // Assuming tags are returned in response.data.data
             // console.log(response.data.data)
         } catch (error) {
@@ -46,7 +46,7 @@ function AddBookTag() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:9000/api/v1/create-book-tag', formData);
+            const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-book-tag', formData);
             setIsLoading(false);
             toast.success("Tag Added Successfully !!");
             // Optionally, redirect or reset the form here

@@ -14,8 +14,8 @@ const AllCategory = () => {
 
     const handleFetch = async () => {
         try {
-            // const res = await axios.get(`http://localhost:9000/api/v1/get-all-categories`);
-            const res = await axios.get(`http://localhost:9000/api/v1/get-all-category`);
+            // const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-categories`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-category`);
             // console.log(res.data.data);
             const reverseData = res.data.data
             const main = reverseData.reverse()
@@ -50,7 +50,7 @@ const AllCategory = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`http://localhost:9000/api/v1/delete-category/${id}`);
+                    const res = await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-category/${id}`);
                     console.log(res.data);
                     toast.success("Category Deleted Successfully");
                     handleFetch();

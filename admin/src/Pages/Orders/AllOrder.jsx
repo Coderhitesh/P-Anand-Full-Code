@@ -15,7 +15,7 @@ const AllOrder = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/all-order');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/all-order');
             const reverseData = res.data.data.reverse();
             setOrders(reverseData);
             setFilteredOrders(reverseData); // Initialize filtered orders with all orders
@@ -40,7 +40,7 @@ const AllOrder = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:9000/api/v1/delete-order/${id}`);
+                    await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-order/${id}`);
                     toast.success('Order Deleted Successfully');
                     handleFetch();
                     Swal.fire({

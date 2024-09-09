@@ -17,7 +17,7 @@ function AllTeacher() {
     // console.log(teacher)
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-category')
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category')
             setCategory(res.data.data)
         } catch (error) {
             console.log(error)
@@ -27,7 +27,7 @@ function AllTeacher() {
     // Fetch all teachers
     const handleFetchTeachers = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-teacher');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher');
             const reverseData = res.data.data.reverse();
             setTeacher(reverseData);
         } catch (error) {
@@ -38,7 +38,7 @@ function AllTeacher() {
     // Fetch all courses and create a mapping of course IDs to course names
     const handleFetchCourses = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-course');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
             const fetchedCourses = res.data.data;
             const courseMap = fetchedCourses.reduce((map, courseItem) => {
                 map[courseItem._id] = courseItem.courseName;
@@ -53,7 +53,7 @@ function AllTeacher() {
     // Fetch all teacher ratings and map them to teachers
     const handleFetchRatings = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-teacher-rating');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher-rating');
             const fetchedRatings = res.data.data;
 
             // Create a mapping of teacher ID to their ratings and rating count
@@ -95,7 +95,7 @@ function AllTeacher() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:9000/api/v1/delete-teacher/${id}`);
+                    await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-teacher/${id}`);
                     toast.success("Teacher Deleted Successfully");
                     handleFetchTeachers();
                     Swal.fire("Deleted!", "The teacher has been deleted.", "success");

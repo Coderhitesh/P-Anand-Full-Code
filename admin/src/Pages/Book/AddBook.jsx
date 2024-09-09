@@ -62,7 +62,7 @@ function AddBook() {
 
         if (value) {
             try {
-                const response = await axios.get(`http://localhost:9000/api/v1/single-book-category/${value}`);
+                const response = await axios.get(`https://www.api.panandacademy.com/api/v1/single-book-category/${value}`);
                 setSubcategories(response.data.data.subcategoryName);
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
@@ -100,7 +100,7 @@ function AddBook() {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-book-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category');
             setCategories(res.data.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -109,7 +109,7 @@ function AddBook() {
 
     const handleTags = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-book-tag');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag');
             setTags(res.data.data);
         } catch (error) {
             console.error('Error fetching tags:', error);
@@ -134,7 +134,7 @@ function AddBook() {
                 }
             }
     
-            const response = await axios.post('http://localhost:9000/api/v1/create-book', formDataToSend, {
+            const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-book', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

@@ -36,7 +36,7 @@ const Login = () => {
         setLoading(true)
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:9000/api/v1/Login", formData)
+            const response = await axios.post("https://www.api.panandacademy.com/api/v1/Login", formData)
             // console.log(response.data);
             toast.success('Login SuccessFull')
             sessionStorage.setItem('token', response.data.token)

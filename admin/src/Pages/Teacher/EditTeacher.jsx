@@ -45,7 +45,7 @@ function EditTeacher() {
 
     if (value) {
       try {
-        const response = await axios.get(`http://localhost:9000/api/v1/single-category/${value}`);
+        const response = await axios.get(`https://www.api.panandacademy.com/api/v1/single-category/${value}`);
         setSubcategories(response.data.data.subcategoryName);
       } catch (error) {
         console.error('Error fetching subcategories:', error);
@@ -64,7 +64,7 @@ function EditTeacher() {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-category');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
       setCategories(res.data.data);
     } catch (error) {
       console.error('Error fetching the categories!', error);
@@ -73,7 +73,7 @@ function EditTeacher() {
 
   const fetchTags = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-tag');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
       setTags(res.data.data);
     } catch (error) {
       console.error('Error fetching the tags!', error);
@@ -82,7 +82,7 @@ function EditTeacher() {
 
   const fetchSingleProduct = useCallback(async () => {
     try {
-      const res = await axios.get(`http://localhost:9000/api/v1/single-course/${id}`);
+      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-course/${id}`);
       const data = res.data.data;
       setFormData({
         teacherName: data.teacherName,
@@ -126,7 +126,7 @@ function EditTeacher() {
         }
       }
 
-      await axios.put(`http://localhost:9000/api/v1/update-course/${id}`, formDataToSend, {
+      await axios.put(`https://www.api.panandacademy.com/api/v1/update-course/${id}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

@@ -19,7 +19,7 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchCourse = async () => {
         try {
-            const res = await axios.get(`http://localhost:9000/api/v1/single-bundle/${id}`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-bundle/${id}`);
             setBundle(res.data.data);
             if (res.data.data.bundleMode.length > 0) {
                 setSelectedMode(res.data.data.bundleMode[0]._id);
@@ -33,7 +33,7 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchTeacher = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-teacher');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher');
             setTeacher(res.data.data);
         } catch (error) {
             console.log(error);
@@ -42,7 +42,7 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchAllBundle = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-bundles')
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-bundles')
             setFilterData(res.data.data)
         } catch (error) {
             console.log(error)
@@ -51,7 +51,7 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchAllCourse = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-course');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
             setCourse(res.data.data);
         } catch (error) {
             console.log(error);
@@ -60,7 +60,7 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
             setCategory(res.data.data);
         } catch (error) {
             console.log(error);

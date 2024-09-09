@@ -13,7 +13,7 @@ const AllNews = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-news');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-news');
             const reverseData = res.data;
             const main = reverseData.reverse();
             setNews(main);
@@ -52,7 +52,7 @@ const AllNews = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`http://localhost:9000/api/v1/delete-news/${id}`);
+                    const res = await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-news/${id}`);
                     console.log(res.data);
                     toast.success("News Deleted Successfully");
                     handleFetch();

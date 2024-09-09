@@ -42,7 +42,7 @@ const AddBundle = () => {
 
   const fetchAllModes = async (req, res) => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-course-mode')
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-course-mode')
       console.log(res.data.data)
       setModes(res.data.data)
     } catch (error) {
@@ -60,7 +60,7 @@ const AddBundle = () => {
 
     if (value) {
       try {
-        const res = await axios.get(`http://localhost:9000/api/v1/get-courses-by-category/${value}`);
+        const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-courses-by-category/${value}`);
         // console.log(res.data.data)
         setCourses(res.data.data); // Update courses based on the selected category
       } catch (error) {
@@ -157,7 +157,7 @@ const AddBundle = () => {
   // Fetch categories for the dropdown
   const handleFetch = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-category');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
       setCategories(res.data.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -166,7 +166,7 @@ const AddBundle = () => {
 
   const handleFetchTag = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-tag')
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag')
       setAllTag(res.data.data)
     } catch (error) {
       console.log(error)
@@ -198,7 +198,7 @@ const AddBundle = () => {
         }
       }
 
-      const response = await axios.post('http://localhost:9000/api/v1/create-bundle', formDataToSend, {
+      const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-bundle', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

@@ -33,7 +33,7 @@ function EditBookBundle() {
     useEffect(() => {
         const fetchBundle = async () => {
             try {
-                const res = await axios.get(`http://localhost:9000/api/v1/get-single-book-bundle/${id}`);
+                const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-book-bundle/${id}`);
                 const data = res.data.data;
                 setFormData({
                     ...data,
@@ -55,7 +55,7 @@ function EditBookBundle() {
     useEffect(()=>{
         const handleFetchCourse = async () => {
             try {
-                const res = await axios.get('http://localhost:9000/api/v1/get-all-book')
+                const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book')
                 setCourses(res.data.data)
                 setFilteredCourses(res.data.data);
             } catch (error) {
@@ -68,7 +68,7 @@ function EditBookBundle() {
     // Fetch categories for the dropdown
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-book-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category');
             setCategories(res.data.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -77,7 +77,7 @@ function EditBookBundle() {
 
     const handleFetchTag = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-book-tag');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag');
             setAllTag(res.data.data);
         } catch (error) {
             console.log(error);
@@ -154,7 +154,7 @@ function EditBookBundle() {
                 }
             }
 
-            await axios.put(`http://localhost:9000/api/v1/update-book-bundle/${id}`, formDataToSend, {
+            await axios.put(`https://www.api.panandacademy.com/api/v1/update-book-bundle/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

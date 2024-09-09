@@ -42,7 +42,7 @@ const EditShopBanner = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get(`http://localhost:9000/api/v1/get-all-sale-banner`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-sale-banner`);
             const category = res.data.data;
             const filterData = category.filter((item) => item._id === id);
             if (filterData.length > 0) {
@@ -71,7 +71,7 @@ const EditShopBanner = () => {
         data.append('active', formData.active);
 
         try {
-            const response = await axios.put(`http://localhost:9000/api/v1/update-sale-banner/${id}`, data);
+            const response = await axios.put(`https://www.api.panandacademy.com/api/v1/update-sale-banner/${id}`, data);
             toast.success("Banner Updated Successfully!");
             setBtnLoading(false);
             window.location.href = '/all-shop-banners';

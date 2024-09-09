@@ -26,7 +26,7 @@ const AddProduct = () => {
 
     const fetchAllModes = async (req, res) => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-course-mode')
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-course-mode')
             console.log(res.data.data)
             setModes(res.data.data)
         } catch (error) {
@@ -61,7 +61,7 @@ const AddProduct = () => {
 
         if (value) {
             try {
-                const response = await axios.get(`http://localhost:9000/api/v1/single-category/${value}`);
+                const response = await axios.get(`https://www.api.panandacademy.com/api/v1/single-category/${value}`);
                 setSubcategories(response.data.data.subcategoryName);
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
@@ -140,7 +140,7 @@ const AddProduct = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
             setCategories(res.data.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -149,7 +149,7 @@ const AddProduct = () => {
 
     const handleTags = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-tag');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
             setTags(res.data.data);
         } catch (error) {
             console.error('Error fetching tags:', error);
@@ -180,7 +180,7 @@ const AddProduct = () => {
                 }
             }
 
-            const response = await axios.post('http://localhost:9000/api/v1/create-course', formDataToSend, {
+            const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-course', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

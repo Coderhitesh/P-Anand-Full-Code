@@ -14,7 +14,7 @@ function AllCourseTitle() {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-course-title');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course-title');
             const reverseData = res.data.data
             const main = reverseData.reverse()
             setTags(main)
@@ -48,7 +48,7 @@ function AllCourseTitle() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await axios.delete(`http://localhost:9000/api/v1/delete-course-title/${id}`);
+                    const res = await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-course-title/${id}`);
                     console.log(res.data);
                     toast.success("Course Title Deleted Successfully");
                     handleFetch();

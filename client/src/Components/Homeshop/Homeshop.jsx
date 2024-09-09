@@ -9,7 +9,7 @@ function Homeshop() {
 
   const handleFetchBook = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-book')
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book')
       // console.log(res.data.data)
       setBook(res.data.data)
     } catch (error) {
@@ -19,7 +19,7 @@ function Homeshop() {
 
   const handleFetchCategory = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-book-category')
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category')
       setCategory(res.data.data)
     } catch (error) {
       console.log(error)
@@ -28,7 +28,7 @@ function Homeshop() {
 
   const handleFetchTag = async () => {
     try {
-      const res = await axios.get('http://localhost:9000/api/v1/get-all-book-tag')
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag')
       setTag(res.data.data)
     } catch (error) {
       console.log(error)

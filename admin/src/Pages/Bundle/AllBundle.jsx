@@ -17,7 +17,7 @@ function AllBundle() {
 
     const handleFetchBundle = async () => {
         try {
-            const res = await axios.get(`http://localhost:9000/api/v1/get-all-Bundles`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-Bundles`);
             const reverseData = res.data.data.reverse();
             setBundle(reverseData);
 
@@ -36,7 +36,7 @@ function AllBundle() {
 
     const handleFechCourse = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-course');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
             setCourse(res.data.data);
         } catch (error) {
             console.log(error);
@@ -45,7 +45,7 @@ function AllBundle() {
 
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('http://localhost:9000/api/v1/get-all-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
             setCategory(res.data.data);
         } catch (error) {
             console.log(error);
@@ -104,7 +104,7 @@ function AllBundle() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:9000/api/v1/delete-bundle/${id}`);
+                    await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-bundle/${id}`);
                     toast.success("Bundle Deleted Successfully");
                     handleFetchBundle();
 

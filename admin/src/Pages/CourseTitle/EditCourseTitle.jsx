@@ -24,7 +24,7 @@ function EditCourseTitle() {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get(`http://localhost:9000/api/v1/get-all-course-title`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-course-title`);
             const tags = res.data.data;
             const filterData = tags.filter((item) => item._id === id);
             if (filterData.length > 0) {
@@ -44,7 +44,7 @@ function EditCourseTitle() {
         setBtnLoading(true);
 
         try {
-            await axios.put(`http://localhost:9000/api/v1/update-course-title/${id}`, formData);
+            await axios.put(`https://www.api.panandacademy.com/api/v1/update-course-title/${id}`, formData);
             toast.success("Course Title Updated Successfully!");
             setBtnLoading(false);
             window.location.href = '/all-course-title';

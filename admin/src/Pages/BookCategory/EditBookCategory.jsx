@@ -47,7 +47,7 @@ function EditBookCategory() {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get(`http://localhost:9000/api/v1/single-book-category/${id}`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-book-category/${id}`);
             const category = res.data.data;
             if (category) {
                 setData({
@@ -81,7 +81,7 @@ function EditBookCategory() {
 
     const updateCategory = async (data) => {
         try {
-            const response = await axios.put(`http://localhost:9000/api/v1/update-book-category/${id}`, data, {
+            const response = await axios.put(`https://www.api.panandacademy.com/api/v1/update-book-category/${id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

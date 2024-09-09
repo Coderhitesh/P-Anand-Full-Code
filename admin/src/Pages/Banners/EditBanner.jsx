@@ -40,7 +40,7 @@ const EditBanner = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get(`http://localhost:9000/api/v1/get-all-banner`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-banner`);
             const banners = res.data.data;
             const currentBanner = banners.find((item) => item._id === id);
             if (currentBanner) {
@@ -69,7 +69,7 @@ const EditBanner = () => {
         data.append('active', formData.active);
 
         try {
-            const response = await axios.put(`http://localhost:9000/api/v1/update-baner/${id}`, data, {
+            const response = await axios.put(`https://www.api.panandacademy.com/api/v1/update-baner/${id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
