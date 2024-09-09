@@ -32,8 +32,13 @@ app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
     origin: [
         'https://www.panandacademy.com',
+        'https://www.admin.panandacademy.com',
+        'https://admin.panandacademy.com',
+
         'https://panandacademy.com',
-        'http://localhost:3000' 
+        'http://localhost:3000',
+        'http://localhost:3001' 
+
     ],
     credentials: true 
 };
