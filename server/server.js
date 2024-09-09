@@ -34,7 +34,6 @@ const corsOptions = {
         'https://www.panandacademy.com',
         'https://www.admin.panandacademy.com',
         'https://admin.panandacademy.com',
-
         'https://panandacademy.com',
         'http://localhost:3000',
         'http://localhost:3001' 
