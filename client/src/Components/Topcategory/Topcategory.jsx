@@ -13,12 +13,14 @@ function Topcategory() {
 
   const handleFetchCategory = async (pageNumber) => {
     try {
-      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-category?page=${pageNumber}`);
-      setCategory((prevCategories) => [...prevCategories, ...res.data.data]);
+      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-category`);
+      // console.log(res.data); // Log the response to see its structure
+      setCategory((prevCategories) => [...prevCategories, ...res.data.data]); // Adjust this based on the actual structure
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching categories: ", error.response ? error.response.data : error.message);
     }
   };
+  
 
   const loadMoreCategories = () => {
     setLoadingMore(true);
@@ -62,17 +64,21 @@ function Topcategory() {
                   spaceBetween: 10, // Smaller space between slides
                 },
                 // When the screen is >= 480px
-                480: {
-                  slidesPerView: 2, // Show 2 slides
+                520: {
+                  slidesPerView: 1, // Show 2 slides
                   spaceBetween: 20, // Adjust space between slides
                 },
                 // When the screen is >= 768px
                 768: {
-                  slidesPerView: 3, // Show 3 slides
+                  slidesPerView: 2, // Show 3 slides
                   spaceBetween: 30, // Adjust space between slides
                 },
                 // When the screen is >= 1024px
                 1024: {
+                  slidesPerView: 3, // Show 4 slides
+                  spaceBetween: 30, // Adjust space between slides
+                },
+                1200:{
                   slidesPerView: 4, // Show 4 slides
                   spaceBetween: 30, // Adjust space between slides
                 },

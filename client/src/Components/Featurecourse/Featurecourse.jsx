@@ -17,6 +17,7 @@ function Featurecourse() {
   const handleFetchCourse = async () => {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
+      // console.log(res.data.data)
       const allData = res.data.data;
       const filterdata = allData.filter((item) => item.feature === true);
       setCourse(filterdata);
@@ -29,9 +30,9 @@ function Featurecourse() {
     const windowWidth = window.innerWidth;
 
     // Adjust slidesPerView based on window width
-    if (windowWidth < 400) {
+    if (windowWidth < 500) {
       setSlidesPerView(1);
-    } else if (windowWidth >= 400 && windowWidth < 768) {
+    } else if (windowWidth >= 500 && windowWidth < 768) {
       setSlidesPerView(2);
     } else if (windowWidth >= 768 && windowWidth < 1200) {
       setSlidesPerView(4);
