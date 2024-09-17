@@ -125,7 +125,7 @@ function AllCourseRating() {
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Category</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Course Name</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Rating</th>
-                            <th style={{ whiteSpace: 'nowrap' }} scope="col">Edit</th>
+                            {/* <th style={{ whiteSpace: 'nowrap' }} scope="col">Edit</th> */}
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Delete</th>
                         </tr>
                     </thead>
@@ -136,7 +136,7 @@ function AllCourseRating() {
                                 <td>{getCategoryNameById(rating.categoryId)}</td>
                                 <td>{getTeacherNameById(rating.courseId)}</td>
                                 <td>{rating.rating}</td>
-                                <td><Link to={`/edit-course-rating/${rating._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
+                                {/* <td><Link to={`/edit-course-rating/${rating._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td> */}
                                 <td><Link onClick={() => handleDelete(rating._id)} className="bt delete">Delete <i className="fa-solid fa-trash"></i></Link></td>
                             </tr>
                         ))}
