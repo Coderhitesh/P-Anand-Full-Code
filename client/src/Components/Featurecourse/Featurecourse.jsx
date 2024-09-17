@@ -14,13 +14,20 @@ function Featurecourse() {
   const [allCategory, setCategory] = useState([]);
   const [slidesPerView, setSlidesPerView] = useState('4');
 
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return array;
+  };
+
   const handleFetchCourse = async () => {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
-      // console.log(res.data.data)
       const allData = res.data.data;
       const filterdata = allData.filter((item) => item.feature === true);
-      setCourse(filterdata);
+      setCourse(shuffleArray(filterdata)); // Shuffle the filtered data
     } catch (error) {
       console.log(error);
     }
@@ -36,10 +43,11 @@ function Featurecourse() {
       setSlidesPerView(2);
     } else if (windowWidth >= 768 && windowWidth < 1200) {
       setSlidesPerView(4);
-    }else{
+    } else {
       setSlidesPerView(4);
     }
   };
+
   useEffect(() => {
     handleFetchCourse();
     handleResize(); // Set initial slidesPerView value
@@ -115,7 +123,6 @@ function Featurecourse() {
             slidesPerView={slidesPerView}
             spaceBetween={30}
             navigation={false}
-            // pagination={false}
             modules={[Navigation]}
             className="book-slider"
           >

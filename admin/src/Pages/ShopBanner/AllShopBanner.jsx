@@ -98,8 +98,8 @@ const AllShopBanner = () => {
                             <th scope="col">Sr.No.</th>
                             {/* <th scope="col">Name</th> */}
                             <th scope="col">Image</th>
-                            <th scope="col">Show in home page</th>
-                            <th scope="col">Edit</th>
+                            {/* <th scope="col">Show in home page</th> */}
+                            {/* <th scope="col">Edit</th> */}
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
@@ -109,8 +109,8 @@ const AllShopBanner = () => {
                                 <th scope="row">{index + 1}</th>
                                 {/* <td>{category.saleBannerTitle}</td> */}
                                 <td><img src={category.homeBannerImage.url}  /></td>
-                                <td><input type="checkbox" checked={category.active ? true : false} readOnly /></td>
-                                <td><Link to={`/edit-shop-banner/${category._id}`} className="bt edit">Edit <i class="fa-solid fa-pen-to-square"></i></Link></td>
+                                {/* <td><input type="checkbox" checked={category.active ? true : false} readOnly /></td> */}
+                                {/* <td><Link to={`/edit-shop-banner/${category._id}`} className="bt edit">Edit <i class="fa-solid fa-pen-to-square"></i></Link></td> */}
                                 <td><Link onClick={() => { handleDelete(category._id) }} className="bt delete">Delete <i class="fa-solid fa-trash"></i></Link></td>
                             </tr>
                         ))}

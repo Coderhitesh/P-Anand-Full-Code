@@ -106,7 +106,7 @@ function BundleHome() {
           className="book-slider"
         >
           {
-            allBundle && allBundle.slice(0, 6).map((item, index) => (
+            allBundle && allBundle.slice(0, 8).map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="shop-box-items style-2">
                   <div className="book-thumb center">

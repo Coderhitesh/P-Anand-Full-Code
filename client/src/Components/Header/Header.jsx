@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from './logo.webp'
 import menu from './icon-13.svg'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import './header.css'
+import { CartContext } from '../../Context/CartContext'
 
 function Header() {
+    const { productCount, fetchData } = useContext(CartContext);
+    // const [productCount,setProductCount] = useState('0')
+    const SESSION_KEY = 'user_session';
+    let session = sessionStorage.getItem(SESSION_KEY);
+    // console.log(session)
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [category, setCategory] = useState([])
     const [isMobActive, setIsMobActive] = useState(false)
@@ -39,7 +45,7 @@ function Header() {
         // Check if the token exists in sessionStorage
         const token = sessionStorage.getItem('token');
         setIsLoggedIn(!!token); // Set isLoggedIn to true if the token exists
-
+        
         handleFetchCategory()
     }, [isLoggedIn])
     const handleLogout = () => {
@@ -48,6 +54,10 @@ function Header() {
         setIsLoggedIn(false);
         toast.success('Logout Successfully !!')
     };
+    useEffect(() => {
+        // Fetch cart data when the component is mounted to update the count
+        fetchData();
+    }, [fetchData]);
     return (
         <div>
             {/* <!-- Offcanvas Area start  --> */}
@@ -245,17 +255,17 @@ function Header() {
                                             <li><Link onClick={handleMobDeActive} to={'/contact'}>Contact Us</Link></li>
                                         </ul>
                                         <div className="btn-box">
-                                        {
-                                        isLoggedIn ? <Link to={'/Profile'} onClick={handleMobDeActive} className="theme-btn mb-2 text-center">
-                                            Profile <i className="fa-solid fa-arrow-right-long"></i>
-                                        </Link> : <Link onClick={handleMobDeActive} to={'/login'} className="theme-btn mb-2 text-center">
-                                            Login <i className="fa-solid fa-arrow-right-long"></i>
-                                        </Link>
-                                    }
+                                            {
+                                                isLoggedIn ? <Link to={'/Profile'} onClick={handleMobDeActive} className="theme-btn mb-2 text-center">
+                                                    Profile <i className="fa-solid fa-arrow-right-long"></i>
+                                                </Link> : <Link onClick={handleMobDeActive} to={'/login'} className="theme-btn mb-2 text-center">
+                                                    Login <i className="fa-solid fa-arrow-right-long"></i>
+                                                </Link>
+                                            }
 
-                                    <Link to={'/cart'} className="theme-btn text-center">
-                                        Cart <i className="fa-solid fa-arrow-right-long"></i>
-                                    </Link>
+                                            <Link to={'/cart'} className="theme-btn text-center">
+                                                Cart <i className="fa-solid fa-arrow-right-long"></i>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -268,6 +278,8 @@ function Header() {
                                                 <i className="fa-regular fa-heart"></i>
                                             </Link> */}
                                             <Link to={'/cart'} className="cart-icon">
+                                                <span>{productCount}</span>
+                                                {/* {productCount > 0 && <span>{productCount}</span>} */}
                                                 <i className="fa-regular fa-cart-shopping"></i>
                                             </Link>
                                             <div className="header-humbager ml-30">

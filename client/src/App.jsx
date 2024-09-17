@@ -21,7 +21,7 @@ import ForgetPassword from './Components/Auth/ForgetPassword';
 import Signin from './Components/Auth/Signin';
 import BookCart from './Pages/BookCart/BookCart';
 import { toast, ToastContainer } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import OrderSuccess from './Components/Cart/OrderSuccess';
@@ -30,11 +30,14 @@ import UserProfile from './Pages/UserProfile/UserProfile';
 import Privacy from './Pages/PrivacyPolicy/Privacy';
 import Term from './Pages/PrivacyPolicy/Term';
 import Refund from './Pages/PrivacyPolicy/Refund';
+import { CartContext } from './Context/CartContext';
+import FounderPage from './Pages/FounderPage/FounderPage';
 
 const SESSION_KEY = 'user_session';
 const SESSION_EXPIRATION_KEY = 'user_session_expiration';
 
 function App() {
+  const { fetchData } = useContext(CartContext);
   const [sessionId, setSessionId] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const [loading, setIsloading] = useState(false)
@@ -73,7 +76,7 @@ function App() {
 
   const handleAddToCart = async (product) => {
     try {
-      console.log(product)
+      // console.log(product)
 
       // Retrieve session from session storage or generate a new one if not found
       let session = sessionStorage.getItem(SESSION_KEY);
@@ -132,6 +135,7 @@ function App() {
 
       // Handle successful addition
       toast.success(res.data.message || 'Product added to cart successfully');
+      fetchData()
       console.log(res.data);
     } catch (error) {
       // Handle errors during the API call
@@ -174,6 +178,8 @@ function App() {
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/term" element={<Term />} />
           <Route path="/refund" element={<Refund />} />
+
+          <Route path="/founder-page/:name" element={<FounderPage />} />
         </Routes>
         <Footer />
         {/* <ToastCon??tainer /> */}

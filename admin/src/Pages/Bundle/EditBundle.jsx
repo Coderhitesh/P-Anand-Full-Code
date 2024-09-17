@@ -12,11 +12,9 @@ const EditBundle = () => {
   const editor = useRef(null);
   const [allTag, setAllTag] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
-  // const [filteredCourses, setFilteredCourses] = useState([]);
-  // console.log(courses)
   const [formData, setFormData] = useState({
     bundleName: '',
     bundleStartingPrice: '',
@@ -24,17 +22,18 @@ const EditBundle = () => {
     bundleDescription: '',
     bundleMode: [],
     bundleImage: null,
-    tag: [],
+    tag: '',
     categoryId: null,
     courses: []
   });
 
   useEffect(() => {
-    // Fetch the bundle data
     const fetchBundleData = async () => {
       try {
         const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-bundle/${id}`);
         const bundle = res.data.data;
+
+        // Set initial form data
         setFormData({
           ...formData,
           bundleName: bundle.bundleName,
@@ -45,37 +44,40 @@ const EditBundle = () => {
           bundleImage: bundle.bundleImage,
           tag: bundle.tag,
           categoryId: bundle.categoryId,
-          courses: bundle.courses
+          courses: bundle.bundleCourseId.map((item) => item.id)
         });
+
         setImagePreview(bundle.bundleImage.url);
+        // setSelectedCategoryId(bundle.categoryId);
+
+        // Fetch courses based on the category ID
+        if (bundle.categoryId) {
+          const courseRes = await axios.get(`https://www.api.panandacademy.com/api/v1/get-courses-by-category/${bundle.categoryId}`);
+          setFilteredCourses(courseRes.data.data); // Assuming `data.data` contains courses
+        }
       } catch (error) {
-        console.error('Error fetching bundle data:', error);
-        toast.error('Failed to fetch bundle data.');
+        console.error('Error fetching bundle data or courses:', error);
+        toast.error('Failed to fetch bundle data or courses.');
       }
     };
 
     fetchBundleData();
   }, [id]);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [tagsResponse, categoriesResponse, coursesResponse] = await Promise.all([
+        const [tagsResponse, categoriesResponse] = await Promise.all([
           axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag'),
           axios.get('https://www.api.panandacademy.com/api/v1/get-all-category'),
-          axios.get('https://www.api.panandacademy.com/api/v1/get-all-course')
         ]);
 
         setAllTag(tagsResponse.data.data || []);
         setCategories(categoriesResponse.data.data || []);
-        setCourses(coursesResponse.data.data || []);
 
-        // Filter courses based on the default or selected category
-        // const selectedCategory = formData.categoryId || categoriesResponse.data.data[0]?._id;
-        // if (selectedCategory) {
-        //   setFilteredCourses(coursesResponse.data.data.filter(course => course.categoryId === selectedCategory) || []);
-        // }
-        
+
+
       } catch (error) {
         console.error('Error fetching data:', error);
         toast.error('Failed to fetch data.');
@@ -85,7 +87,7 @@ const EditBundle = () => {
     fetchData();
   }, [formData.categoryId]);
 
-
+  // console.log(filteredCourses)
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -100,30 +102,43 @@ const EditBundle = () => {
     });
   };
 
-  const handleCategoryChange = async(selectedCategory) => {
+  const handleCategoryChange = async (selectedCategory) => {
     setFormData({
       ...formData,
       categoryId: selectedCategory ? selectedCategory.value : null
     });
 
-    if(selectedCategory) {
-    try {
-      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-courses-by-category/${selectedCategory}`);
+    if (selectedCategory) {
+      console.log(selectedCategory)
+
+      try {
+        const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-courses-by-category/${selectedCategory.value}`);
         console.log(res.data.data)
+        // console.log("ss", res.data.data)
         setFilteredCourses(res.data.data);
-    } catch (error) {
-      console.log(error)
-    }
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
 
-  const handleCoursesChange = (selectedCourses) => {
-    
-    setFormData({
-      ...formData,
-      courses: selectedCourses
-    });
+  const handleCoursesChange = (selectedOptions) => {
+    if (selectedOptions) {
+      // Update formData.courses with selected course IDs
+      setFormData({
+        ...formData,
+        courses: selectedOptions.map(option => option.value) // Only storing the IDs
+      });
+    } else {
+      // Clear if no option selected
+      setFormData({
+        ...formData,
+        courses: []
+      });
+    }
   };
+
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -160,7 +175,6 @@ const EditBundle = () => {
       [name]: value
     };
 
-    // Calculate the discounted price when price or discount percent changes
     if (name === 'coursePrice' || name === 'courseDiscountPercent') {
       const price = parseFloat(updatedBundleMode[index].coursePrice) || 0;
       const discountPercent = parseFloat(updatedBundleMode[index].courseDiscountPercent) || 0;
@@ -183,35 +197,49 @@ const EditBundle = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
 
     const data = new FormData();
-    Object.keys(formData).forEach(key => {
-      if (key === 'tag' || key === 'courses') {
-        data.append(key, JSON.stringify(formData[key]));
-      } else if (key === 'bundleMode') {
-        data.append(key, JSON.stringify(formData[key]));
-      } else {
-        data.append(key, formData[key]);
-      }
-    });
+    data.append('bundleName', formData.bundleName);
+    data.append('bundleStartingPrice', formData.bundleStartingPrice);
+    data.append('bundleEndingPrice', formData.bundleEndingPrice);
+    data.append('bundleDescription', formData.bundleDescription);
+    data.append('categoryId', formData.categoryId);
+    data.append('bundleMode', JSON.stringify(formData.bundleMode));
+    data.append('courses', formData.courses);
+    data.append('tag', formData.tag);
+
+    if (formData.bundleImage instanceof File) {
+      data.append('bundleImage', formData.bundleImage);
+    }
+
+    // Log FormData entries
+    for (const [key, value] of data.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
     try {
-      await axios.put(`https://www.api.panandacademy.com/api/v1/update-bundle/${id}`, data, {
+      const res = await axios.put(`https://www.api.panandacademy.com/api/v1/update-bundle/${id}`, data, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      toast.success('Bundle updated successfully.');
-      navigate('/all-bundle'); // Redirect to the bundles list or details page
+
+      if (res.status === 200) {
+        toast.success('Bundle updated successfully.');
+        setIsLoading(false)
+      } else {
+        throw new Error('Failed to update the bundle.');
+        setIsLoading(false);
+      }
     } catch (error) {
-      console.error('Error updating bundle:', error);
+      console.error('Error updating bundle:', error.response ? error.response.data : error.message);
       toast.error('Failed to update bundle.');
     }
   };
-  const getCategoryNameById = (categoryId) => {
-    const foundCategory = courses.find(cat => cat._id === categoryId);
-    return foundCategory ? foundCategory.courseName : "No Category";
-};
+
+
+
 
   return (
     <div className="container mx-auto p-4">
@@ -312,14 +340,22 @@ const EditBundle = () => {
           <div className="col-md-6">
             <label htmlFor="bundleCourseId" className="form-label">Select Courses</label>
             <Select
-  isMulti
-  name="courses"
-  options={filteredCourses.map(course => ({ value: course._id, label: course.courseName }))}
-  className="basic-multi-select"
-  classNamePrefix="select"
-  onChange={handleCoursesChange}
-  value={filteredCourses.filter(course => formData.courses.includes(course._id)).map(course => ({ value: course._id, label: course.courseName }))}
-/>
+              isMulti
+              name="courses"
+              options={filteredCourses.map(course => ({ value: course._id, label: course.courseName }))} // Filtered courses
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={handleCoursesChange}
+              // Display the selected courses based on formData.courses
+              value={filteredCourses
+                .filter(course => formData.courses.includes(course._id)) // Only show selected courses
+                .map(course => ({
+                  value: course._id,
+                  label: course.courseName
+                }))
+              }
+            />
+
 
           </div>
 
@@ -479,8 +515,9 @@ const EditBundle = () => {
             <button
               type="submit"
               className="px-4 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700"
+              disabled={isLoading}
             >
-              Update Bundle
+              {isLoading ? 'Updating...' : 'Update Course Bundle'}
             </button>
 
           </div>

@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AddShopBanner = () => {
     const [formData, setData] = useState({
-        // saleBannerTitle: '',
         homeBannerImage: null,
         active: false
     });

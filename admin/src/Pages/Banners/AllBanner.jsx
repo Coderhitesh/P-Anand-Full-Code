@@ -110,7 +110,7 @@ const AllBanner = () => {
                         <tr>
                             <th scope="col">Sr.No.</th>
                             <th scope="col">Image</th>
-                            <th scope="col">Show in home page</th>
+                            {/* <th scope="col">Show in home page</th> */}
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
@@ -120,13 +120,13 @@ const AllBanner = () => {
                             <tr key={banner._id}>
                                 <th scope="row">{index + 1}</th>
                                 <td><img src={banner.bannerImage.url} alt={banner.title} /></td>
-                                <td>
+                                {/* <td>
                                     <input
                                         type="checkbox"
                                         checked={banner.active}
                                         onChange={() => handleCheckboxChange(banner._id, banner.active)}
                                     />
-                                </td>
+                                </td> */}
                                 <td><Link to={`/edit-banner/${banner._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
                                 <td><Link onClick={() => handleDelete(banner._id)} className="bt delete">Delete <i className="fa-solid fa-trash"></i></Link></td>
                             </tr>

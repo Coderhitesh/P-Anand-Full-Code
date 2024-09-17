@@ -96,7 +96,7 @@ const ForgetPassword = () => {
             ) : (<section className='login-account'>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-6 mx-auto p-0">
+                        <div className="col-md-6 forbgcolor mx-auto p-0">
                             <div className="form">
                                 <h3>Forget Password </h3>
                                 <form >

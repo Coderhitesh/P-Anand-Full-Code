@@ -7,7 +7,7 @@ import JoditEditor from 'jodit-react';
 
 function EditBook() {
     const { id } = useParams();
-    const editor = useRef(null);
+    const editor = useRef(null); // Make sure editor has a ref
     const [categories, setCategories] = useState([]);
     const [allTags, setTags] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
@@ -183,9 +183,16 @@ function EditBook() {
         }
     };
 
+    useEffect(() => {
+        if (editor.current) {
+            editor.current?.focus(); // Set focus to the editor when it mounts
+        }
+    }, []); // Runs once when the component mounts
+
     const editorConfig = {
         readonly: false,
-        height: 400
+        height: 400,
+        autofocus: true, 
     };
 
     return (
@@ -275,9 +282,10 @@ function EditBook() {
                         <label htmlFor="bookDescription" className="form-label">Book Description</label>
                         <JoditEditor
                             ref={editor}
+                            key="bookEditor"
                             value={formData.bookDescription}
                             config={editorConfig}
-                            onChange={handleEditorChange}
+                            onChange={(newContent) => handleEditorChange(newContent)}
                         />
                     </div>
 

@@ -7,7 +7,7 @@ import JoditEditor from 'jodit-react';
 
 const EditProduct = () => {
     const { id } = useParams();
-    const editor = useRef(null);
+    const editorRef = useRef(null); 
     const [categories, setCategories] = useState([]);
     const [allTags, setTags] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
@@ -198,13 +198,23 @@ const EditProduct = () => {
         }
     };
 
+    useEffect(() => {
+        if (editorRef.current) {
+            editorRef.current?.editor?.focus();
+        }
+    }, []);
+
     const editorConfig = {
         readonly: false,
-        height: 400
+        height: 400,
+        autofocus: true,  // Ensure autofocus is enabled
     };
 
     const handleEditorChange = useCallback((newContent) => {
-        setFormData(prevFormData => ({ ...prevFormData, courseDescription: newContent }));
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            courseDescription: newContent
+        }));
     }, []);
 
     return (
@@ -399,12 +409,12 @@ const EditProduct = () => {
                             <div className="col-md-12">
                                 <label htmlFor="courseDescription" className="form-label">Course Description</label>
                                 <JoditEditor
-                                    ref={editor}
-                                    value={formData.courseDescription}
-                                    config={editorConfig}
-                                    tabIndex={1}
-                                    onChange={handleEditorChange}
-                                />
+                                ref={editorRef}
+                                value={formData.courseDescription}
+                                config={editorConfig}
+                                tabIndex={1}
+                                onBlur={(newContent) => handleEditorChange(newContent)} // Use onBlur or onChange as per need
+                            />
                             </div>
 
                             <div className="col-md-12 text-center mt-4">

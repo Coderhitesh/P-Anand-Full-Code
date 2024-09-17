@@ -102,7 +102,7 @@ function AllBookRating() {
             <ToastContainer />
             <div className="bread">
                 <div className="head">
-                    <h4>All Course Ratings</h4>
+                    <h4>All Book Ratings</h4>
                 </div>
                 <div className="links">
                     <Link to="/add-book-rating" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>

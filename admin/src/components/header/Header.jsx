@@ -33,10 +33,10 @@ const Header = () => {
             </div>
           </div>
           <div className="left">
-            <a href="" target="_blank" rel="noopener noreferrer">
+            <Link to={"https://panandacademy.com/"} target="_blank" rel="noopener noreferrer">
               <i className="fa-solid fa-globe"></i>
               Go To Website
-            </a>
+            </Link>
 
             <div onClick={handleLogout} className="logout">
               Log Out <i className="fa-solid fa-right-from-bracket"></i>
@@ -200,7 +200,7 @@ const Header = () => {
               </Link>
             </li>
             <div className="mb-5">
-              <button className='logout'>Log Out <i className="fa-solid fa-right-from-bracket me-1"></i></button>
+              <button onClick={handleLogout} className='logout'>Log Out <i className="fa-solid fa-right-from-bracket me-1"></i></button>
             </div>
           </ul>
         </div>

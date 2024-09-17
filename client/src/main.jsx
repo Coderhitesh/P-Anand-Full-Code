@@ -4,9 +4,13 @@ import App from './App.jsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { CartProvider } from './Context/CartContext.jsx';
+// import { CartProvider } from './Context/CartContext.js';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <CartProvider>
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  </CartProvider>
 )

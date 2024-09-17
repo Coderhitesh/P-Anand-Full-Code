@@ -176,14 +176,14 @@ function BookDetail({ handleAddToCart , loadingFromCart }) {
                         <div dangerouslySetInnerHTML={{ __html: book.bookDescription }} />
                     </div>
     
-                    <div className="container py-5">
-                        <h4 className="title text-dark">Similar Book</h4>
+                    <div className="container py-1">
+                        <h4 style={{marginBottom:'10px', fontWeight:'600'}} className="title text-dark">Similar Book</h4>
                         <div className="row">
                             {filterData &&
                                 filterData.slice(0, 4).map((item, index) => (
                                     <div key={index} className="col-lg-3 col-sm-6 mb-4">
                                         <div className="card">
-                                            <img src={item.bookImage.url} className="card-img-top" alt={item.bookName} />
+                                            <img style={{height:'283px'}} src={item.bookImage.url} className="card-img-top" alt={item.bookName} />
                                             <div className="card-body">
                                                 <h5 className="card-title">{item.bookName}</h5>
                                                 <ul style={{ display: 'flex', padding: '0%', gap: '8px' }} className="price-list">
@@ -192,7 +192,7 @@ function BookDetail({ handleAddToCart , loadingFromCart }) {
                                                         <del style={{ color: '#595C5F' }}>Rs.{item.bookPrice}</del>
                                                     </li>
                                                 </ul>
-                                                <div className="shop-button">
+                                                <div style={{marginTop:'10px'}} className="shop-button">
                                                     <Link to={`/Book-detail/${item._id}`} className="theme-btn">
                                                         View Details
                                                     </Link>

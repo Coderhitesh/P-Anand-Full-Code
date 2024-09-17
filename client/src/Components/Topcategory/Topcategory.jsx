@@ -5,6 +5,8 @@ import 'swiper/css/navigation';
 import { Navigation, Virtual, Autoplay } from 'swiper/modules';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './Topcategory.css'
+import img from './business-studies-11th-ca-vikas-sir.webp'
 
 function Topcategory() {
   const [allCategory, setCategory] = useState([]);
@@ -14,7 +16,7 @@ function Topcategory() {
   const handleFetchCategory = async (pageNumber) => {
     try {
       const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-category`);
-      // console.log(res.data); // Log the response to see its structure
+      console.log(res.data.data); // Log the response to see its structure
       setCategory((prevCategories) => [...prevCategories, ...res.data.data]); // Adjust this based on the actual structure
     } catch (error) {
       console.error("Error fetching categories: ", error.response ? error.response.data : error.message);
@@ -52,7 +54,7 @@ function Topcategory() {
               spaceBetween={30}
               navigation={{ prevEl: '.array-prev', nextEl: '.array-next' }}
               modules={[Navigation, Virtual, Autoplay]}
-              className="swiper book-catagories-slider"
+              className="swiper category-row"
               autoplay={{
                 delay: 3000, // Auto-scroll delay in milliseconds (e.g., 3000ms = 3 seconds)
                 disableOnInteraction: false, // Keeps autoplay active even after user interaction
@@ -92,19 +94,26 @@ function Topcategory() {
               {allCategory && allCategory.map((item, index) => (
                 <SwiperSlide key={index} virtualIndex={index}>
                   <Link to={`/category/${item._id}`} className="book-catagories-items">
-                    <div className="book-thumb">
-                      <img src="assets/img/book-categori/online-record-class.webp" className="w-50" alt={item.categoryName} />
-                      <div className="circle-shape">
+                    <div className="book-thumb" style={{overflow:'hidden'}}>
+                      <img src={item.categoryImage.url || 'assets/img/book-categori/online-record-class.webp'} alt={item.categoryName} />
+                      {/* <img src={img} alt={item.categoryName} /> */}
+                      {/* <div className="circle-shape">
                         <img src="assets/img/book-categori/circle-shape.png" alt="shape-img" />
-                      </div>
+                      </div> */}
                     </div>
-                    {/* <div className="number">{index + 1}</div> */}
                     <h3><Link to={`/category/${item._id}`}>{item.categoryName}</Link></h3>
                   </Link>
                 </SwiperSlide>
               ))}
+
+              {/* <div className="category-col">
+                <div className="category-img">
+                  <img src={img} alt="" />
+                </div>
+                <h3><Link >12th Class</Link></h3>
+              </div> */}
             </Swiper>
-            {loadingMore && <div>Loading more categories...</div>}
+            {loadingMore && <div></div>}
           </div>
         </div>
       </section>

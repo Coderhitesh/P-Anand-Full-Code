@@ -14,6 +14,7 @@ import BookBundle from '../../Components/BookBundle/BookBundle'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import Loading from '../../Components/Loading/Loading'
+import FounderHome from '../../Components/FounderHome/FounderHome'
 
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -48,10 +49,11 @@ function Home() {
             <Topcategory />
             <Homeshop />
             <BundleHome />
-            <Homeofferbanner />
+            {/* <Homeofferbanner /> */}
             <BookBundle />
             <TopRatedBook />
             <OurClient />
+            <FounderHome />
             <Features />
             <OurTeam />
           </>

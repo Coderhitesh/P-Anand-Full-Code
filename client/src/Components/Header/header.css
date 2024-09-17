@@ -125,3 +125,18 @@
         }
 
 }
+
+.cart-icon span{
+    position: absolute;
+    top: -7px;
+    left: 0;
+    width: 18px;
+    line-height: 18px;
+    height: 18px;
+    border-radius: 18px;
+    background-color: var(--theme);
+    color: var(--white);
+    font-size: 12px;
+    text-align: center;
+    font-weight: 500;
+  }

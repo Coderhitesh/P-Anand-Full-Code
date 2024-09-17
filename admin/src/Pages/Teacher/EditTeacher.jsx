@@ -1,223 +1,251 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import JoditEditor from 'jodit-react';
+import Select from 'react-select';
 
 function EditTeacher() {
-  const { id } = useParams();
-  const editor = useRef(null);
-  const [categories, setCategories] = useState([]);
-  const [allTags, setTags] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
+  const { id } = useParams();  // Get teacher ID from route
+  const navigate = useNavigate();  // For redirecting after update
   const [imagePreview, setImagePreview] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [formData, setFormData] = useState({
     teacherName: '',
-    teacherAbout: '',
-    currentlyGivingcourse: '',
-    categoryId: '',
     teacherEmail: '',
-    teacherImage: null,
     teacherQualification: '',
     teacherExperience: '',
-    teacherExpertise: ''
+    teacherExpertise: '',
+    currentlyGivingcourse: [],
+    teacherImage: null,
+    categoryId: []
   });
+  // console.log(imagePreview)
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    const preview = URL.createObjectURL(file);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      teacherImage: file
-    }));
-    setImagePreview(preview);
-  };
-
-  const handleCategoryChange = async (e) => {
-    const { value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      categoryId: value,
-      teacherEmail: ''
-    }));
-
-    if (value) {
-      try {
-        const response = await axios.get(`https://www.api.panandacademy.com/api/v1/single-category/${value}`);
-        setSubcategories(response.data.data.subcategoryName);
-      } catch (error) {
-        console.error('Error fetching subcategories:', error);
-        setSubcategories([]);
-      }
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const fetchCategories = useCallback(async () => {
+  // Fetch all categories
+  const handleFetchCategory = async () => {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
       setCategories(res.data.data);
     } catch (error) {
-      console.error('Error fetching the categories!', error);
+      console.log(error);
     }
-  }, []);
+  };
 
-  const fetchTags = useCallback(async () => {
+  // Fetch all courses
+  const fetchCourses = async () => {
     try {
-      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
-      setTags(res.data.data);
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
+      setAllCourses(res.data.data);
     } catch (error) {
-      console.error('Error fetching the tags!', error);
+      console.log(error);
     }
-  }, []);
+  };
 
-  const fetchSingleProduct = useCallback(async () => {
+  // Fetch single teacher data by ID
+  const fetchTeacher = async () => {
     try {
-      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-course/${id}`);
-      const data = res.data.data;
+      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-teacher/${id}`);
+      const teacherData = res.data.data;
+      // console.log(res.data.data)
+
+      // Pre-fill the form with fetched data
       setFormData({
-        teacherName: data.teacherName,
-        teacherAbout: data.teacherAbout,
-        categoryId: data.categoryId,
-        teacherEmail: data.teacherEmail,
-        currentlyGivingcourse: data.currentlyGivingcourse,
-        teacherImage: data.teacherImage.url,
-        teacherQualification: data.teacherQualification || '',
-        teacherExperience: data.teacherExperience || '',
-        teacherExpertise: data.teacherExpertise
+        teacherName: teacherData.teacherName,
+        teacherEmail: teacherData.teacherEmail,
+        teacherQualification: teacherData.teacherQualification,
+        teacherExperience: teacherData.teacherExperience,
+        teacherExpertise: teacherData.teacherExpertise,
+        currentlyGivingcourse: teacherData.currentlyGivingcourse || [],
+        categoryId: teacherData.categoryId || [],
+        teacherImage: null  // We'll handle image update separately
+        
       });
 
-      if (data.teacherImage) {
-        setImagePreview(data.teacherImage.url);
+      if(teacherData.teacherImage){
+        setImagePreview(teacherData.teacherImage.url)
       }
+
+      // Pre-select categories
+      const selectedCategories = categories.filter(category =>
+        teacherData.categoryId.includes(category._id)
+      ).map(category => ({
+        value: category._id,
+        label: category.categoryName
+      }));
+      setSelectedCategories(selectedCategories);
+
+      // Filter and pre-select courses
+      const filtered = allCourses.filter(course =>
+        teacherData.categoryId.includes(course.courseCategory)
+      );
+      setFilteredCourses(filtered);
+
     } catch (error) {
-      console.error('Error fetching the product!', error);
+      console.log(error);
     }
-  }, [id]);
+  };
+
+  // Filter courses based on selected categories
+  const handleCategoryChange = (selectedOptions) => {
+    setSelectedCategories(selectedOptions);
+
+    const selectedCategoryIds = selectedOptions.map(option => option.value);
+    const filtered = allCourses.filter(course =>
+      selectedCategoryIds.includes(course.courseCategory)
+    );
+
+    setFilteredCourses(filtered);
+    setFormData(prevData => ({
+      ...prevData,
+      categoryId: selectedCategoryIds
+    }));
+  };
+
+  const handleSelectChange = (selectedOptions) => {
+    const selectedIds = selectedOptions.map(option => option.value);
+    setFormData(prevData => ({
+      ...prevData,
+      currentlyGivingcourse: selectedIds
+    }));
+  };
+
+  const handleChange = (event) => {
+    const { name, value, type } = event.target;
+    let updatedFormData = { ...formData };
+
+    if (type === 'file') {
+      updatedFormData.teacherImage = event.target.files[0];
+      const preview = URL.createObjectURL(event.target.files[0]);  // Create a URL for the image file
+      setImagePreview(preview);  // Set the image preview
+    } else {
+      updatedFormData[name] = value;
+    }
+
+    setFormData(updatedFormData);
+};
+
 
   useEffect(() => {
-    fetchCategories();
-    fetchTags();
-    fetchSingleProduct();
-  }, [id]);
+    handleFetchCategory();
+    fetchCourses();
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (categories.length > 0 && allCourses.length > 0) {
+      fetchTeacher();  // Fetch teacher details only after courses and categories are loaded
+    }
+  }, [categories, allCourses]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setIsLoading(true);
 
-    try {
-      const formDataToSend = new FormData();
-      for (const key in formData) {
-        if (key === 'teacherImage') {
-          if (formData.teacherImage) {
-            formDataToSend.append('teacherImage', formData.teacherImage);
-          }
-        } else {
-          formDataToSend.append(key, formData[key]);
-        }
-      }
+    const data = new FormData();
+    data.append('teacherName', formData.teacherName);
+    data.append('teacherEmail', formData.teacherEmail);
+    data.append('teacherQualification', formData.teacherQualification);
+    data.append('teacherExperience', formData.teacherExperience);
+    data.append('teacherExpertise', formData.teacherExpertise);
 
-      await axios.put(`https://www.api.panandacademy.com/api/v1/update-course/${id}`, formDataToSend, {
+    if (formData.teacherImage) {
+      data.append('teacherImage', formData.teacherImage);
+    }
+
+    formData.categoryId.forEach(categoryId => {
+      data.append('categoryId', categoryId);
+    });
+
+    formData.currentlyGivingcourse.forEach(courseId => {
+      data.append('currentlyGivingcourse', courseId);
+    });
+
+    try {
+      const response = await axios.put(`https://www.api.panandacademy.com/api/v1/update-teacher/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-
-      toast.success('Course Updated Successfully');
       setIsLoading(false);
-      window.location.href = "/all-courses";
+      toast.success("Teacher Updated Successfully!");
+      navigate('/all-teacher');  // Redirect after update
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('An Error Occurred');
       setIsLoading(false);
+      console.error('Error:', error);
+      toast.error(error.response?.data?.msg || 'An error occurred');
     }
   };
 
-  const editorConfig = {
-    readonly: false,
-    height: 400
-  };
+  // Map categories for react-select
+  const categoryOptions = categories.map(category => ({
+    value: category._id,
+    label: category.categoryName,
+  }));
 
-  const handleEditorChange = useCallback((newContent) => {
-    setFormData(prevFormData => ({ ...prevFormData, teacherAbout: newContent }));
-  }, []);
+  // Map courses for react-select
+  const courseOptions = filteredCourses.map(course => ({
+    value: course._id,
+    label: course.courseName,
+  }));
 
   return (
     <>
       <ToastContainer />
       <div className="bread">
         <div className="head">
-          <h4>Edit Course</h4>
+          <h4>Edit Teacher</h4>
         </div>
         <div className="links">
-          <Link to="/all-courses" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
+          <Link to="/all-teacher" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
         </div>
       </div>
 
       <div className="d-form">
         <form className="row g-3" onSubmit={handleSubmit}>
           <div className="col-md-6">
-            <label htmlFor="categoryId" className="form-label">Category</label>
-            <select onChange={handleCategoryChange} name='categoryId' value={formData.categoryId} className="form-select" id="categoryId">
-              <option value="">Choose Category</option>
-              {categories && categories.map((category, index) => (
-                <option key={index} value={category._id}>{category.categoryName}</option>
-              ))}
-            </select>
+            <label htmlFor="teacherName" className="form-label">Teacher Name</label>
+            <input type="text" onChange={handleChange} name='teacherName' value={formData.teacherName} className="form-control" id="teacherName" required />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="teacherImage" className="form-label">Teacher Image</label>
+            <input type="file" onChange={handleChange} name='teacherImage' className="form-control" id="teacherImage" />
+            {imagePreview && <img src={imagePreview} style={{width:'140px'}} alt="Preview" className="img-fluid mt-2" />}
           </div>
 
           <div className="col-md-6">
-            <label htmlFor="teacherEmail" className="form-label">Sub Category</label>
-            <select onChange={handleChange} name='teacherEmail' value={formData.teacherEmail} className="form-select" id="teacherEmail">
-              <option value="">Choose Sub Category</option>
-              {subcategories && subcategories.map((subcategory, index) => (
-                <option key={index} value={subcategory}>{subcategory}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="col-md-6">
-            <label htmlFor="teacherName" className="form-label">Course Name</label>
-            <input type="text" className="form-control" id="teacherName" name="teacherName" value={formData.teacherName} onChange={handleChange} />
-          </div>
-
-          <div className="col-md-6">
-            <label htmlFor="currentlyGivingcourse" className="form-label">Course Tags</label>
-            <select className="form-select" id="currentlyGivingcourse" name="currentlyGivingcourse" value={formData.currentlyGivingcourse} onChange={handleChange}>
-              {allTags && allTags.map((tag, index) => (
-                <option key={index} value={tag._id}>{tag.tagName}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="col-md-12">
-            <label htmlFor="teacherAbout" className="form-label">Course Description</label>
-            <JoditEditor
-              ref={editor}
-              value={formData.teacherAbout}
-              config={editorConfig}
-              onChange={handleEditorChange}
+            <label htmlFor="categoryId" className="form-label">Categories</label>
+            <Select
+              isMulti
+              onChange={handleCategoryChange}
+              options={categoryOptions}
+              value={selectedCategories}
+              className="basic-multi-select"
+              classNamePrefix="select"
             />
           </div>
 
-          <div className="col-md-12">
-            {imagePreview && <img src={imagePreview} alt="Course Preview" className="img-preview" />}
-            <label htmlFor="teacherImage" className="form-label">Course Image</label>
-            <input type="file" className="form-control" id="teacherImage" name="teacherImage" onChange={handleFileChange} />
+          <div className="col-md-6">
+            <label htmlFor="currentlyGivingcourse" className="form-label">Courses Taught by Teacher</label>
+            <Select
+              isMulti
+              onChange={handleSelectChange}
+              options={courseOptions}
+              value={formData.currentlyGivingcourse.map(courseId => {
+                const course = allCourses.find(course => course._id === courseId);
+                return course ? { value: course._id, label: course.courseName } : null;
+              })}
+              className="basic-multi-select"
+              classNamePrefix="select"
+            />
           </div>
 
-          <div className="col-md-12 text-end">
-            <button type="submit" className="btn btn-success" disabled={isLoading}>
-              {isLoading ? 'Updating...' : 'Update Teacher'}
+          <div className="col-12 text-center">
+            <button type="submit" disabled={isLoading} className={`${isLoading ? 'not-allowed' : 'allowed'}`}>
+              {isLoading ? "Please Wait..." : "Update Teacher"}
             </button>
           </div>
         </form>

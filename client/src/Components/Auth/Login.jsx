@@ -70,16 +70,16 @@ const Login = () => {
                 <Loading />
             ) : (<section className='login-account'>
                 <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-6 d-none d-md-block p-0 img-relative">
+                    <div className="row forflex">
+                        {/* <div className="col-md-6 d-none d-md-block p-0 img-relative">
                             <img style={{ width: '100%' }} src={bg} className='' alt="" />
 
                             <div className="img-absolute ">
                                 <h2>Welcome to <br /> P-Anand </h2>
                                 <p></p>
                             </div>
-                        </div>
-                        <div className="col-md-6 p-0">
+                        </div> */}
+                        <div className="col-md-6 forbgcolor p-0">
                             <div className="form">
                                 <h3>Login in Account </h3>
                                 <p className='mt-[-22px]'>

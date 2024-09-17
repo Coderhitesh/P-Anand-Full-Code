@@ -12,6 +12,7 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
     const [bundle, setBundle] = useState(null);
     const [filterData, setFilterData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [pageLoader, setPageLoader] = useState(true)
     const [selectedMode, setSelectedMode] = useState({
         name: '',
         id: ''
@@ -140,6 +141,22 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
         handleFetchAllCourse(); // Fetch all courses
     }, [id]);
 
+    useEffect(() => {
+        // Scroll to the top when the component mounts
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+
+        // Simulate loading time (2 seconds)
+        const timer = setTimeout(() => {
+            setPageLoader(false);
+        }, 1000);
+
+        // Cleanup the timer when the component unmounts
+        return () => clearTimeout(timer);
+    }, [id]);
+
     if (loading) {
         return <div><Loading /></div>;
     }
@@ -152,125 +169,134 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
 
     return (
         <>
-            <ToastContainer />
-            {/* content */}
-            <section className="py-5">
-                <div className="container">
-                    <div className="row gx-5">
-                        <aside className="col-lg-6">
-                            <div className="border rounded-4 mb-3 d-flex justify-content-center">
-                                {bundle.bundleImage && bundle.bundleImage.url ? (
-                                    <a
-                                        data-fslightbox="mygalley"
-                                        className="rounded-4"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        data-type="image"
-                                        href={bundle.bundleImage.url}
-                                    >
-                                        <img
-                                            style={{ maxWidth: '100%', maxHeight: '100vh', margin: 'auto' }}
-                                            className="rounded-4 fit"
-                                            src={bundle.bundleImage.url}
-                                            alt={bundle.bundleName}
-                                        />
-                                    </a>
-                                ) : (
-                                    <div>No image available</div>
-                                )}
-                            </div>
-                        </aside>
-                        <main className="col-lg-6">
-                            <div className="ps-lg-3">
-                                <h4 style={{ fontSize: '30px' }} className="course-title text-dark">{bundle.bundleName}</h4>
-                                <p><span style={{ fontWeight: '600' }}>Course Name:</span> {getCourseNamesByIds(bundle.bundleCourseId)}</p>
-                                <p className="text-muted mb-4">
-                                    <strong>Category:</strong> {getCategoryNameById(bundle.categoryId)}
-                                </p>
+            {
+                pageLoader ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <ToastContainer />
+                        {/* content */}
+                        <section className="py-5">
+                            <div className="container">
+                                <div className="row gx-5">
+                                    <aside className="col-lg-6">
+                                        <div className="border rounded-4 mb-3 d-flex justify-content-center">
+                                            {bundle.bundleImage && bundle.bundleImage.url ? (
+                                                <a
+                                                    data-fslightbox="mygalley"
+                                                    className="rounded-4"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    data-type="image"
+                                                    href={bundle.bundleImage.url}
+                                                >
+                                                    <img
+                                                        style={{ maxWidth: '100%', maxHeight: '100vh', margin: 'auto' }}
+                                                        className="rounded-4 fit"
+                                                        src={bundle.bundleImage.url}
+                                                        alt={bundle.bundleName}
+                                                    />
+                                                </a>
+                                            ) : (
+                                                <div>No image available</div>
+                                            )}
+                                        </div>
+                                    </aside>
+                                    <main className="col-lg-6">
+                                        <div className="ps-lg-3">
+                                            <h4 style={{ fontSize: '30px' }} className="course-title text-dark">{bundle.bundleName}</h4>
+                                            <p><span style={{ fontWeight: '600' }}>Course Name:</span> {getCourseNamesByIds(bundle.bundleCourseId)}</p>
+                                            <p className="text-muted mb-4">
+                                                <strong>Category:</strong> {getCategoryNameById(bundle.categoryId)}
+                                            </p>
 
-                                {/* Add pricing and course mode selection if necessary */}
-                                <p style={{ fontSize: '22px', fontWeight: "700", color: "#404040" }}>Rs.{bundle.bundleStartingPrice} - Rs.{bundle.bundleEndingPrice}</p>
+                                            {/* Add pricing and course mode selection if necessary */}
+                                            <p style={{ fontSize: '22px', fontWeight: "700", color: "#404040" }}>Rs.{bundle.bundleStartingPrice} - Rs.{bundle.bundleEndingPrice}</p>
 
-                                <hr />
+                                            <hr />
 
-                                <div className="row">
-                                    <div>
-                                        <p><strong>How do you want it?</strong></p>
-                                    </div>
-                                    <div>
-                                        <select className="form-select" aria-label="Default select example" onChange={handleModeChange} value={selectedMode?.name}>
-                                            {bundle.bundleMode.map(mode => (
-                                                <option key={mode.modeType} value={mode.modeType}>{mode.modeType}</option>
-                                            ))}
-                                        </select>
+                                            <div className="row">
+                                                <div>
+                                                    <p><strong>How do you want it?</strong></p>
+                                                </div>
+                                                <div>
+                                                    <select className="form-select" aria-label="Default select example" onChange={handleModeChange} value={selectedMode?.name}>
+                                                        {bundle.bundleMode.map(mode => (
+                                                            <option key={mode.modeType} value={mode.modeType}>{mode.modeType}</option>
+                                                        ))}
+                                                    </select>
 
-                                        {/* <select className="form-select" aria-label="Default select example" onChange={handleModeChange} value={selectedMode?.name}>
+                                                    {/* <select className="form-select" aria-label="Default select example" onChange={handleModeChange} value={selectedMode?.name}>
                                             {course.courseMode.map(mode => (
                                                 <option key={mode.modeType} value={mode.modeType}>{mode.modeType}</option>
                                             ))}
                                         </select> */}
-                                    </div>
-                                    <div>
-                                        <div className="mainprice mt-3">
-                                            <p style={{ fontSize: '20px' }}><strong>Price :</strong> Rs:{price}</p>
-                                        </div>
-                                        {discountedPrice !== price && (
-                                            <div className="discountPrice">
-                                                <del>Rs:{discountedPrice}</del>
+                                                </div>
+                                                <div>
+                                                    <div className="mainprice mt-3">
+                                                        <p style={{ fontSize: '20px' }}><strong>Price :</strong> Rs:{price}</p>
+                                                    </div>
+                                                    {discountedPrice !== price && (
+                                                        <div className="discountPrice">
+                                                            <del>Rs:{discountedPrice}</del>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
-                                        )}
-                                    </div>
+
+
+
+                                            <div className="shop-button mt-3">
+                                                <button type='button' onClick={() => handleAddToCart({ ...bundle, selectedMode })} disabled={loadingFromCart} className="theme-btn">{loadingFromCart ? 'Please Wait...' : 'Add To cart'}</button>
+                                            </div>
+
+                                            <p className=' mt-4'><strong>All Categories: </strong>{category && category.map((item, index) => (
+                                                <Link to={`/category/${item._id}`} >{item.categoryName}, </Link>
+                                            ))}</p>
+                                        </div>
+                                    </main>
                                 </div>
-
-
-
-                                <div className="shop-button mt-3">
-                                    <button type='button' onClick={() => handleAddToCart({ ...bundle, selectedMode })} disabled={loadingFromCart} className="theme-btn">{loadingFromCart ? 'Please Wait...' : 'Add To cart'}</button>
-                                </div>
-
-                                <p className=' mt-4'><strong>All Categories: </strong>{category && category.map((item, index) => (
-                                    <Link to={`/category/${item._id}`} >{item.categoryName}, </Link>
-                                ))}</p>
                             </div>
-                        </main>
-                    </div>
-                </div>
 
-                {/* Course Description */}
-                <div className=" container py-4 course-description">
-                    <h4 className="title text-dark mb-4">Bundle Description</h4>
-                    <div dangerouslySetInnerHTML={{ __html: bundle.bundleDescription }} />
-                </div>
+                            {/* Course Description */}
+                            <div className=" container py-4 course-description">
+                                <h4 className="title text-dark mb-4">Bundle Description</h4>
+                                <div dangerouslySetInnerHTML={{ __html: bundle.bundleDescription }} />
+                            </div>
 
 
 
-                {/* Similar Products */}
-                <div className="container py-5">
-                    <h4 className="title text-dark">Similar Bundle</h4>
-                    <div className="row">
-                        {filterData &&
-                            filterData.slice(0, 4).map((item, index) => (
-                                <div key={index} className="col-lg-3 col-sm-6 mb-4">
-                                    <div className="card">
-                                        <img src={item.bundleImage.url} className="card-img-top" alt={item.bundleName} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{item.bundleName}</h5>
-                                            <p className="card-text">Rs.{item.bundleStartingPrice} - Rs.{item.bundleEndingPrice}</p>
-                                            <div className="shop-button">
-                                                <Link to={`/bundle-detail/${item._id}`} className="theme-btn">
-                                                    View Details
-                                                </Link>
+                            {/* Similar Products */}
+                            <div className="container py-5">
+                                <h4 className="title text-dark">Similar Bundle</h4>
+                                <div className="row">
+                                    {filterData &&
+                                        filterData.slice(0, 4).map((item, index) => (
+                                            <div key={index} className="col-lg-3 col-sm-6 mb-4">
+                                                <div className="card">
+                                                    <img src={item.bundleImage.url} className="card-img-top" alt={item.bundleName} />
+                                                    <div className="card-body">
+                                                        <h5 className="card-title">{item.bundleName}</h5>
+                                                        <p className="card-text">Rs.{item.bundleStartingPrice} - Rs.{item.bundleEndingPrice}</p>
+                                                        <div className="shop-button">
+                                                            <Link to={`/bundle-detail/${item._id}`} className="theme-btn">
+                                                                View Details
+                                                            </Link>
 
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        ))}
                                 </div>
-                            ))}
-                    </div>
-                </div>
-                {/* Similar Products */}
-            </section>
+                            </div>
+                            {/* Similar Products */}
+                        </section>
+                    </>
+                )
+            }
         </>
+
     );
 }
 

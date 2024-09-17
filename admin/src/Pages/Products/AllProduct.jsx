@@ -125,12 +125,6 @@ const AllProduct = () => {
         paginateData(course, currentPage);
     }, [course, currentPage]);
 
-    // useEffect(() => {
-    //     if (course.length > 0) {
-    //         handleFetchRatings();
-    //     }
-    // }, [course]);
-
     const handlePageClick = (pageNumber) => {
         setCurrentPage(pageNumber);
         paginateData(course, pageNumber);

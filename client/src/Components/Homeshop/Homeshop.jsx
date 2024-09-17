@@ -1,11 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 
 function Homeshop() {
   const [book, setBook] = useState([])
   const [tag, setTag] = useState([])
-  const [category,setCategory] = useState([])
+  const [category, setCategory] = useState([])
+  const [slidesPerView, setSlidesPerView] = useState('4');
 
   const handleFetchBook = async () => {
     try {
@@ -38,19 +45,38 @@ function Homeshop() {
   const getTagNameById = (tagId) => {
     const foundTag = tag.find(tag => tag._id === tagId);
     return foundTag ? foundTag.tagName : "No Tag";
-};
+  };
 
-const getCategoryNameById = (categoryId) => {
-  const foundCategory = category.find(cat => cat._id === categoryId);
-  return foundCategory ? foundCategory.categoryName : "No Category";
-};
+  const getCategoryNameById = (categoryId) => {
+    const foundCategory = category.find(cat => cat._id === categoryId);
+    return foundCategory ? foundCategory.categoryName : "No Category";
+  };
 
-  
+  const handleResize = () => {
+    const windowWidth = window.innerWidth;
+
+    // Adjust slidesPerView based on window width
+    if (windowWidth < 500) {
+      setSlidesPerView(1);
+    } else if (windowWidth >= 500 && windowWidth < 768) {
+      setSlidesPerView(2);
+    } else if (windowWidth >= 768 && windowWidth < 1200) {
+      setSlidesPerView(4);
+    }else{
+      setSlidesPerView(4);
+    }
+  };
 
   useEffect(() => {
     handleFetchCategory();
     handleFetchTag();
     handleFetchBook();
+    handleResize(); // Set initial slidesPerView value
+      window.addEventListener('resize', handleResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
   }, [])
 
   return (
@@ -65,97 +91,45 @@ const getCategoryNameById = (categoryId) => {
               Explore More <i className="fa-solid fa-arrow-right-long"></i>
             </Link>
           </div>
-          <div className="book-shop-wrapper">
+          <Swiper
+          slidesPerView={slidesPerView}
+          spaceBetween={30}
+            navigation={false}
+              // pagination={false}
+            modules={[Navigation]}
+            className="book-slider"
+          >
             {
-              book && book.slice(0,4).map((item, index) => (
-                <div key={index} className="shop-box-items style-2">
-                  <div className="book-thumb center">
-                    <Link to={`/Book-detail/${item._id}`}><img src={item.bookImage.url} alt={item.bookName} /></Link>
-                    <ul className="post-box">
-                      <li>{getTagNameById(item.bookTagName)}</li>
-                    {/* <li>-{item.bookDiscountPresent}%</li> */}
-                    </ul>
+              book && book.slice(0, 8).map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div className="shop-box-items style-2">
+                    <div className="book-thumb center">
+                      <Link to={`/Book-detail/${item._id}`}>
+                        <img src={item.bookImage.url} alt={item.bookName} />
+                      </Link>
+                      <ul className="post-box">
+                        <li>{getTagNameById(item.bookTagName)}</li>
+                        {/* <li>-{item.bundleDisCountPercenatgae}%</li> */}
+                      </ul>
+                    </div>
+                    <div className="shop-content">
+                      <h5>{getCategoryNameById(item.bookCategory)}</h5>
+                      <h3><Link to={`/Book-detail/${item._id}`}>{item.bookName}</Link></h3>
+                      <ul className="price-list">
+                        <li>Rs.{item.bookAfterDiscount}</li>
+                        <li>
+                          <del>Rs.{item.bookPrice}</del>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="shop-button">
+                      <Link to={`/Book-detail/${item._id}`} className="theme-btn"> View Detail</Link>
+                    </div>
                   </div>
-                  <div className="shop-content">
-                    <h5>{getCategoryNameById(item.bookCategory)}</h5>
-                    <h3><Link to={`/Book-detail/${item._id}`}>{item.bookName}</Link></h3>
-                    <ul className="price-list">
-                      <li>Rs.{item.bookAfterDiscount}</li>
-                      <li><del>Rs.{item.bookPrice}</del></li>
-                    </ul>
-                  </div>
-                  <div className="shop-button">
-                    <Link to={`/Book-detail/${item._id}`} className="theme-btn">View Detail</Link>
-                  </div>
-                </div>
+                </SwiperSlide>
               ))
             }
-
-
-            {/* <div className="shop-box-items style-2">
-              <div className="book-thumb center">
-                <a href="Book-detail"><img src="assets/img/book/04.png" alt="12th CBSE" /></a>
-                <ul className="post-box">
-                  <li>Hot</li>
-                </ul>
-              </div>
-              <div className="shop-content">
-                <h5>Category</h5>
-                <h3><a href="course-details.php">12th CBSE</a></h3>
-                <ul className="price-list">
-                  <li>$30.00</li>
-                  <li><del>$39.99</del></li>
-                </ul>
-                <ul className="author-post forauthnone">
-                  <li className="authot-list">
-                    <span className="thumb"><img src="assets/img/testimonial/client-2.png" alt="Author Wilson" /></span>
-                    <span className="content">Wilson</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="shop-button">
-                <a href="course-details.php" className="theme-btn"><i className="fa-solid fa-basket-shopping"></i> Add To Cart</a>
-              </div>
-            </div>
-
-            <div className="shop-box-items style-2">
-              <div className="book-thumb center">
-                <a href="shop-details"><img src="assets/img/book/03.png" alt="English" /></a>
-                
-              </div>
-              <div className="shop-content">
-                <h5>Category</h5>
-                <h3><a href="course-details.php">English</a></h3>
-                <ul className="price-list">
-                  <li>$30.00</li>
-                  <li><del>$39.99</del></li>
-                </ul>
-                <ul className="author-post forauthnone">
-                  <li className="authot-list">
-                    <span className="thumb"><img src="assets/img/testimonial/client-3.png" alt="Author Wilson" /></span>
-                    <span className="content">Wilson</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="shop-button">
-                <a href="course-details.php" className="theme-btn"><i className="fa-solid fa-basket-shopping"></i> Add To Cart</a>
-              </div>
-            </div> */}
-
-            {/* <div className="cta-shop-box">
-              <h2 className="wow fadeInUp" data-wow-delay=".2s">Find Your Best Course!</h2>
-              <h6 className="wow fadeInUp" data-wow-delay=".4s">And get your 25% discount now!</h6>
-              <a href="shop.html" className="theme-btn white-bg wow fadeInUp" data-wow-delay=".6s">
-                Shop Now <i className="fa-solid fa-arrow-right-long"></i>
-              </a>
-              <div className="girl-shape">
-                <img src="assets/img/girl-shape.png" alt="Girl Shape" />
-              </div>
-              <div className="circle-shape">
-                <img src="assets/img/circle-shape.png" alt="Circle Shape" />
-              </div>
-            </div> */}
-          </div>
+          </Swiper>
         </div>
       </section>
     </>

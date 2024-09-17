@@ -8,10 +8,31 @@
 .login-account{
     overflow: hidden;
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.forflex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.forbgcolor{
+    padding-top: 20px;
+    background-color: whitesmoke;
+    /* box-shadow: 0px 0px 6px #ffae67; */
+}
+
+.forflex .forbgcolor{
+    background-color: whitesmoke;
+    /* box-shadow: 0px 0px 6px #ffae67; */
 }
 
 .login-account .form {
     display: grid;
+    padding-top: 10px !important;
     padding: 0rem 5rem;
     text-align: center;
     min-height: 80vh;

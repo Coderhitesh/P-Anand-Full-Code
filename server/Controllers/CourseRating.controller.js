@@ -1,5 +1,6 @@
 const CourseRating = require('../Models/CourseRating.Model')
 const Course = require('../Models/Course.Model')
+const Category = require('../Models/Category.Model')
 
 exports.createCourseRating = async (req, res) => {
     try {
@@ -118,35 +119,77 @@ exports.singleCourseRating = async (req, res) => {
 }
 
 
-
 exports.updateCourseRating = async (req, res) => {
     try {
-        const id = req.params._id
-        const { courseId, rating } = req.body
-        const data = await CourseRating.findById(id)
+        const { courseId, rating, categoryId } = req.body;
+        const { id } = req.params;
 
-        if (!data) {
-            return res.status(404).json({
-                success: false,
-                message: 'Course Rating not found'
-            })
+        // Validate input
+        if (!courseId || !categoryId) {
+            return res.status(400).json({ message: 'All fields are required.' });
+        }
+        if (rating < 1 || rating > 5) {
+            return res.status(400).json({ message: 'Rating must be between 1 and 5.' });
         }
 
-        if (courseId) data.courseId = courseId
-        if (rating) data.rating = rating
+        // Check if the course and category exist
+        const course = await Course.findById(courseId);
+        const category = await Category.findById(categoryId);
 
-        await data.save()
-        res.status(200).json({
-            success: true,
-            message: 'course Rating updated',
-            data: data
-        })
+        if (!course) {
+            return res.status(404).json({ message: 'Course not found.' });
+        }
+        if (!category) {
+            return res.status(404).json({ message: 'Category not found.' });
+        }
 
+        // Update the rating
+        const updatedRating = await CourseRating.findByIdAndUpdate(
+            id,
+            { courseId, rating, categoryId },
+            { new: true }
+        );
+
+        if (!updatedRating) {
+            return res.status(404).json({ message: 'Rating not found.' });
+        }
+
+        res.status(200).json({ message: 'Rating updated successfully!', data: updatedRating });
     } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            success: false,
-            message: 'Error in updating course rating'
-        })
+        console.error('Error updating course rating:', error);
+        res.status(500).json({ message: 'Server error.' });
     }
-}
+};
+
+
+// exports.updateCourseRating = async (req, res) => {
+//     try {
+//         const id = req.params._id
+//         const { courseId, rating } = req.body
+//         const data = await CourseRating.findById(id)
+
+//         if (!data) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: 'Course Rating not found'
+//             })
+//         }
+
+//         if (courseId) data.courseId = courseId
+//         if (rating) data.rating = rating
+
+//         await data.save()
+//         res.status(200).json({
+//             success: true,
+//             message: 'course Rating updated',
+//             data: data
+//         })
+
+//     } catch (error) {
+//         console.log(error)
+//         res.status(500).json({
+//             success: false,
+//             message: 'Error in updating course rating'
+//         })
+//     }
+// }

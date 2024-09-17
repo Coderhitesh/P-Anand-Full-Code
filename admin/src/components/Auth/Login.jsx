@@ -68,14 +68,14 @@ const Login = () => {
             ) : (<section className='login-account'>
                 <div className="container-fluid login-one">
                     <div className="row login-two">
-                        <div className="col-md-6 d-none d-md-block p-0 img-relative">
+                        {/* <div className="col-md-6 d-none d-md-block p-0 img-relative">
                             <img src={bg} className='' alt="" />
 
                             <div className="img-absolute ">
                                 <h2>Welcome to <br /> P-Anand </h2>
                                 <p></p>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="col-md-6 p-0 form-parent">
                             <div className="form">
                                 <h3>Login in Account </h3>

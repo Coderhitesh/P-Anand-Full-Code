@@ -35,7 +35,7 @@ export default function OurTeam() {
     } else if (windowWidth >= 768 && windowWidth < 1200) {
       setSlidesPerView(4);
     }else{
-      setSlidesPerView(3);
+      setSlidesPerView(4);
     }
   };
   useEffect(() => {
@@ -75,15 +75,15 @@ export default function OurTeam() {
                 <div className="team-box-items">
                   <div className="team-image">
                     <div className="thumb">
-                      <img style={{height:"200px"}} src={item.teacherImage.url} alt="img" />
+                      <img src={item.teacherImage.url} alt="img" />
                     </div>
                     {/* <div className="shape-img">
                       <img src="assets/img/team/shape-img.png" alt="img" />
                     </div> */}
                   </div>
                   <div className="team-content text-center">
-                    <h6><a href="">{item.teacherName}</a></h6>
-                    <p>{item.teacherExpertise[0]}</p>
+                    <h6 style={{marginBottom:'0%'}}><a>{item.teacherName}</a></h6>
+                    {/* <p>{item.teacherExpertise[0]}</p> */}
                   </div>
                 </div>
               </SwiperSlide>

@@ -10,7 +10,7 @@ const { createTag, getAllTag, getSingleTag, updateTag, deleteTag } = require('..
 const { createTeacher, getAllTeacher, getSingleTeacher, deleteTeacher, updateTeacher } = require('../Controllers/Teacher.controller')
 const { createTeacherRating, getAllTeacherRating, singleTeacherRating, updateTeacherRating, deleteTeacherRating } = require('../Controllers/TeacherRating.controller')
 const { createCourseRating, getAllCourseRating, singleCourseRating, updateCourseRating, deleteCourseRating } = require('../Controllers/CourseRating.controller')
-const { createHomeBanner, getAllHomeBanner, deleteHomeBanner } = require('../Controllers/HomeBanner.Controller')
+const { createHomeBanner, getAllHomeBanner, deleteHomeBanner, getSingleHomeBanner, updateHomeBanner } = require('../Controllers/HomeBanner.Controller')
 const { createCourseTitle, getAllCourseTitle, deleteCourseTitle, updateCourseTitle, getSingleCourseTitle } = require('../Controllers/CourseTitle.controller')
 const { createBook, getAllBook, getSingleBook, deleteBook, updateBook, updateBookFeature, getBookByCategory } = require('../Controllers/BookController')
 const { createBookCategory, getAllBookCategory, singleBookCategory, deleteBookCategory, updateBookCategory } = require('../Controllers/BookCategory.controller')
@@ -108,6 +108,8 @@ router.delete('/delete-course-rating/:_id', deleteCourseRating)
 router.post('/create-home-banner', upload.single('homeBannerImage'), createHomeBanner)
 router.get('/get-home-banner', getAllHomeBanner)
 router.delete('/delete-home-banner/:_id', deleteHomeBanner)
+router.get('/single-home-banner',getSingleHomeBanner)
+router.put('/update-home-banner/:_id',upload.single('homeBannerImage'),updateHomeBanner)
 
 // course title router 
 
@@ -159,6 +161,7 @@ router.get('/get-all-book-bundle', getBookBundle)
 router.get('/get-single-book-bundle/:_id', getSingleBookBundle)
 router.put('/update-book-bundle/:_id', upload.single('bundleImage'), updateBookBundle)
 router.delete('/delete-book-bundle/:_id', deleteBookBundle)
+router.get('/get-book-by-category/:categoryId',getBookByCategory)
 
 
 //Cart Routes

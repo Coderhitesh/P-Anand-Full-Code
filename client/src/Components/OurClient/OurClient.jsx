@@ -17,7 +17,7 @@ function OurClient() {
     } else if (windowWidth >= 500 && windowWidth < 768) {
       setSlidesPerView(1);
     } else if (windowWidth >= 768 && windowWidth < 1200) {
-      setSlidesPerView(3);
+      setSlidesPerView(2);
     }else{
       setSlidesPerView(2);
     }

@@ -162,6 +162,7 @@ exports.deleteBookBundle = async (req,res) => {
 
 exports.updateBookBundle = async (req, res) => {
     try {
+        console.log(req.body);
         const id = req.params._id;
         const { bundleName, bundleDescription, bundlePrice, bundleDiscountPercent, bundlePriceAfterDiscount, categoryId, tag, bundleBookId } = req.body;
         let formattedBundleCourseId = [];
@@ -193,14 +194,23 @@ exports.updateBookBundle = async (req, res) => {
         }
 
         // Format the bundleBookId to match schema requirements
-        if (bundleBookId) {
-            if (typeof bundleBookId === 'string') {
-                formattedBundleCourseId = [{ id: bundleBookId }];
-            } else if (Array.isArray(bundleBookId)) {
-                formattedBundleCourseId = bundleBookId.map(bookId => ({ id: bookId }));
-            } else {
-                return res.status(400).json({ message: "Invalid data type for bundleBookId" });
+        if (typeof bundleBookId === 'string') {
+            // If bundleBookId is a stringified array, parse it
+            try {
+                const parsedIds = JSON.parse(bundleBookId);
+                if (Array.isArray(parsedIds)) {
+                    formattedBundleCourseId = parsedIds.map(bookId => ({ id: bookId }));
+                } else {
+                    return res.status(400).json({ message: "Invalid data format for bundleBookId" });
+                }
+            } catch (error) {
+                return res.status(400).json({ message: "Invalid JSON format for bundleBookId" });
             }
+        } else if (Array.isArray(bundleBookId)) {
+            // If it's already an array, process it directly
+            formattedBundleCourseId = bundleBookId.map(bookId => ({ id: bookId }));
+        } else {
+            return res.status(400).json({ message: "Invalid data type for bundleBookId" });
         }
 
         // Update the bundle fields

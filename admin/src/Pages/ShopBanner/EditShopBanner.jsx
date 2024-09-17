@@ -1,90 +1,93 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useParams, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const EditShopBanner = () => {
-    const { id } = useParams();
-
-    const [formData, setData] = useState({
-        saleBannerTitle: '',
-        saleBannerImage: null,
-        active: false,
-        previewImage: null // State to hold the preview image
-        
+function EditShopBanner() {
+    const { id } = useParams(); // Get banner ID from URL parameters
+    const [formData, setFormData] = useState({
+        homeBannerImage: null,
+        active: false
     });
+    const [imagePreview, setImagePreview] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [loading, setLoading] = useState(true); // Add loading state
-    const [btnLoading, setBtnLoading] = useState(false);
+    useEffect(() => {
+        // Fetch the existing banner data
+        const fetchBanner = async () => {
+            try {
+                const response = await axios.get(`https://www.api.panandacademy.com/api/v1/single-home-banner/${id}`);
+                const banner = response.data.data;
 
-    const handleChange = (e) => {
-        const { name, value, type, checked, files } = e.target;
-        if (type === 'checkbox') {
-            setData({
-                ...formData,
-                [name]: checked
-            });
-        } else if (type === 'file') {
-            const file = files[0];
-            setData({
-                ...formData,
-                [name]: file,
-                previewImage: URL.createObjectURL(file) // Set preview image URL
-            });
-        } else {
-            setData({
-                ...formData,
-                [name]: value
-            });
-        }
-    };
-
-    const handleFetch = async () => {
-        try {
-            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-sale-banner`);
-            const category = res.data.data;
-            const filterData = category.filter((item) => item._id === id);
-            if (filterData.length > 0) {
-                setData({
-                    saleBannerTitle: filterData[0].saleBannerTitle,
-                    saleBannerImage: null, // We don't set the image here since we can't preview it from a URL
-                    active: filterData[0].active,
-                    previewImage: filterData[0].saleBannerImage // Set the existing image URL for preview
+                // Set the form data with existing banner data
+                setFormData({
+                    active: banner.active,
+                    homeBannerImage: null // We will handle the image separately
                 });
+
+                setImagePreview(banner.homeBannerImage.url);
+            } catch (error) {
+                console.error('Error fetching banner:', error);
+                toast.error('Error fetching banner data.');
             }
-            setLoading(false); // Set loading to false after data is fetched
-        } catch (error) {
-            console.error('Error fetching Banner:', error);
-            setLoading(false); // Set loading to false even if there's an error
+        };
+
+        fetchBanner();
+    }, [id]);
+
+    const handleChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        if (type === 'checkbox') {
+            setFormData(prevData => ({
+                ...prevData,
+                active: checked
+            }));
+        } else if (type === 'file') {
+            setFormData(prevData => ({
+                ...prevData,
+                homeBannerImage: event.target.files[0]
+            }));
+            // Set image preview
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setImagePreview(reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        } else {
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
         }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setBtnLoading(true)
+        setIsLoading(true);
+
         const data = new FormData();
-        data.append('saleBannerTitle', formData.saleBannerTitle);
-        if (formData.saleBannerImage) {
-            data.append('saleBannerImage', formData.saleBannerImage);
-        }
+        data.append('homeBannerImage', formData.homeBannerImage);
         data.append('active', formData.active);
 
         try {
-            const response = await axios.put(`https://www.api.panandacademy.com/api/v1/update-sale-banner/${id}`, data);
-            toast.success("Banner Updated Successfully!");
-            setBtnLoading(false);
+            await axios.put(`https://www.api.panandacademy.com/api/v1/update-home-banner/${id}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            setIsLoading(false);
+            toast.success("Shop Banner Updated Successfully!");
             window.location.href = '/all-shop-banners';
         } catch (error) {
-            setBtnLoading(false)
-            console.error('Error updating Banner:', error);
+            setIsLoading(false);
+            console.error('Error:', error);
             toast.error(error.response?.data?.message || 'An error occurred');
         }
     };
-
-    useEffect(() => {
-        handleFetch();
-    }, [id]);
 
     return (
         <>
@@ -99,40 +102,42 @@ const EditShopBanner = () => {
             </div>
 
             <div className="d-form">
-                {loading ? (
-                    <p>Loading...</p>
-                ) : (
-                    <form className="row g-3" onSubmit={handleSubmit}>
-                        <div className="col-md-4">
-                            <label htmlFor="saleBannerTitle" className="form-label">Shop Banner Name</label>
-                            <input type="text" onChange={handleChange} name='saleBannerTitle' value={formData.saleBannerTitle} className="form-control" id="saleBannerTitle" />
+                <form className="row g-3" onSubmit={handleSubmit}>
+                    <div className="col-md-6">
+                        <label htmlFor="homeBannerImage" className="form-label">Shop Banner Image</label>
+                        <input
+                            type="file"
+                            onChange={handleChange}
+                            name='homeBannerImage'
+                            className="form-control"
+                            id="homeBannerImage"
+                        />
+                        {imagePreview && <img style={{ width: '140px', marginTop: '20px' }} src={imagePreview} alt="Image Preview" className="image-preview" />}
+                    </div>
+                    <div className="col-12">
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                onChange={handleChange}
+                                type="checkbox"
+                                name="active"
+                                id="active"
+                                checked={formData.active}
+                            />
+                            <label className="form-check-label" htmlFor="active">
+                                Active
+                            </label>
                         </div>
-                        <div className="col-md-4">
-                            <label htmlFor="saleBannerImage" className="form-label">Shop Banner Image</label>
-                            <input type="file" onChange={handleChange} name='saleBannerImage' className="form-control" id="saleBannerImage" />
-                        </div>
-                        {formData.previewImage && (
-                            <div className="col-4">
-                                <img src={formData.previewImage} alt="Category Preview" style={{ width: '100px', height: '100px' }} />
-                            </div>
-                        )}
-                        <div className="col-12">
-                            <div className="form-check">
-                                <input className="form-check-input" onChange={handleChange} type="checkbox" name="active" id="active" checked={formData.active} />
-                                <label className="form-check-label" htmlFor="active">
-                                    Active
-                                </label>
-                            </div>
-                        </div>
-                        <div className="col-12 text-center">
-                            {/* <button type="submit" className="">Update Category</button> */}
-                            <button type="submit" className={`${btnLoading ? 'not-allowed':'allowed'}`} >{btnLoading ? "Please Wait.." : "Update Shop Banner"} </button>
-                        </div>
-                    </form>
-                )}
+                    </div>
+                    <div className="col-12 text-center">
+                        <button type="submit" disabled={isLoading} className={`${isLoading ? 'not-allowed' : 'allowed'}`}>
+                            {isLoading ? "Please Wait..." : "Update Shop Banner"}
+                        </button>
+                    </div>
+                </form>
             </div>
         </>
     );
-};
+}
 
 export default EditShopBanner;

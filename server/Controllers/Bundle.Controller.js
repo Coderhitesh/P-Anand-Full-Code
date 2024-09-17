@@ -17,7 +17,7 @@ exports.createBundle = async (req, res) => {
             feature
         } = req.body;
 
-        
+
 
         // Parse the bundleMode field if it's passed as a string (e.g., from a form)
         const mode = JSON.parse(bundleMode);
@@ -173,8 +173,11 @@ exports.deleteSingleBundle = async (req, res) => {
 };
 
 exports.updateBundle = async (req, res) => {
-    try {
+    console.log('Request params:', req.params);
+    console.log('Request body:', req.body.courses);
 
+    const bundleMode = JSON.parse(req.body.bundleMode);
+    try {
         const bundle = await Bundle.findById(req.params._id);
         if (!bundle) {
             return res.status(404).json({
@@ -182,18 +185,39 @@ exports.updateBundle = async (req, res) => {
                 message: "Bundle not found"
             });
         }
-        let mode;
-        const updateFields = ['bundleName', 'bundleTotalPrice', 'bundleDiscountPrice', 'bundleDisCountPercenatgae', 'bundleCourseId', 'bundleMode'];
-        updateFields.forEach(field => {
-          if (req.body[field] !== undefined) {
-            // Parse JSON for array fields
-            if (field === 'bundleMode' || field === 'tags' || field === 'courses') {
-              bundle[field] = JSON.parse(req.body[field]);
-            } else {
-              bundle[field] = req.body[field];
+
+        // Convert string fields to appropriate types
+        const updatedFields = { ...req.body };
+        updatedFields.bundleStartingPrice = parseFloat(updatedFields.bundleStartingPrice) || 0;
+        updatedFields.bundleEndingPrice = parseFloat(updatedFields.bundleEndingPrice) || 0;
+
+        // Parse JSON strings to arrays if necessary
+        if (typeof updatedFields.bundleMode === 'string') {
+            try {
+                updatedFields.bundleMode = bundleMode;
+            } catch (error) {
+                console.error("Error parsing bundleMode JSON:", error);
+                return res.status(400).json({ success: false, message: "Invalid bundleMode format" });
             }
-          }
+        }
+
+        if (typeof updatedFields.courses === 'string') {
+            updatedFields.courses = updatedFields.courses.split(',').map(id => id.trim());
+        }
+
+        // Update the `bundleCourseId` field based on `courses` in the request body
+        if (Array.isArray(updatedFields.courses)) {
+            updatedFields.bundleCourseId = updatedFields.courses.map(courseId => ({ id: courseId }));
+        }
+
+        // Process fields
+        const updateFields = ['bundleName', 'bundleStartingPrice', 'bundleEndingPrice', 'bundleDescription', 'categoryId', 'bundleMode', 'bundleCourseId', 'tag'];
+        updateFields.forEach(field => {
+            if (updatedFields[field] !== undefined) {
+                bundle[field] = updatedFields[field];
+            }
         });
+
         // Handle image update
         if (req.file) {
             const oldImagePublicId = bundle.bundleImage.public_id;
@@ -218,12 +242,11 @@ exports.updateBundle = async (req, res) => {
         }
 
         // Save the updated bundle
-        await bundle.save();
-
+        const updatedBundle = await bundle.save();
         res.status(200).json({
             success: true,
             message: "Bundle updated successfully",
-            data: bundle
+            data: updatedBundle
         });
 
     } catch (error) {
@@ -234,6 +257,8 @@ exports.updateBundle = async (req, res) => {
         });
     }
 };
+
+
 
 exports.getSingleBundle = async (req, res) => {
     try {

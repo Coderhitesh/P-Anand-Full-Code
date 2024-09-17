@@ -30,56 +30,56 @@
 
 @media (max-width:750px) {
     .slider-box {
-        height: 150px;
+        height: 115px;
     }
     
 }
 
 @media (max-width:2560px) {
     .slider-box {
-        height: 900px;
+        height: 865px;
     }
     
 }
 
 @media (max-width:2210px) {
     .slider-box {
-        height: 700px;
+        height: 665px;
     }
     
 }
 
 @media (max-width:1680px) {
     .slider-box {
-        height: 600px;
+        height: 565px;
     }
     
 }
 
 @media (max-width:1460px) {
     .slider-box {
-        height: 500px;
+        height: 465px;
     }
     
 }
 
 @media (max-width:1230px) {
     .slider-box {
-        height: 400px;
+        height: 365px;
     }
     
 }
 
 @media (max-width:970px) {
     .slider-box {
-        height: 300px;
+        height: 265px;
     }
     
 }
 
 @media (max-width:700px) {
     .slider-box {
-        height: 200px;
+        height: 195px;
     }
     
 }

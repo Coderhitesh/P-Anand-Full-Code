@@ -11,23 +11,24 @@ function EditBookBundle() {
     const editor = useRef(null);
     const [allTag, setAllTag] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [courses, setCourses] = useState([]);
-    const [filteredCourses, setFilteredCourses] = useState([]);
+    const [books, setBooks] = useState([]);
+    const [filteredBooks, setFilteredBooks] = useState([]);
     const [imagePreview, setImagePreview] = useState(null);
     const [formData, setFormData] = useState({
         bundleName: '',
         bundlePrice: '',
         bundleDiscountPercent: '',
         bundlePriceAfterDiscount: '',
-        categoryId: '',
-        bundleBookId: [],
+        categoryId: null,
+        bundleBookId: [], // Array of selected book IDs
         tag: '',
         bundleDescription: '',
         bundleImage: null,
-        bundleMode: [],
-        feature: false
     });
     const [isLoading, setIsLoading] = useState(false);
+
+    console.log('filteredBooks', filteredBooks);
+    console.log('formData.bundleBookId', formData.bundleBookId);
 
     // Fetch the existing bundle data
     useEffect(() => {
@@ -35,15 +36,24 @@ function EditBookBundle() {
             try {
                 const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-book-bundle/${id}`);
                 const data = res.data.data;
+
+                // Convert bundleBookId to array of IDs
+                const bookIds = data.bundleBookId.map(book => book.id); // Assuming bundleBookId is an array of objects with `id` property
+
                 setFormData({
                     ...data,
+                    bundleBookId: bookIds, // Set it as an array of IDs
                     bundleImage: data.bundleImage ? { url: data.bundleImage.url } : null
                 });
                 setImagePreview(data.bundleImage ? data.bundleImage.url : null);
 
-                // Fetch categories and courses
-                handleFetch();
-                handleFetchTag();
+                if (data.categoryId) {
+                    const bookRes = await axios.get(`https://www.api.panandacademy.com/api/v1/get-book-by-category/${data.categoryId}`);
+                    setFilteredBooks(bookRes.data.data);
+                }
+
+                handleFetchCategories();
+                handleFetchTags();
             } catch (error) {
                 console.error('Error fetching bundle:', error);
             }
@@ -52,21 +62,9 @@ function EditBookBundle() {
         fetchBundle();
     }, [id]);
 
-    useEffect(()=>{
-        const handleFetchCourse = async () => {
-            try {
-                const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book')
-                setCourses(res.data.data)
-                setFilteredCourses(res.data.data);
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        handleFetchCourse()
-    },[])
 
     // Fetch categories for the dropdown
-    const handleFetch = async () => {
+    const handleFetchCategories = async () => {
         try {
             const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category');
             setCategories(res.data.data);
@@ -75,7 +73,23 @@ function EditBookBundle() {
         }
     };
 
-    const handleFetchTag = async () => {
+    // Fetch books
+    useEffect(() => {
+        const handleFetchBooks = async () => {
+            try {
+                const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book');
+                setBooks(res.data.data);
+                setFilteredBooks(res.data.data);
+            } catch (error) {
+                console.error('Error fetching books:', error);
+            }
+        };
+
+        handleFetchBooks();
+    }, []);
+
+    // Fetch tags
+    const handleFetchTags = async () => {
         try {
             const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag');
             setAllTag(res.data.data);
@@ -97,12 +111,30 @@ function EditBookBundle() {
         setImagePreview(preview);
     };
 
-    // Handle multi-select for courses
-    const handleCourseChange = (selectedOptions) => {
-        setFormData((prevFormData) => ({
+    // Handle multi-select for books
+    const handleBookChange = (selectedOptions) => {
+        const selectedIds = selectedOptions ? selectedOptions.map(option => option.value) : [];
+        setFormData({
+            ...formData,
+            bundleBookId: selectedIds // Set as an array of IDs
+        });
+    };
+
+
+    // Handle category change to filter books
+    const handleCategoryChange = async (e) => {
+        const selectedCategoryId = e.target.value;
+        setFormData(prevFormData => ({
             ...prevFormData,
-            bundleBookId: selectedOptions.map(option => option.value)
+            categoryId: selectedCategoryId
         }));
+
+        try {
+            const filtered = await axios.get(`https://www.api.panandacademy.com/api/v1/get-book-by-category/${selectedCategoryId}`);
+            setFilteredBooks(filtered.data.data);
+        } catch (error) {
+            console.error('Error fetching filtered books:', error);
+        }
     };
 
     // Handle input changes
@@ -134,6 +166,7 @@ function EditBookBundle() {
     // Handle changes in the JoditEditor
     const handleEditorChange = useCallback((newContent) => {
         setFormData(prevFormData => ({ ...prevFormData, bundleDescription: newContent }));
+        // console.log(newContent)
     }, []);
 
     // Handle form submission
@@ -169,22 +202,21 @@ function EditBookBundle() {
         }
     };
 
-    // Handle category change to filter courses
-    const handleCategoryChange = (e) => {
-        const selectedCategoryId = e.target.value;
-        setFormData(prevFormData => ({
-            ...prevFormData,
-            categoryId: selectedCategoryId
-        }));
-
-        const filtered = courses.filter(course => course.categoryId === selectedCategoryId);
-        setFilteredCourses(filtered);
-    };
-
     const editorConfig = {
         readonly: false,
         height: 400
     };
+
+    // Convert filteredBooks to options for react-select
+    const options = filteredBooks.map(book => ({
+        value: book._id,
+        label: book.bookName
+    }));
+
+    // Convert selected book IDs to react-select format
+    const selectedOptions = options.filter(option => formData.bundleBookId.includes(option.value));
+
+
 
     return (
         <>
@@ -206,8 +238,8 @@ function EditBookBundle() {
                             id="categoryId"
                             name="categoryId"
                             className="form-select"
-                            onChange={handleChange}
-                            value={formData.categoryId}
+                            onChange={handleCategoryChange}
+                            value={formData.categoryId || ''}
                         >
                             <option value="">Select Category</option>
                             {categories.map(category => (
@@ -289,22 +321,19 @@ function EditBookBundle() {
                             name="bundleImage"
                             onChange={handleFileChange}
                         />
-                        {imagePreview && <img style={{width:'140px',marginTop:'20px'}} src={imagePreview} alt="Image Preview" className="image-preview" />}
+                        {imagePreview && <img style={{ width: '140px', marginTop: '20px' }} src={imagePreview} alt="Image Preview" className="image-preview" />}
                     </div>
+
                     <div className="col-md-6">
-                        <label htmlFor="bundleBookId" className="form-label">Courses</label>
+                        <label htmlFor="bundleBookId" className="form-label">Books</label>
                         <Select
                             isMulti
+                            className="basic-multi-select"
+                            classNamePrefix="select"
                             name="bundleBookId"
-                            options={filteredCourses.map(course => ({
-                                value: course._id,
-                                label: course.bookName
-                            }))}
-                            value={formData.bundleBookId.map(id => ({
-                                value: id,
-                                label: courses.find(course => course._id === id)?.bookName
-                            }))}
-                            onChange={handleCourseChange}
+                            options={options}
+                            value={selectedOptions}
+                            onChange={handleBookChange}
                         />
                     </div>
 
@@ -314,11 +343,9 @@ function EditBookBundle() {
                             ref={editor}
                             value={formData.bundleDescription}
                             config={editorConfig}
-                            onChange={handleEditorChange}
+                            onChange={(newContent)=>handleEditorChange(newContent)}
                         />
                     </div>
-
-                    
 
                     <div className="col-md-12">
                         <button type="submit" className="btn btn-primary" disabled={isLoading}>
