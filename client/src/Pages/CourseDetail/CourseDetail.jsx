@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './courseDetail.css';
-import { toast, ToastContainer } from 'react-toastify';
+// import { toast, ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import Loading from '../../Components/Loading/Loading';
 
 function CourseDetail({ handleAddToCart, loadingFromCart }) {
@@ -196,7 +197,8 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                     <Loading />
                 ) : (
                     <>
-                        <ToastContainer />
+                        {/* <ToastContainer /> */}
+                        <Toaster />
                         <section className="py-5">
                             <div className="container">
                                 <div className="row gx-5">

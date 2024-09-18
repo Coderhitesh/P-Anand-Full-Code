@@ -4,7 +4,8 @@ import bg from './bg.jpg'
 import { useState } from 'react'
 import axios from 'axios'
 import Loading from '../Loading/Loading'
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom'
 
@@ -71,7 +72,8 @@ const Signin = () => {
 
   return (
     <>
-    <ToastContainer />
+    {/* <ToastContainer /> */}
+    <Toaster />
         {loading ? (
         <Loading/>
 

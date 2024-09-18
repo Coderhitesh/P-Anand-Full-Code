@@ -3,7 +3,8 @@ import './Login.css'
 import bg from './bg.jpg'
 import { useState } from 'react'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom'
 import Loading from '../../Pages/Loading/Loading'
@@ -62,7 +63,8 @@ const Login = () => {
     }
     return (
         <>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
+        <Toaster />
             {loading ? (
                 <Loading />
             ) : (<section className='login-account'>

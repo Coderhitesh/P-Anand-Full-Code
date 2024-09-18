@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
 import './Header.css';
-import { toast, ToastContainer } from 'react-toastify';
+// import { toast, ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Header = () => {
   const [sidetoggle, setSideToggle] = useState(false);
@@ -24,6 +25,7 @@ const Header = () => {
 
   return (
     <>
+    <Toaster />
       <header>
         <div className="top-head">
           <div className="right">
@@ -205,7 +207,7 @@ const Header = () => {
           </ul>
         </div>
       </header>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </>
   );
 };

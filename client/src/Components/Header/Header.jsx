@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import logo from './logo.webp'
 import menu from './icon-13.svg'
 import axios from 'axios'
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
+import toast, { Toaster } from 'react-hot-toast';
 import './header.css'
 import { CartContext } from '../../Context/CartContext'
 
@@ -60,6 +61,7 @@ function Header() {
     }, [fetchData]);
     return (
         <div>
+            <Toaster />
             {/* <!-- Offcanvas Area start  --> */}
             <div className="fix-area">
                 <div className="offcanvas__info">

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+// import { toast, ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import Loading from '../../Components/Loading/Loading';
 
 function BundleDetail({ handleAddToCart, loadingFromCart }) {
@@ -174,7 +175,8 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
                     <Loading />
                 ) : (
                     <>
-                        <ToastContainer />
+                        {/* <ToastContainer /> */}
+                        <Toaster />
                         {/* content */}
                         <section className="py-5">
                             <div className="container">

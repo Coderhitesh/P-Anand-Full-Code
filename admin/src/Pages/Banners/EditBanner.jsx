@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EditBanner = () => {
@@ -90,7 +91,8 @@ const EditBanner = () => {
 
     return (
         <>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
+            <Toaster />
             <div className="bread">
                 <div className="head">
                     <h4>Edit Banner</h4>

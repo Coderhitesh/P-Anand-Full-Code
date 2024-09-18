@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import JoditEditor from 'jodit-react';
 
@@ -219,7 +220,8 @@ const EditProduct = () => {
 
     return (
         <>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
+            <Toaster />
             <div className="container mt-4">
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <h4>Edit Course</h4>

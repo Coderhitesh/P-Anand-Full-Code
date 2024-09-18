@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 // Create the CartContext
@@ -142,6 +143,7 @@ export const CartProvider = ({ children }) => {
 
     return (
         <CartContext.Provider value={contextValues}>
+            {/* <Toaster /> */}
             {children}
         </CartContext.Provider>
     );

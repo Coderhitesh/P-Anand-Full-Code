@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+// import { toast, ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 
 function BookCart() {
     const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem('bookCart')) || []);
@@ -41,7 +42,8 @@ function BookCart() {
 
     return (
         <>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
+            <Toaster />
             {/* Breadcrumb Section Start */}
             <div className="breadcrumb-wrapper">
                 <div className="container">

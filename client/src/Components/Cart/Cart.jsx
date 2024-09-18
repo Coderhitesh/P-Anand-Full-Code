@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import { CartContext } from '../../Context/CartContext';
 import AddressForOrder from '../Address/AddressForOrder';
 
@@ -21,7 +22,8 @@ function Cart() {
 
     return (
         <>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
+            <Toaster />
             {/* Breadcrumb Section Start */}
             <div className="breadcrumb-wrapper">
                 <div className="container">

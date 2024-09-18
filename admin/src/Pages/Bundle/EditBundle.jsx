@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import JoditEditor from 'jodit-react';
 import Select from 'react-select';
@@ -243,6 +244,7 @@ const EditBundle = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Toaster />
       <div className="bread">
         <div className="head">
           <h4>Edit Course Bundle</h4>

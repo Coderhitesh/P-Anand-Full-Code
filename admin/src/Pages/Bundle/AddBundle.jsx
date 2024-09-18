@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import JoditEditor from 'jodit-react';
 import Select from 'react-select'; // Importing react-select
@@ -230,7 +231,8 @@ const AddBundle = () => {
 
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <Toaster />
       <div className="bread">
         <div className="head">
           <h4>Add Bundle</h4>

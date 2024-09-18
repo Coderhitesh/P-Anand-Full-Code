@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import Select from 'react-select';
 
@@ -194,7 +195,8 @@ function EditTeacher() {
 
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <Toaster />
       <div className="bread">
         <div className="head">
           <h4>Edit Teacher</h4>

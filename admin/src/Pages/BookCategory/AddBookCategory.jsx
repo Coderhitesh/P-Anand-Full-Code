@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 
 function AddBookCategory() {
@@ -75,7 +76,8 @@ const handleSubmit = async (e) => {
 
 return (
     <>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
+        <Toaster />
         <div className="bread">
             <div className="head">
                 <h4>Add Book Category</h4>

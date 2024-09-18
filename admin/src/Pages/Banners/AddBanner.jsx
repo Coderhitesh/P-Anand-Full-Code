@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AddBanner = () => {
     const [formData, setFormData] = useState({
@@ -63,7 +64,8 @@ const AddBanner = () => {
 
     return (
         <>
-            <ToastContainer />
+        <Toaster />
+            {/* <ToastContainer /> */}
             <div className="bread">
                 <div className="head">
                     <h4>Add Banner</h4>

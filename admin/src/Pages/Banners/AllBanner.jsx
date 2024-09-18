@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AllBanner = () => {
     const [banners, setBanners] = useState([]);
@@ -81,7 +82,8 @@ const AllBanner = () => {
 
     return (
         <>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
+            <Toaster />
             <div className="bread">
                 <div className="head">
                     <h4>All Banners </h4>

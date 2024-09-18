@@ -20,7 +20,8 @@ import Login from './Components/Auth/Login';
 import ForgetPassword from './Components/Auth/ForgetPassword';
 import Signin from './Components/Auth/Signin';
 import BookCart from './Pages/BookCart/BookCart';
-import { toast, ToastContainer } from 'react-toastify';
+// import { toast, ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
@@ -183,6 +184,7 @@ function App() {
         </Routes>
         <Footer />
         {/* <ToastCon??tainer /> */}
+        <Toaster />
       </BrowserRouter>
     </>
   );

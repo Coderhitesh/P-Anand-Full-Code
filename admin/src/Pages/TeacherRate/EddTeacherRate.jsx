@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+// import { toast, ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 
 function EddTeacherRate() {
@@ -87,7 +88,8 @@ function EddTeacherRate() {
 
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <Toaster />
       <div className="bread">
         <div className="head">
           <h4>Edit Teacher Rating</h4>

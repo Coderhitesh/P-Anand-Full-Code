@@ -3,7 +3,8 @@ import { BrowserRouter } from 'react-router-dom'
 import Dashboard from './Pages/Dashboard/Dashboard';
 // import Home from './Components/Home/Home';
 import Home from './components/Home/Home'
-import { ToastContainer } from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import Login from './components/Auth/Login';
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
       <>
         <BrowserRouter>
           <Login />
-          <ToastContainer />
+          <Toaster />
         </BrowserRouter>
       </>
     )
@@ -22,7 +23,7 @@ function App() {
     <>
       <BrowserRouter>
         <Home />
-        <ToastContainer />
+        <Toaster />
       </BrowserRouter>
     </>
   );
