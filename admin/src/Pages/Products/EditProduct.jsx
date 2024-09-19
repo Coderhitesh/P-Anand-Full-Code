@@ -208,7 +208,7 @@ const EditProduct = () => {
     const editorConfig = {
         readonly: false,
         height: 400,
-        autofocus: true,  // Ensure autofocus is enabled
+        // autofocus: true,  // Ensure autofocus is enabled
     };
 
     const handleEditorChange = useCallback((newContent) => {

@@ -48,7 +48,7 @@ const EditBookTag = () => {
             await axios.put(`https://www.api.panandacademy.com/api/v1/update-book-tag/${id}`, formData);
             toast.success("Tag Updated Successfully!");
             setBtnLoading(false);
-            window.location.href = '/all-tags';
+            window.location.href = '/all-book-tags';
         } catch (error) {
             setBtnLoading(false);
             console.error('Error updating Tag:', error);

@@ -354,7 +354,7 @@ exports.updateTeacher = async (req, res) => {
 
             // Delete the old image from cloud storage
             if (existingTeacher.teacherImage.public_id) {
-                await deleteImage(existingTeacher.teacherImage.public_id);
+                await deleteImageFromCloudinary(existingTeacher.teacherImage.public_id);
             }
 
             existingTeacher.teacherImage.url = image;

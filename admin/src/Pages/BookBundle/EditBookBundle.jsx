@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 // import { ToastContainer, toast } from 'react-toastify';
@@ -57,12 +57,12 @@ function EditBookBundle() {
                 handleFetchTags();
             } catch (error) {
                 console.error('Error fetching bundle:', error);
+                toast.error('Failed to fetch bundle details.');
             }
         };
 
         fetchBundle();
     }, [id]);
-
 
     // Fetch categories for the dropdown
     const handleFetchCategories = async () => {
@@ -71,6 +71,7 @@ function EditBookBundle() {
             setCategories(res.data.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
+            toast.error('Failed to fetch categories.');
         }
     };
 
@@ -83,6 +84,7 @@ function EditBookBundle() {
                 setFilteredBooks(res.data.data);
             } catch (error) {
                 console.error('Error fetching books:', error);
+                toast.error('Failed to fetch books.');
             }
         };
 
@@ -96,6 +98,7 @@ function EditBookBundle() {
             setAllTag(res.data.data);
         } catch (error) {
             console.log(error);
+            toast.error('Failed to fetch tags.');
         }
     };
 
@@ -135,6 +138,7 @@ function EditBookBundle() {
             setFilteredBooks(filtered.data.data);
         } catch (error) {
             console.error('Error fetching filtered books:', error);
+            toast.error('Failed to fetch filtered books.');
         }
     };
 
@@ -203,10 +207,11 @@ function EditBookBundle() {
         }
     };
 
-    const editorConfig = {
+    // Memoize editorConfig to prevent re-creation on every render
+    const editorConfig = useMemo(() => ({
         readonly: false,
         height: 400
-    };
+    }), []);
 
     // Convert filteredBooks to options for react-select
     const options = filteredBooks.map(book => ({
@@ -217,12 +222,10 @@ function EditBookBundle() {
     // Convert selected book IDs to react-select format
     const selectedOptions = options.filter(option => formData.bundleBookId.includes(option.value));
 
-
-
     return (
         <>
             {/* <ToastContainer /> */}
-            
+
             <Toaster />
             <div className="bread">
                 <div className="head">
@@ -243,6 +246,7 @@ function EditBookBundle() {
                             className="form-select"
                             onChange={handleCategoryChange}
                             value={formData.categoryId || ''}
+                            
                         >
                             <option value="">Select Category</option>
                             {categories.map(category => (
@@ -259,6 +263,7 @@ function EditBookBundle() {
                             name="tag"
                             value={formData.tag}
                             onChange={handleChange}
+                            
                         >
                             <option value="">Select Tag</option>
                             {allTag.map((item, index) => (
@@ -276,6 +281,7 @@ function EditBookBundle() {
                             name="bundleName"
                             value={formData.bundleName}
                             onChange={handleChange}
+                            
                         />
                     </div>
 
@@ -288,6 +294,7 @@ function EditBookBundle() {
                             name="bundlePrice"
                             value={formData.bundlePrice}
                             onChange={handleChange}
+                            
                         />
                     </div>
 
@@ -300,6 +307,7 @@ function EditBookBundle() {
                             name="bundleDiscountPercent"
                             value={formData.bundleDiscountPercent}
                             onChange={handleChange}
+                            
                         />
                     </div>
 
@@ -312,6 +320,8 @@ function EditBookBundle() {
                             name="bundlePriceAfterDiscount"
                             value={formData.bundlePriceAfterDiscount}
                             onChange={handleChange}
+                            readOnly
+                            
                         />
                     </div>
 
@@ -323,6 +333,8 @@ function EditBookBundle() {
                             id="bundleImage"
                             name="bundleImage"
                             onChange={handleFileChange}
+                            accept="image/*"
+                            
                         />
                         {imagePreview && <img style={{ width: '140px', marginTop: '20px' }} src={imagePreview} alt="Image Preview" className="image-preview" />}
                     </div>
@@ -337,6 +349,7 @@ function EditBookBundle() {
                             options={options}
                             value={selectedOptions}
                             onChange={handleBookChange}
+                            
                         />
                     </div>
 
@@ -346,7 +359,9 @@ function EditBookBundle() {
                             ref={editor}
                             value={formData.bundleDescription}
                             config={editorConfig}
-                            onChange={(newContent)=>handleEditorChange(newContent)}
+                            onFocus={() => editor.current && editor.current.focus()}
+                            onChange={(newContent) => handleEditorChange(newContent)}
+                            tabIndex={1} // Ensure the editor is focusable
                         />
                     </div>
 
@@ -358,7 +373,6 @@ function EditBookBundle() {
                 </form>
             </div>
         </>
-    );
-}
+    )}
 
-export default EditBookBundle;
+    export default EditBookBundle;

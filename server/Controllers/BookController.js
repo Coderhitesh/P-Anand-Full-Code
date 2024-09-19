@@ -216,6 +216,19 @@ exports.updateBook = async (req, res) => {
             }
         }
 
+        // if(req.file){
+        //     await deletePdfFromCloudinary(book.bookPdf.public_id)
+        //     const newpdf = await uploadPDF(req.file.path)
+        //     const { url, public_id } = newpdf
+        //     book.bookPdf.url = url;
+        //     book.bookPdf.public_id = public_id;
+        //     try{
+        //         fs.unlinkSync(req.file.path);
+        //     }catch(error){
+        //         console.error('Error deleting pdf file from local storage:', error);
+        //     }
+        // }
+
         // Update the book details with the data from the request body
         if (bookName) book.bookName = bookName;
         if (bookCategory) book.bookCategory = bookCategory;
@@ -231,7 +244,7 @@ exports.updateBook = async (req, res) => {
 
         // Save the updated book document
         const updatedBook = await book.save();
-
+        console.log('updatedBook',updatedBook)
         res.status(200).json({
             success: true,
             message: 'Book updated successfully',
@@ -248,29 +261,90 @@ exports.updateBook = async (req, res) => {
     }
 };
 
-exports.updateBookFeature = async (req,res) => {
+exports.updateBook = async (req, res) => {
     try {
-        const {feature} = req.body;
-        const Book = await BookSchema.findByIdAndUpdate(req.params.id, {feature}, {new:true});
-        if(!Book){
-            return res.status(404).json({
-                success: false,
-                message: 'Book not found',
-            })
+        const id = req.params._id; // Assuming book ID is provided in the route parameters
+        console.log(req.body);
+        const {
+            bookName, bookCategory, bookSubCategory, bookDescription, bookTagName, bookAuthor,
+            feature, bookPrice, bookAfterDiscount, bookDiscountPresent, BookHSNCode
+        } = req.body;
+
+        // Check for empty required fields
+        const emptyField = [];
+        if (!bookName) emptyField.push('Book Name');
+        if (!bookCategory) emptyField.push('Book Category');
+        if (!bookDescription) emptyField.push('Book Description');
+        if (!bookTagName) emptyField.push('Book TagName');
+        if (!feature) emptyField.push('Feature');
+        if (!bookPrice) emptyField.push('Book Price');
+        if (!bookAfterDiscount) emptyField.push('Book After Discount');
+        if (!bookDiscountPresent) emptyField.push('Book Discount Present');
+        if (!BookHSNCode) emptyField.push('Book HSN Code');
+
+        if (emptyField.length > 0) {
+            return res.status(400).json({ message: "Please fill all the fields", emptyField });
         }
-        res.status(200).json({
-            success: true,
-            message: 'Book Feature status updated successfully',
-            data: Book
-        })
+
+        // Find the existing book by ID
+        const existingBook = await BookSchema.findById(id);
+        if (!existingBook) {
+            return res.status(404).json({ success: false, message: 'Book not found' });
+        }
+
+        // Update book details
+        existingBook.bookName = bookName || existingBook.bookName;
+        existingBook.bookCategory = bookCategory || existingBook.bookCategory;
+        existingBook.bookSubCategory = bookSubCategory || existingBook.bookSubCategory;
+        existingBook.bookDescription = bookDescription || existingBook.bookDescription;
+        existingBook.bookTagName = bookTagName || existingBook.bookTagName;
+        existingBook.bookAuthor = bookAuthor || existingBook.bookAuthor;
+        existingBook.feature = feature !== undefined ? feature : existingBook.feature;
+        existingBook.bookPrice = bookPrice || existingBook.bookPrice;
+        existingBook.bookAfterDiscount = bookAfterDiscount || existingBook.bookAfterDiscount;
+        existingBook.bookDiscountPresent = bookDiscountPresent || existingBook.bookDiscountPresent;
+        existingBook.BookHSNCode = BookHSNCode || existingBook.BookHSNCode;
+
+        if (req.files) {
+            const { bookImage, bookPdf } = req.files;
+
+            // Update the book image if a new one is uploaded
+            if (bookImage) {
+                if (existingBook.bookImage.public_id) {
+                    await deleteImageFromCloudinary(existingBook.bookImage.public_id); // Delete old image
+                }
+                const imgUrl = await uploadImage(bookImage[0].path);
+                existingBook.bookImage.url = imgUrl.image;
+                existingBook.bookImage.public_id = imgUrl.public_id;
+                fs.unlinkSync(bookImage[0].path); // Delete local file after upload
+            }
+
+            // Update the book PDF if a new one is uploaded
+            if (bookPdf) {
+                if (existingBook.bookPdf.public_id) {
+                    await deletePdfFromCloudinary(existingBook.bookPdf.public_id); // Delete old PDF
+                }
+                const pdfUrl = await uploadPDF(bookPdf[0].path);
+                existingBook.bookPdf.url = pdfUrl.pdf;
+                existingBook.bookPdf.public_id = pdfUrl.public_id;
+                fs.unlinkSync(bookPdf[0].path); // Delete local file after upload
+            }
+        }
+
+        // Save the updated book
+        const updatedBook = await existingBook.save();
+        if (!updatedBook) {
+            return res.status(400).json({ success: false, message: 'Failed to update Book' });
+        }
+
+        res.status(200).json({ success: true, message: 'Book Updated Successfully', data: updatedBook });
+
     } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error',
-        })
+        console.error('Internal server error in updating book:', error);
+        res.status(500).json({ success: false, message: 'Internal server error in updating book', error: error.message });
     }
-}
+};
+
 
 exports.getBookByCategory = async (req, res) => {
     const { categoryId } = req.params;

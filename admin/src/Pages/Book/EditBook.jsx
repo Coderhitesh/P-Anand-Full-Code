@@ -1,21 +1,19 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
-// import { ToastContainer, toast } from 'react-toastify';
 import toast, { Toaster } from 'react-hot-toast';
-import 'react-toastify/dist/ReactToastify.css';
 import JoditEditor from 'jodit-react';
 
 function EditBook() {
     const { id } = useParams();
-    const editor = useRef(null); // Make sure editor has a ref
+    const editor = useRef(null); // Reference to the editor instance
     const [categories, setCategories] = useState([]);
     const [allTags, setTags] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
     const [imagePreview, setImagePreview] = useState(null); // Single image preview
     const [pdfPreview, setPdfPreview] = useState(null); // Single PDF preview
     const [formData, setFormData] = useState({
-        bookName: '',
+        bookName: '', // Added bookName field
         bookDescription: '',
         bookTagName: '',
         bookCategory: '',
@@ -37,7 +35,7 @@ function EditBook() {
                 const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-book/${id}`);
                 const book = res.data.data;
                 setFormData({
-                    bookName: book.bookName,
+                    bookName: book.bookName, // Set bookName in formData
                     bookDescription: book.bookDescription,
                     bookTagName: book.bookTagName,
                     bookCategory: book.bookCategory,
@@ -54,6 +52,7 @@ function EditBook() {
                 setPdfPreview(book.bookPdf.url); // Assuming bookPdfUrl is the URL of the PDF
             } catch (error) {
                 console.error('Error fetching book details:', error);
+                toast.error('Failed to fetch book details.');
             }
         };
 
@@ -68,6 +67,7 @@ function EditBook() {
                 setCategories(res.data.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
+                toast.error('Failed to fetch categories.');
             }
         };
 
@@ -77,6 +77,7 @@ function EditBook() {
                 setTags(res.data.data);
             } catch (error) {
                 console.error('Error fetching tags:', error);
+                toast.error('Failed to fetch tags.');
             }
         };
 
@@ -86,26 +87,26 @@ function EditBook() {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        const preview = URL.createObjectURL(file);
-
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            bookImage: file
-        }));
-
-        setImagePreview(preview);
+        if (file) {
+            const preview = URL.createObjectURL(file);
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                bookImage: file
+            }));
+            setImagePreview(preview);
+        }
     };
 
     const handlePdfChange = (e) => {
         const file = e.target.files[0];
-        const preview = URL.createObjectURL(file);
-
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            bookPdf: file
-        }));
-
-        setPdfPreview(preview);
+        if (file) {
+            const preview = URL.createObjectURL(file);
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                bookPdf: file
+            }));
+            setPdfPreview(preview);
+        }
     };
 
     const handleCategoryChange = async (e) => {
@@ -123,6 +124,7 @@ function EditBook() {
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
                 setSubcategories([]);
+                toast.error('Failed to fetch subcategories.');
             }
         }
     };
@@ -174,7 +176,7 @@ function EditBook() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
+            console.log(response.data)
             toast.success('Book Updated Successfully');
             setIsLoading(false);
         } catch (error) {
@@ -190,15 +192,15 @@ function EditBook() {
         }
     }, []); // Runs once when the component mounts
 
-    const editorConfig = {
+    // Corrected useMemo usage
+    const editorConfig = useMemo(() => ({
         readonly: false,
         height: 400,
-        autofocus: true, 
-    };
+        // Add other configurations as needed
+    }), []);
 
     return (
         <>
-            {/* <ToastContainer /> */}
             <Toaster />
             <div className="bread">
                 <div className="head">
@@ -211,9 +213,31 @@ function EditBook() {
 
             <div className="d-form">
                 <form className="row g-3" onSubmit={handleSubmit}>
+                    {/* Book Name */}
+                    <div className="col-md-6">
+                        <label htmlFor="bookName" className="form-label">Book Name</label>
+                        <input
+                            type="text"
+                            id="bookName"
+                            name="bookName"
+                            value={formData.bookName}
+                            onChange={handleChange}
+                            className="form-control"
+                            required
+                        />
+                    </div>
+
+                    {/* Category */}
                     <div className="col-md-6">
                         <label htmlFor="bookCategory" className="form-label">Category</label>
-                        <select onChange={handleCategoryChange} name='bookCategory' value={formData.bookCategory} className="form-select" id="bookCategory">
+                        <select
+                            onChange={handleCategoryChange}
+                            name='bookCategory'
+                            value={formData.bookCategory}
+                            className="form-select"
+                            id="bookCategory"
+                          
+                        >
                             <option value="">Choose Category</option>
                             {categories && categories.map((category, index) => (
                                 <option key={index} value={category._id}>{category.categoryName}</option>
@@ -221,9 +245,17 @@ function EditBook() {
                         </select>
                     </div>
 
+                    {/* Sub Category */}
                     <div className="col-md-6">
                         <label htmlFor="bookSubCategory" className="form-label">Sub Category</label>
-                        <select onChange={handleChange} name='bookSubCategory' value={formData.bookSubCategory} className="form-select" id="bookSubCategory">
+                        <select
+                            onChange={handleChange}
+                            name='bookSubCategory'
+                            value={formData.bookSubCategory}
+                            className="form-select"
+                            id="bookSubCategory"
+                            
+                        >
                             <option value="">Choose Sub Category</option>
                             {subcategories && subcategories.map((subcategory, index) => (
                                 <option key={index} value={subcategory}>{subcategory}</option>
@@ -231,9 +263,17 @@ function EditBook() {
                         </select>
                     </div>
 
+                    {/* Tag */}
                     <div className="col-md-6">
                         <label htmlFor="Tag" className="form-label">Tag</label>
-                        <select onChange={handleChange} name='bookTagName' value={formData.bookTagName} className="form-select" id="Tag">
+                        <select
+                            onChange={handleChange}
+                            name='bookTagName'
+                            value={formData.bookTagName}
+                            className="form-select"
+                            id="Tag"
+                           
+                        >
                             <option value="">Choose Tag</option>
                             {allTags && allTags.map((tag, index) => (
                                 <option key={index} value={tag._id}>{tag.tagName}</option>
@@ -241,58 +281,131 @@ function EditBook() {
                         </select>
                     </div>
 
+                    {/* Book Image */}
                     <div className="col-md-6">
                         <label htmlFor="bookImage" className="form-label">Book Image</label>
-                        <input type="file" id="bookImage" accept="image/*" onChange={handleFileChange} className="form-control" />
-                        {imagePreview && <img src={imagePreview} alt="Image preview" style={{ width: '100px', height: 'auto' }} />}
+                        <input
+                            type="file"
+                            id="bookImage"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="form-control"
+                        />
+                        {imagePreview && (
+                            <img
+                                src={imagePreview}
+                                alt="Image preview"
+                                style={{ width: '100px', height: 'auto', marginTop: '10px' }}
+                            />
+                        )}
                     </div>
 
+                    {/* Book PDF */}
                     <div className="col-md-6">
                         <label htmlFor="bookPdf" className="form-label">Book PDF</label>
-                        <input type="file" id="bookPdf" accept=".pdf" onChange={handlePdfChange} className="form-control" />
-                        {/* {pdfPreview && <embed src={pdfPreview} type="application/pdf" width="100%" height="100px" />} */}
+                        <input
+                            type="file"
+                            id="bookPdf"
+                            accept=".pdf"
+                            onChange={handlePdfChange}
+                            className="form-control"
+                        />
+                        {/* Uncomment if you want to display PDF preview */}
+                        {/* {pdfPreview && (
+                            <embed
+                                src={pdfPreview}
+                                type="application/pdf"
+                                width="100%"
+                                height="100px"
+                                style={{ marginTop: '10px' }}
+                            />
+                        )} */}
                     </div>
 
+                    {/* Book Price */}
                     <div className="col-md-6">
                         <label htmlFor="bookPrice" className="form-label">Book Price</label>
-                        <input type="number" id="bookPrice" name="bookPrice" value={formData.bookPrice} onChange={handleChange} className="form-control" />
+                        <input
+                            type="number"
+                            id="bookPrice"
+                            name="bookPrice"
+                            value={formData.bookPrice}
+                            onChange={handleChange}
+                            className="form-control"
+                            required
+                        />
                     </div>
 
+                    {/* Book Discount */}
                     <div className="col-md-6">
                         <label htmlFor="bookDiscountPresent" className="form-label">Book Discount (%)</label>
-                        <input type="number" id="bookDiscountPresent" name="bookDiscountPresent" value={formData.bookDiscountPresent} onChange={handleChange} className="form-control" />
+                        <input
+                            type="number"
+                            id="bookDiscountPresent"
+                            name="bookDiscountPresent"
+                            value={formData.bookDiscountPresent}
+                            onChange={handleChange}
+                            className="form-control"
+                            required
+                        />
                     </div>
 
+                    {/* Book Price After Discount */}
                     <div className="col-md-6">
                         <label htmlFor="bookAfterDiscount" className="form-label">Book Price After Discount</label>
-                        <input type="text" id="bookAfterDiscount" name="bookAfterDiscount" value={formData.bookAfterDiscount} readOnly className="form-control" />
+                        <input
+                            type="text"
+                            id="bookAfterDiscount"
+                            name="bookAfterDiscount"
+                            value={formData.bookAfterDiscount}
+                            readOnly
+                            className="form-control"
+                        />
                     </div>
 
+                    {/* Book HSN Code */}
                     <div className="col-md-6">
                         <label htmlFor="BookHSNCode" className="form-label">Book HSN Code</label>
-                        <input type="text" id="BookHSNCode" name="BookHSNCode" value={formData.BookHSNCode} onChange={handleChange} className="form-control" />
+                        <input
+                            type="text"
+                            id="BookHSNCode"
+                            name="BookHSNCode"
+                            value={formData.BookHSNCode}
+                            onChange={handleChange}
+                            className="form-control"
+                            required
+                        />
                     </div>
 
+                    {/* Feature Book */}
                     <div className="col-md-6">
                         <div className="form-check">
-                            <input type="checkbox" id="feature" name="feature" checked={formData.feature} onChange={handleChange} className="form-check-input" />
+                            <input
+                                type="checkbox"
+                                id="feature"
+                                name="feature"
+                                checked={formData.feature}
+                                onChange={handleChange}
+                                className="form-check-input"
+                            />
                             <label htmlFor="feature" className="form-check-label">Feature Book</label>
                         </div>
                     </div>
 
+                    {/* Book Description */}
                     <div className="col-md-12">
                         <label htmlFor="bookDescription" className="form-label">Book Description</label>
                         <JoditEditor
                             ref={editor}
-                            key="bookEditor"
                             value={formData.bookDescription}
                             config={editorConfig}
-                            onChange={(newContent) => handleEditorChange(newContent)}
+                            onChange={handleEditorChange}
                         />
                     </div>
 
+                    {/* Submit Button */}
                     <div className="col-12">
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" disabled={isLoading}>
                             {isLoading ? 'Updating...' : 'Update Book'}
                         </button>
                     </div>
@@ -300,6 +413,7 @@ function EditBook() {
             </div>
         </>
     );
+
 }
 
 export default EditBook;

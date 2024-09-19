@@ -126,8 +126,7 @@ router.post('/create-book', upload.fields([{ name: 'bookImage' }, { name: 'bookP
 router.get('/get-all-book', getAllBook)
 router.get('/get-single-book/:_id', getSingleBook)
 router.delete('/delete-book/:_id', deleteBook)
-router.put('/update-book/:_id', upload.single('bookImage'), updateBook)
-router.put('/update-book-feature/:id', updateBookFeature)
+router.put('/update-book/:_id', upload.fields([{ name: 'bookImage' }, { name: 'bookPdf' }]), updateBook)
 router.get('/get-book-by-category/:categoryId', getBookByCategory)
 
 // category book routers 
