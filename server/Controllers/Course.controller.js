@@ -93,7 +93,7 @@ exports.getAllCourse = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-        res.stause(500).json({
+        res.status(500).json({
             success: false,
             message: "Internal Server Error in Getting All Courses"
         })
@@ -110,6 +110,20 @@ exports.deleteCourse = async (req, res) => {
                 message: 'Course not found'
             })
         }
+
+         // Check if the course has an associated image and delete it from Cloudinary
+         if (course.courseImage && course.courseImage.public_id) {
+            try {
+                await deleteImageFromCloudinary(course.courseImage.public_id);
+            } catch (error) {
+                console.error('Error deleting image from Cloudinary:', error);
+                return res.status(500).json({
+                    success: false,
+                    message: 'Failed to delete course image from Cloudinary'
+                });
+            }
+        };l
+
         await course.deleteOne()
         res.status(200).json({
             success: true,

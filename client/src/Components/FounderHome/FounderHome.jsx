@@ -37,14 +37,16 @@ function FounderHome() {
                     <div className="founder-row">
                         {
                             data && data.map((item, index) => (
-                                <Link to={`/founder-page/${item.name}`} key={index} className="founder-col">
+                                // <Link to={`/founder-page/${item.name}`} key={index} className="founder-col">
+                                <Link to={`/founder-page`} key={index} className="founder-col">
                                     <div className="img">
                                         <img src={item.img} alt="" />
                                     </div>
                                     <div className="founder-detail">
                                         <h3>{item.name}</h3>
                                         <span>{item.position}</span>
-                                        <Link to={`/founder-page/${item.name}`}>Read More <i class="ri-arrow-right-line"></i></Link>
+                                        <Link to={`/founder-page`}>Read More <i class="ri-arrow-right-line"></i></Link>
+                                        {/* <Link to={`/founder-page/${item.name}`}>Read More <i class="ri-arrow-right-line"></i></Link> */}
                                     </div>
                                 </Link>
                             ))

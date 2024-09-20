@@ -33,6 +33,7 @@ import Term from './Pages/PrivacyPolicy/Term';
 import Refund from './Pages/PrivacyPolicy/Refund';
 import { CartContext } from './Context/CartContext';
 import FounderPage from './Pages/FounderPage/FounderPage';
+import GalleryPage from './Pages/GalleryPage/GalleryPage';
 
 const SESSION_KEY = 'user_session';
 const SESSION_EXPIRATION_KEY = 'user_session_expiration';
@@ -179,8 +180,10 @@ function App() {
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/term" element={<Term />} />
           <Route path="/refund" element={<Refund />} />
+          <Route path="/gallery" element={<GalleryPage />} />
 
-          <Route path="/founder-page/:name" element={<FounderPage />} />
+          {/* <Route path="/founder-page/:name" element={<FounderPage />} /> */}
+          <Route path="/founder-page" element={<FounderPage />} />
         </Routes>
         <Footer />
         {/* <ToastCon??tainer /> */}

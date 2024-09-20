@@ -20,6 +20,8 @@ const { createBookBundle, getBookBundle, getSingleBookBundle, updateBookBundle, 
 const { AddProductIncart, increaseQuantity, removeProductFromCart, GetAllProductCart, GetAllBySessionIdProductCart, GetAllByUserIdProductCart, decreaseQuantity, deleteBySessionId } = require('../Controllers/CartController')
 const { CreateCheckOut, FindMode, MakeOrder, MyOrderOfPenDrive, OrderStatusById, ShowMyCourse, BookOrder } = require('../Controllers/Ordercontroller')
 const { createCourseMode, getCourseMode, getSingleCourseMode, deleteCourseMode, updateCourseMode } = require('../Controllers/CourseMode.controller')
+const { createGalleryCategory, getAllImageCategory, deleteGalleryCategory, singleGalleryCategory, updateGalleryCategory } = require('../Controllers/GalleryCategory.Controller')
+const { createGalleryImage, getSingleGalleryImage, getAllGalleryImage, deleteGalleryImage, updateGalleryImage } = require('../Controllers/GalleryImage.controller')
 const router = express.Router()
 
 // user routers 
@@ -184,13 +186,6 @@ router.get('/show-course', protect, ShowMyCourse);
 router.get('/book-order', protect, BookOrder);
 
 
-
-
-
-
-
-
-
 // router.post('/Find-Mode', FindMode)
 
 // course mode 
@@ -201,6 +196,21 @@ router.get('/get-single-course-mode', getSingleCourseMode)
 router.delete('/delete-course-mode:_id', deleteCourseMode)
 router.put('/update-course-mode:_id', updateCourseMode)
 
+// gallery category name routes 
+
+router.post('/create-gallery-category-name',createGalleryCategory)
+router.get('/get-all-gallery-category-name',getAllImageCategory)
+router.get('/get-single-gallery-category-name/:_id',singleGalleryCategory)
+router.delete('/delete-gallery-category-name/:_id',deleteGalleryCategory)
+router.put('/update-gallery-category-name/:_id',updateGalleryCategory)
+
+// gallery image router 
+
+router.post('/create-gallery-image',upload.single('image'),createGalleryImage)
+router.get('/get-single-gallery-image/:_id',getSingleGalleryImage)
+router.get('/get-all-gallery-image',getAllGalleryImage)
+router.delete('/delete-gallery-image/:_id',deleteGalleryImage)
+router.put('/update-gallery-image/:_id',upload.single('image'),updateGalleryImage)
 
 
 module.exports = router

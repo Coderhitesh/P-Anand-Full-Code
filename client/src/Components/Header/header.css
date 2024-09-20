@@ -6,9 +6,18 @@
     display: none;
 }
 
+.relativecontainer {
+    padding: 0px 0px !important;
+}
+
+.header-main .main-menu ul{
+    padding-left: 0px !important;
+}
+
 @media (max-width:1200px) {
     .relativecontainer {
         position: relative;
+        padding: 0px 20px !important;
     }
 
     .header-humbager {

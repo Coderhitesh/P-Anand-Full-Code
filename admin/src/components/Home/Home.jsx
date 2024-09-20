@@ -65,6 +65,12 @@ import EditBookCategory from '../../Pages/BookCategory/EditBookCategory'
 import EditTeacher from '../../Pages/Teacher/EditTeacher'
 import EditBookTag from '../../Pages/BookTag/EditBookTag'
 import EditBookBundle from '../../Pages/BookBundle/EditBookBundle'
+import AddGalleryCategoryName from '../../Pages/GalleryCategoryName/AddGalleryCategoryName'
+import AllGalleryCategoryName from '../../Pages/GalleryCategoryName/AllGalleryCategoryName'
+import EditGalleryCategoryName from '../../Pages/GalleryCategoryName/EditGalleryCategoryName'
+import AllGalleryImage from '../../Pages/GalleryImage/AllGalleryImage'
+import AddGalleryImage from '../../Pages/GalleryImage/AddGalleryImage'
+import EditGalleryImage from '../../Pages/GalleryImage/EditGalleryImage'
 
 
 const Home = () => {
@@ -187,6 +193,19 @@ const Home = () => {
           <Route path='/all-book-bundle' element={<AllBookBundle />} />
           <Route path='/add-book-bundle' element={<AddBookBundle />} />
           <Route path='/edit-book-bundle/:id' element={<EditBookBundle />} />
+
+          {/* gallery cateogory name route  */}
+
+          <Route path={"/all-gallery-name"} element={<AllGalleryCategoryName />} />
+          <Route path={"/add-gallery-name"} element={<AddGalleryCategoryName />} />
+          <Route path={"/edit-gallery-name/:id"} element={<EditGalleryCategoryName />} />
+
+          {/* gallery image router  */}
+
+          <Route path={"/all-gallery-image"} element={<AllGalleryImage />} />
+          <Route path={"/add-gallery-image"} element={<AddGalleryImage />} />
+          <Route path={"/edit-gallery-image/:id"} element={<EditGalleryImage />} />
+
 
           {/* all-shop */}
 

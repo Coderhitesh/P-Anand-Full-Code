@@ -46,7 +46,7 @@ function Header() {
         // Check if the token exists in sessionStorage
         const token = sessionStorage.getItem('token');
         setIsLoggedIn(!!token); // Set isLoggedIn to true if the token exists
-        
+
         handleFetchCategory()
     }, [isLoggedIn])
     const handleLogout = () => {
@@ -131,10 +131,10 @@ function Header() {
                                     </Link>
                                 </div>
                                 <div className="social-icon d-flex align-items-center">
-                                    <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i className="fab fa-facebook-f"></i></a>
-                                    <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i className="fab fa-instagram"></i></a>
+                                    <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: '#1877F2' }} className="fab fa-facebook-f"></i></a>
+                                    <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: '#FF005A' }} className="fab fa-instagram"></i></a>
                                     {/* <!-- <a href="https://x.com/"><i className="fab fa-twitter"></i></a> --> */}
-                                    <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i className="fab fa-youtube"></i></a>
+                                    <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: '#BA1F26' }} className="fab fa-youtube"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -161,10 +161,10 @@ function Header() {
                             </li>
                         </ul>
                         <div className="social-icon topheader-social-icon d-flex align-items-center">
-                            <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i className="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i className="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: '#1877F2' }} className="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: '#FF005A' }} className="fab fa-instagram"></i></a>
                             {/* <!-- <a href="https://x.com/"><i className="fab fa-twitter"></i></a> --> */}
-                            <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i className="fab fa-youtube"></i></a>
+                            <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: '#BA1F26' }} className="fab fa-youtube"></i></a>
                         </div>
                         <ul className="list">
                             {/* <!-- <li><i className="fa-light fa-comments"></i><a href="#">Live Chat</a></li> --> */}
@@ -209,7 +209,7 @@ function Header() {
                                                         <li><Link to={'/'}> Home</Link></li>
                                                         <li><Link to={'/about'}> About us</Link></li>
                                                         <li>
-                                                            <a> Shop Courses<i className="fas fa-angle-down"></i></a>
+                                                            <Link to={'/shop'}>Course<i className="fas fa-angle-down"></i></Link>
                                                             <ul className="submenu">
                                                                 {
                                                                     category && category.map((item, index) => (
@@ -217,10 +217,13 @@ function Header() {
 
                                                                     ))
                                                                 }
-                                                                {/* <li><Link to={'/shop'}>Offline Class</Link></li> */}
                                                             </ul>
                                                         </li>
-                                                        <li><Link to={'/shop'}> Courses</Link></li>
+                                                        {/* <li><Link to={'/shop'}> Course</Link></li> */}
+                                                        <li><Link to={'/Book'}> Books</Link></li>
+                                                        <li><Link to={'/founder-page'}> Founder</Link></li>
+                                                        <li><Link to={'/gallery'}> Gallery</Link></li>
+                                                        {/* <li><Link to={'/shop'}> Courses</Link></li> */}
 
                                                         {/* <li><Link to={''}>Blog</Link></li> */}
                                                         <li>
@@ -242,7 +245,10 @@ function Header() {
                                             <li><Link onClick={handleMobDeActive} to={'/'}>Home</Link></li>
                                             <li><Link onClick={handleMobDeActive} to={'/about'}>About Us</Link></li>
                                             <li>
-                                                <Link onClick={handleDropActive}>Shop <i class="ri-add-line"></i></Link>
+                                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} className="">
+                                                    <Link to={'/shop'}>Shop </Link>
+                                                    <i style={{ fontWeight: '700', fontSize: '25px', paddingRight: '5px' }} onClick={handleDropActive} class="ri-add-line"></i>
+                                                </div>
                                                 <ul className={`drop-down ${isActiveDropDown ? 'active-drop-down' : ''}`}>
                                                     {
                                                         category && category.map((item, index) => (
@@ -253,7 +259,8 @@ function Header() {
                                                     }
                                                 </ul>
                                             </li>
-                                            <li><Link onClick={handleMobDeActive} to={'/shop'}>Courses</Link></li>
+                                            <li><Link onClick={handleMobDeActive} to={'/founder-page'}>Founder</Link></li>
+                                            <li><Link onClick={handleMobDeActive} to={'/gallery'}>Gallery</Link></li>
                                             <li><Link onClick={handleMobDeActive} to={'/contact'}>Contact Us</Link></li>
                                         </ul>
                                         <div className="btn-box">

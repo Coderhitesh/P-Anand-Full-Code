@@ -16,8 +16,10 @@ const CategoryModel = new mongoose.Schema({
         public_id:{
             type:String,
         }
-    }
-
+    },
+    // position:{
+    //     type:Number
+    // }
 })
 
 const Category = mongoose.model('Category', CategoryModel)

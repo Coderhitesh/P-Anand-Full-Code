@@ -127,7 +127,7 @@ function TopRatedBook() {
                   <div className="book-availablity">
                     <div className="details">
                       <ul className="price-list">
-                        <li style={{ fontSize: '16px' }}>Rs:{item.startingPrice} - Rs:{item.endingPrice}</li>
+                        <li style={{ fontSize: '16px', width:'100%' }}>Rs:{item.startingPrice} - Rs:{item.endingPrice}</li>
                       </ul>
                       <div className="progress-line"></div>
                     </div>

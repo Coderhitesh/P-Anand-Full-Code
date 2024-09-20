@@ -185,6 +185,24 @@ const Header = () => {
             </li>
             <li>
               <Link
+                to="/all-gallery-name"
+                onClick={() => handleTabClick('all-gallery-name')}
+                className={activeTab === 'all-gallery-name' ? 'active' : ''}
+              >
+                <i className="fa-solid fa-truck-arrow-right me-1"></i> Gallery Name
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/all-gallery-image"
+                onClick={() => handleTabClick('all-gallery-image')}
+                className={activeTab === 'all-gallery-image' ? 'active' : ''}
+              >
+                <i className="fa-solid fa-truck-arrow-right me-1"></i> Gallery Image
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/all-users"
                 onClick={() => handleTabClick('all-users')}
                 className={activeTab === 'all-users' ? 'active' : ''}
@@ -192,6 +210,7 @@ const Header = () => {
                 <i className="fa-solid fa-user me-1"></i> All Users
               </Link>
             </li>
+            
             <li>
               <Link
                 to="/all-orders"
