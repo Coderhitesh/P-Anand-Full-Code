@@ -8,3 +8,152 @@
     margin-bottom: 10px; /* Adds some space between each list item */
     line-height: 1.6; /* Increases line height for better readability */
 }
+
+
+
+
+
+
+.filled {
+    color: gold;
+}
+
+.empty {
+    color: lightgray;
+}
+
+.fa-star-half-alt {
+    color: gold;
+}
+
+
+/* courseDetail.css */
+
+/* Style for the course description section */
+.course-description {
+    font-family: Arial, sans-serif;
+    color: #333;
+    width: 100%;
+}
+
+.course-description ul{
+    border: none;
+}
+
+/* Style for tables within the course description */
+.course-description table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.course-description table, 
+.course-description th, 
+.course-description td {
+    border: 1px solid #ddd;
+}
+
+.course-description th, 
+.course-description td {
+    padding: 12px;
+    text-align: left;
+}
+
+.course-description th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.course-description tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Style for the course name */
+.course-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+}
+
+/* Style for price */
+/* .mainprice {
+    font-size: 20px;
+    color: #A66021 !important;
+    margin-top: 15px;
+} */
+
+.discountPrice {
+    color: #dc3545;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.discountPrice del {
+    color: #6c757d;
+}
+
+/* Style for the star ratings */
+.text-warning .fa-star {
+    color: rgb(164, 96, 35);
+}
+
+.text-warning .fa-star.empty {
+    color: #ccc;
+}
+
+
+/* courseDetail.css */
+
+/* Customize the nav-pills container */
+.nav-pills {
+    border-bottom: 2px solid #e0e0e0; /* Adds a subtle border below the pills */
+    list-style: none ;
+}
+
+/* Customize each nav-link (pill) */
+.nav-pills .nav-link {
+    color: #555; /* Default text color */
+    background-color: #f8f9fa; /* Light background */
+    border: 1px solid #dee2e6; /* Light border */
+    border-radius: 50px; /* Rounded pills */
+    margin-right: 5px; /* Space between pills */
+    transition: all 0.3s ease; /* Smooth transition on hover and active */
+}
+
+/* Hover effect for nav-link */
+.nav-pills .nav-link:hover {
+    background-color: #e9ecef;
+    color: #000;
+}
+
+/* Active pill styling */
+.nav-pills .nav-link.active {
+    background-color: #A66021 !important; /* Primary color */
+    color: #fff;
+    border-color: #A66021 !important;
+}
+
+/* Optional: Add a box-shadow to active pill for depth */
+.nav-pills .nav-link.active {
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Style for the tab-content container */
+.tab-content {
+    padding: 20px;
+    border-top: none; /* Removes the top border to connect with pills */
+    border-radius: 0 0 8px 8px; /* Rounded bottom corners */
+    background-color: #fff; /* White background */
+    box-shadow: 0 2px 45px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Style for each tab-pane */
+.tab-pane {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Fade-in animation for tab panes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

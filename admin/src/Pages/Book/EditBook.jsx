@@ -7,13 +7,14 @@ import JoditEditor from 'jodit-react';
 function EditBook() {
     const { id } = useParams();
     const editor = useRef(null); // Reference to the editor instance
+    const additionalInfoEditor = useRef(null); // Reference to the aditionalInfo editor instance
     const [categories, setCategories] = useState([]);
     const [allTags, setTags] = useState([]);
     const [subcategories, setSubcategories] = useState([]);
     const [imagePreview, setImagePreview] = useState(null); // Single image preview
     const [pdfPreview, setPdfPreview] = useState(null); // Single PDF preview
     const [formData, setFormData] = useState({
-        bookName: '', // Added bookName field
+        bookName: '',
         bookDescription: '',
         bookTagName: '',
         bookCategory: '',
@@ -25,6 +26,7 @@ function EditBook() {
         bookAfterDiscount: '',
         bookDiscountPresent: '',
         BookHSNCode: '',
+        aditionalInfo: '' // Added aditionalInfo field
     });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -35,21 +37,22 @@ function EditBook() {
                 const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-book/${id}`);
                 const book = res.data.data;
                 setFormData({
-                    bookName: book.bookName, // Set bookName in formData
+                    bookName: book.bookName,
                     bookDescription: book.bookDescription,
                     bookTagName: book.bookTagName,
                     bookCategory: book.bookCategory,
                     bookSubCategory: book.bookSubCategory,
-                    bookImage: null, // Initially null, to be handled in preview
-                    bookPdf: null, // Initially null, to be handled in preview
+                    bookImage: null,
+                    bookPdf: null,
                     feature: book.feature,
                     bookPrice: book.bookPrice,
                     bookAfterDiscount: book.bookAfterDiscount,
                     bookDiscountPresent: book.bookDiscountPresent,
                     BookHSNCode: book.BookHSNCode,
+                    aditionalInfo: book.aditionalInfo || '' // Fetch aditionalInfo data
                 });
-                setImagePreview(book.bookImage.url); // Assuming bookImageUrl is the URL of the image
-                setPdfPreview(book.bookPdf.url); // Assuming bookPdfUrl is the URL of the PDF
+                setImagePreview(book.bookImage.url);
+                setPdfPreview(book.bookPdf.url);
             } catch (error) {
                 console.error('Error fetching book details:', error);
                 toast.error('Failed to fetch book details.');
@@ -158,6 +161,10 @@ function EditBook() {
         setFormData(prevFormData => ({ ...prevFormData, bookDescription: newContent }));
     }, []);
 
+    const handleAdditionalInfoEditorChange = useCallback((newContent) => {
+        setFormData(prevFormData => ({ ...prevFormData, aditionalInfo: newContent }));
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -176,7 +183,7 @@ function EditBook() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(response.data)
+            console.log(response.data);
             toast.success('Book Updated Successfully');
             setIsLoading(false);
         } catch (error) {
@@ -188,16 +195,15 @@ function EditBook() {
 
     useEffect(() => {
         if (editor.current) {
-            editor.current?.focus(); // Set focus to the editor when it mounts
+            editor.current?.focus();
         }
-    }, []); // Runs once when the component mounts
+    }, []);
 
-    // Corrected useMemo usage
     const editorConfig = useMemo(() => ({
         readonly: false,
-        height: 400,
-        // Add other configurations as needed
+        height: 400
     }), []);
+
 
     return (
         <>
@@ -400,6 +406,17 @@ function EditBook() {
                             value={formData.bookDescription}
                             config={editorConfig}
                             onChange={handleEditorChange}
+                        />
+                    </div>
+
+                    {/* Additional Info Editor */}
+                    <div className="col-md-12">
+                        <label htmlFor="aditionalInfo" className="form-label">Additional Information</label>
+                        <JoditEditor
+                            ref={additionalInfoEditor}
+                            value={formData.aditionalInfo}
+                            config={editorConfig}
+                            onChange={handleAdditionalInfoEditorChange}
                         />
                     </div>
 

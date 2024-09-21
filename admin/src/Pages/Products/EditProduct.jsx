@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
-// import { ToastContainer, toast } from 'react-toastify';
+import { Link, useParams, useNavigate } from 'react-router-dom'; // Added useNavigate
 import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import JoditEditor from 'jodit-react';
 
 const EditProduct = () => {
     const { id } = useParams();
+    const navigate = useNavigate(); // For programmatic navigation after update
     const editorRef = useRef(null); 
     const [categories, setCategories] = useState([]);
     const [allTags, setTags] = useState([]);
@@ -23,25 +23,84 @@ const EditProduct = () => {
         courseMode: [],
         feature: false,
         startingPrice: '',
-        endingPrice: ''
+        endingPrice: '',
+        aditionalInfo: '' // Added aditionalInfo
     });
     const [isLoading, setIsLoading] = useState(false);
 
     // Predefined course modes
     const courseModes = ['Live', 'Offline', 'Pen Drive', 'Google Drive'];
 
+    // Fetch Categories
+    const fetchCategories = useCallback(async () => {
+        try {
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
+            setCategories(res.data.data);
+        } catch (error) {
+            console.error('There was an error fetching the categories!', error);
+        }
+    }, []);
+
+    // Fetch Tags
+    const fetchTags = useCallback(async () => {
+        try {
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
+            setTags(res.data.data);
+        } catch (error) {
+            console.error('There was an error fetching the tags!', error);
+        }
+    }, []);
+
+    // Fetch Single Product Data
+    const fetchSingleProduct = useCallback(async () => {
+        try {
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-course/${id}`);
+            const data = res.data.data;
+
+            setFormData({
+                courseName: data.courseName || '',
+                courseDescription: data.courseDescription || '',
+                courseTagName: data.courseTagName || '',
+                courseCategory: data.courseCategory || '',
+                courseSubCategory: data.courseSubCategory || '',
+                courseImage: null, // Will handle image separately
+                courseMode: data.courseMode || [],
+                feature: data.feature || false,
+                startingPrice: data.startingPrice || '',
+                endingPrice: data.endingPrice || '',
+                aditionalInfo: data.aditionalInfo || '' // Set aditionalInfo
+            });
+
+            if (data.courseImage) {
+                setImagePreview(data.courseImage.url);
+            }
+        } catch (error) {
+            console.error('There was an error fetching the product!', error);
+        }
+    }, [id]);
+
+    useEffect(() => {
+        fetchCategories();
+        fetchTags();
+        fetchSingleProduct();
+    }, [fetchCategories, fetchTags, fetchSingleProduct]);
+
+    // Handle File Change
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        const preview = URL.createObjectURL(file);
+        if (file) {
+            const preview = URL.createObjectURL(file);
 
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            courseImage: file
-        }));
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                courseImage: file
+            }));
 
-        setImagePreview(preview);
+            setImagePreview(preview);
+        }
     };
 
+    // Handle Category Change
     const handleCategoryChange = async (e) => {
         const { value } = e.target;
         setFormData((prevFormData) => ({
@@ -61,6 +120,7 @@ const EditProduct = () => {
         }
     };
 
+    // Handle Input Change
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData((prevFormData) => ({
@@ -69,11 +129,13 @@ const EditProduct = () => {
         }));
     };
 
+    // Calculate Discounted Price
     const calculateDiscountedPrice = (price, discountPercent) => {
         const discount = (price * discountPercent) / 100;
         return price - discount;
     };
 
+    // Handle Course Mode Change
     const handleCourseModeChange = (index, e) => {
         const { name, value } = e.target;
         const updatedCourseMode = [...formData.courseMode];
@@ -98,6 +160,7 @@ const EditProduct = () => {
         }));
     };
 
+    // Add Course Mode
     const addCourseMode = () => {
         setFormData((prevFormData) => ({
             ...prevFormData,
@@ -108,6 +171,7 @@ const EditProduct = () => {
         }));
     };
 
+    // Remove Course Mode
     const removeCourseMode = (index) => {
         const updatedCourseMode = [...formData.courseMode];
         updatedCourseMode.splice(index, 1);
@@ -117,56 +181,7 @@ const EditProduct = () => {
         }));
     };
 
-    const fetchCategories = useCallback(async () => {
-        try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
-            setCategories(res.data.data);
-        } catch (error) {
-            console.error('There was an error fetching the categories!', error);
-        }
-    }, []);
-
-    const fetchTags = useCallback(async () => {
-        try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
-            setTags(res.data.data);
-        } catch (error) {
-            console.error('There was an error fetching the tags!', error);
-        }
-    }, []);
-
-    const fetchSingleProduct = useCallback(async () => {
-        try {
-            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-course/${id}`);
-            const data = res.data.data;
-
-            setFormData({
-                courseName: data.courseName,
-                courseDescription: data.courseDescription,
-                courseTagName: data.courseTagName,
-                courseCategory: data.courseCategory,
-                courseSubCategory: data.courseSubCategory,
-                courseImage: null, // Will handle image separately
-                courseMode: data.courseMode || [],
-                feature: data.feature || false,
-                startingPrice: data.startingPrice || '',
-                endingPrice: data.endingPrice || ''
-            });
-
-            if (data.courseImage) {
-                setImagePreview(data.courseImage.url);
-            }
-        } catch (error) {
-            console.error('There was an error fetching the product!', error);
-        }
-    }, [id]);
-
-    useEffect(() => {
-        fetchCategories();
-        fetchTags();
-        fetchSingleProduct();
-    }, [fetchCategories, fetchTags, fetchSingleProduct]);
-
+    // Handle Form Submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -191,7 +206,7 @@ const EditProduct = () => {
 
             toast.success('Course Updated Successfully');
             setIsLoading(false);
-            window.location.href = "/all-courses";
+            navigate("/all-courses"); // Use navigate instead of window.location.href
         } catch (error) {
             console.error('Error:', error);
             toast.error('An Error Occurred');
@@ -199,28 +214,22 @@ const EditProduct = () => {
         }
     };
 
-    useEffect(() => {
-        if (editorRef.current) {
-            editorRef.current?.editor?.focus();
-        }
-    }, []);
-
+    // Editor Configuration
     const editorConfig = {
         readonly: false,
         height: 400,
-        // autofocus: true,  // Ensure autofocus is enabled
     };
 
-    const handleEditorChange = useCallback((newContent) => {
+    // Handle Editor Change for Multiple Fields
+    const handleEditorChange = useCallback((newContent, field) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            courseDescription: newContent
+            [field]: newContent
         }));
     }, []);
 
     return (
         <>
-            {/* <ToastContainer /> */}
             <Toaster />
             <div className="container mt-4">
                 <div className="d-flex justify-content-between align-items-center mb-4">
@@ -233,6 +242,7 @@ const EditProduct = () => {
                 <div className="card p-4">
                     <form onSubmit={handleSubmit}>
                         <div className="row g-3">
+                            {/* Category Selection */}
                             <div className="col-md-6">
                                 <label htmlFor="courseCategory" className="form-label">Category</label>
                                 <select onChange={handleCategoryChange} name='courseCategory' value={formData.courseCategory} className="form-select" id="courseCategory">
@@ -243,6 +253,7 @@ const EditProduct = () => {
                                 </select>
                             </div>
 
+                            {/* Sub Category Selection */}
                             <div className="col-md-6">
                                 <label htmlFor="courseSubCategory" className="form-label">Sub Category</label>
                                 <select onChange={handleChange} name='courseSubCategory' value={formData.courseSubCategory} className="form-select" id="courseSubCategory">
@@ -253,6 +264,7 @@ const EditProduct = () => {
                                 </select>
                             </div>
 
+                            {/* Course Name */}
                             <div className="col-md-6">
                                 <label htmlFor="courseName" className="form-label">Course Name</label>
                                 <input
@@ -266,8 +278,7 @@ const EditProduct = () => {
                                 />
                             </div>
 
-                            
-
+                            {/* Course Tag */}
                             <div className="col-md-6">
                                 <label htmlFor="courseTagName" className="form-label">Course Tag</label>
                                 <select onChange={handleChange} name='courseTagName' value={formData.courseTagName} className="form-select" id="courseTagName">
@@ -278,8 +289,9 @@ const EditProduct = () => {
                                 </select>
                             </div>
 
+                            {/* Course Image */}
                             <div className="col-md-12">
-                                <label htmlFor="courseImage" className="form-label">Course Image(800 x 800)</label>
+                                <label htmlFor="courseImage" className="form-label">Course Image (800 x 800)</label>
                                 <input
                                     type="file"
                                     onChange={handleFileChange}
@@ -287,11 +299,13 @@ const EditProduct = () => {
                                     id="courseImage"
                                     accept="image/*"
                                 />
-                                {imagePreview && <img src={imagePreview} style={{width:'140px'}} alt="Preview" className="img-fluid mt-2" />}
+                                {imagePreview && <img src={imagePreview} style={{ width: '140px' }} alt="Preview" className="img-fluid mt-2" />}
                             </div>
 
+                            {/* Course Modes */}
                             {formData.courseMode.map((mode, index) => (
                                 <div className="row g-3" key={index}>
+                                    {/* Mode Type */}
                                     <div className="col-md-3">
                                         <label htmlFor={`courseMode[${index}].modeType`} className="form-label">Mode Type</label>
                                         <select
@@ -308,6 +322,7 @@ const EditProduct = () => {
                                         </select>
                                     </div>
 
+                                    {/* Course Price */}
                                     <div className="col-md-3">
                                         <label htmlFor={`courseMode[${index}].coursePrice`} className="form-label">Course Price</label>
                                         <input
@@ -320,6 +335,7 @@ const EditProduct = () => {
                                         />
                                     </div>
 
+                                    {/* Discount Percent */}
                                     <div className="col-md-3">
                                         <label htmlFor={`courseMode[${index}].courseDiscountPercent`} className="form-label">Discount (%)</label>
                                         <input
@@ -332,6 +348,7 @@ const EditProduct = () => {
                                         />
                                     </div>
 
+                                    {/* Price After Discount */}
                                     <div className="col-md-3">
                                         <label htmlFor={`courseMode[${index}].coursePriceAfterDiscount`} className="form-label">Price After Discount</label>
                                         <input
@@ -344,6 +361,7 @@ const EditProduct = () => {
                                         />
                                     </div>
 
+                                    {/* Course Link (Conditional) */}
                                     {mode.modeType === 'Google Drive' && (
                                         <div className="col-md-12">
                                             <label htmlFor={`courseMode[${index}].courseLink`} className="form-label">Course Link</label>
@@ -358,6 +376,7 @@ const EditProduct = () => {
                                         </div>
                                     )}
 
+                                    {/* Remove Mode Button */}
                                     <div className="col-md-12">
                                         <button type="button" onClick={() => removeCourseMode(index)} className="btn btn-danger mt-2">
                                             Remove Mode
@@ -366,12 +385,14 @@ const EditProduct = () => {
                                 </div>
                             ))}
 
+                            {/* Add Course Mode Button */}
                             <div className="col-md-12">
                                 <button type="button" onClick={addCourseMode} className="btn btn-primary mt-2">
                                     Add Course Mode
                                 </button>
                             </div>
 
+                            {/* Feature Checkbox */}
                             <div className="col-md-12">
                                 <label htmlFor="feature" className="form-check-label">Feature</label>
                                 <input
@@ -384,6 +405,7 @@ const EditProduct = () => {
                                 />
                             </div>
 
+                            {/* Starting Price */}
                             <div className="col-md-6">
                                 <label htmlFor="startingPrice" className="form-label">Starting Price</label>
                                 <input
@@ -396,6 +418,7 @@ const EditProduct = () => {
                                 />
                             </div>
 
+                            {/* Ending Price */}
                             <div className="col-md-6">
                                 <label htmlFor="endingPrice" className="form-label">Ending Price</label>
                                 <input
@@ -408,17 +431,31 @@ const EditProduct = () => {
                                 />
                             </div>
 
+                            {/* Course Description Editor */}
                             <div className="col-md-12">
                                 <label htmlFor="courseDescription" className="form-label">Course Description</label>
                                 <JoditEditor
-                                ref={editorRef}
-                                value={formData.courseDescription}
-                                config={editorConfig}
-                                tabIndex={1}
-                                onBlur={(newContent) => handleEditorChange(newContent)} // Use onBlur or onChange as per need
-                            />
+                                    ref={editorRef}
+                                    value={formData.courseDescription}
+                                    config={editorConfig}
+                                    tabIndex={1}
+                                    onBlur={(newContent) => handleEditorChange(newContent, 'courseDescription')} // Pass 'courseDescription'
+                                />
                             </div>
 
+                            {/* Additional Info Editor */}
+                            <div className="col-md-12">
+                                <label htmlFor="aditionalInfo" className="form-label">Additional Info</label>
+                                <JoditEditor
+                                    ref={editorRef}
+                                    value={formData.aditionalInfo}
+                                    config={editorConfig}
+                                    tabIndex={2}
+                                    onBlur={(newContent) => handleEditorChange(newContent, 'aditionalInfo')} // Pass 'aditionalInfo'
+                                />
+                            </div>
+
+                            {/* Submit Button */}
                             <div className="col-md-12 text-center mt-4">
                                 <button type="submit" className="btn btn-primary" disabled={isLoading}>
                                     {isLoading ? 'Updating...' : 'Update Product'}

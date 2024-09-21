@@ -20,7 +20,8 @@ const AddProduct = () => {
         courseSubCategory: '',
         courseImage: null, // Single file
         courseMode: [],
-        feature: false
+        feature: false,
+        aditionalInfo:''
     });
     const [isLoading, setIsLoading] = useState(false);
     const [modes, setModes] = useState([])
@@ -28,7 +29,7 @@ const AddProduct = () => {
     const fetchAllModes = async (req, res) => {
         try {
             const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-course-mode')
-            console.log(res.data.data)
+            // console.log(res.data.data)
             setModes(res.data.data)
         } catch (error) {
             console.log(error)
@@ -212,9 +213,13 @@ const AddProduct = () => {
         height: 400
     };
 
-    const handleEditorChange = useCallback((newContent) => {
-        console.log(newContent)
-        setFormData(prevFormData => ({ ...prevFormData, courseDescription: newContent }));
+    // const handleEditorChange = useCallback((newContent) => {
+    //     console.log(newContent)
+    //     setFormData(prevFormData => ({ ...prevFormData, courseDescription: newContent }));
+    // }, []);
+
+    const handleEditorChange = useCallback((newContent, field) => {
+        setFormData(prevFormData => ({ ...prevFormData, [field]: newContent }));
     }, []);
 
     return (
@@ -381,13 +386,25 @@ const AddProduct = () => {
                         <button type="button" onClick={addCourseMode} className="btn btn-primary">Add Course Mode</button>
                     </div>
 
+                    {/* Course Description Editor */}
                     <div className="col-md-12">
                         <label htmlFor="courseDescription" className="form-label">Course Description</label>
                         <JoditEditor
                             ref={editor}
                             value={formData.courseDescription}
                             config={editorConfig}
-                            onBlur={(newContent) => handleEditorChange(newContent)}
+                            onBlur={(newContent) => handleEditorChange(newContent, 'courseDescription')} // Pass 'courseDescription'
+                        />
+                    </div>
+
+                     {/* Additional Info Editor */}
+                     <div className="col-md-12">
+                        <label htmlFor="aditionalInfo" className="form-label">Additional Info</label>
+                        <JoditEditor
+                            ref={editor}
+                            value={formData.aditionalInfo}
+                            config={editorConfig}
+                            onBlur={(newContent) => handleEditorChange(newContent, 'aditionalInfo')} // Pass 'aditionalInfo'
                         />
                     </div>
 

@@ -62,6 +62,9 @@ const BookSchema = new mongoose.Schema({
         public_id:{
             type:String,
         }
+    },
+    aditionalInfo: {
+        type: String
     }
 })
 

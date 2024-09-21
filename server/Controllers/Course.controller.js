@@ -4,7 +4,7 @@ const fs = require('fs');
 
 exports.createCourse = async (req, res) => {
     try {
-        const { courseName, courseDescription, endingPrice, startingPrice, feature, courseCategory, courseSubCategory, courseTagName, courseRating, courseCountRating, courseTeacherName, courseMode } = req.body
+        const { courseName, courseDescription, endingPrice, startingPrice, feature, courseCategory, courseSubCategory, courseTagName, courseRating, courseCountRating, courseTeacherName, courseMode, aditionalInfo } = req.body
         // console.log(req.body)
         // console.log(JSON.parse(req.body.courseMode))
         const mode  =JSON.parse(req.body.courseMode)
@@ -16,6 +16,8 @@ exports.createCourse = async (req, res) => {
         if (!startingPrice) emptyField.push('Starting PRice')
         if (!courseTagName) emptyField.push('Course Tag Name')
         if (!endingPrice) emptyField.push('Ending Price')
+        if (!aditionalInfo) emptyField.push('Aditional Info')
+
    
         if (emptyField.length > 0) {
             return res.status(400).json({ message: `Please fill in the following fields: ${emptyField.join(', ')}` })
@@ -32,7 +34,8 @@ exports.createCourse = async (req, res) => {
             courseCountRating,
             courseTeacherName,
             courseTagName,
-            feature
+            feature,
+            aditionalInfo
         })
 
         if (req.file) {
@@ -100,19 +103,21 @@ exports.getAllCourse = async (req, res) => {
     }
 }
 
+// const { deleteImageFromCloudinary } = require('../utils/cloudinary'); // Ensure correct path
+
 exports.deleteCourse = async (req, res) => {
     try {
-        const id = req.params._id
-        const course = await MainCourse.findById(id)
+        const id = req.params._id; // Ensure route parameter is 'id'
+        const course = await MainCourse.findById(id);
         if (!course) {
             return res.status(400).json({
                 success: false,
                 message: 'Course not found'
-            })
+            });
         }
 
-         // Check if the course has an associated image and delete it from Cloudinary
-         if (course.courseImage && course.courseImage.public_id) {
+        // Check if the course has an associated image and delete it from Cloudinary
+        if (course.courseImage && course.courseImage.public_id) {
             try {
                 await deleteImageFromCloudinary(course.courseImage.public_id);
             } catch (error) {
@@ -122,22 +127,23 @@ exports.deleteCourse = async (req, res) => {
                     message: 'Failed to delete course image from Cloudinary'
                 });
             }
-        };l
+        };
 
-        await course.deleteOne()
+        await course.deleteOne();
         res.status(200).json({
             success: true,
-            message: 'course deleted successfully',
+            message: 'Course deleted successfully',
             data: course
-        })
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).json({
             success: false,
-            message: 'Internal server erron in course deleting'
-        })
+            message: 'Internal server error in course deleting'
+        });
     }
-}
+};
+
 
 exports.getSingleCourse = async (req, res) => {
     try {
@@ -177,7 +183,8 @@ exports.updateCourse = async (req, res) => {
             courseSubCategory,
             courseTagName,
             courseMode,
-            feature
+            feature,
+            aditionalInfo
         } = req.body
 
         const data = await MainCourse.findById(id)
@@ -198,6 +205,7 @@ exports.updateCourse = async (req, res) => {
         if (courseMode) data.courseMode = JSON.parse(courseMode)
         if (feature) data.feature = feature
         if (courseTagName) data.courseTagName = courseTagName
+        if (aditionalInfo) data.aditionalInfo = aditionalInfo
 
         // Handle image update
         if (req.file) {

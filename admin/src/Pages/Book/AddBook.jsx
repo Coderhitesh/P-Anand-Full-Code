@@ -26,6 +26,7 @@ function AddBook() {
         bookAfterDiscount: '',
         bookDiscountPresent: '',
         BookHSNCode: '',
+        aditionalInfo:''
     });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -155,8 +156,12 @@ function AddBook() {
         height: 400
     };
 
-    const handleEditorChange = useCallback((newContent) => {
-        setFormData(prevFormData => ({ ...prevFormData, bookDescription: newContent }));
+    // const handleEditorChange = useCallback((newContent) => {
+    //     setFormData(prevFormData => ({ ...prevFormData, bookDescription: newContent }));
+    // }, []);
+
+    const handleEditorChange = useCallback((newContent, field) => {
+        setFormData(prevFormData => ({ ...prevFormData, [field]: newContent }));
     }, []);
 
     return (
@@ -268,7 +273,16 @@ function AddBook() {
                             ref={editor}
                             value={formData.bookDescription}
                             config={editorConfig}
-                            onBlur={(newContent) => handleEditorChange(newContent)}
+                            onBlur={(newContent) => handleEditorChange(newContent, 'bookDescription')}
+                        />
+                    </div>
+                    <div className="col-md-12">
+                        <label htmlFor="aditionalInfo" className="form-label">Addition info</label>
+                        <JoditEditor
+                            ref={editor}
+                            value={formData.aditionalInfo}
+                            config={editorConfig}
+                            onBlur={(newContent) => handleEditorChange(newContent, 'aditionalInfo')}
                         />
                     </div>
 

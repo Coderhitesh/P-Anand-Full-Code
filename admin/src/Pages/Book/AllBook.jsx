@@ -162,6 +162,7 @@ function AllBook() {
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Category</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Sub Category</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Description</th>
+                            <th style={{ whiteSpace: 'nowrap' }} scope="col">Addition Info</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Book Image</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Price</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Discount %</th>
@@ -182,6 +183,7 @@ function AllBook() {
                                 <td>{getCategoryNameById(course.bookCategory)}</td>
                                 <td>{course.bookSubCategory}</td>
                                 <td>{course.bookDescription.substring(0, 14) + '....'}</td>
+                                <td>{course.aditionalInfo ? course.aditionalInfo.substring(0, 14) + '....' : 'No additional info'}</td>
                                 <td><img src={course.bookImage.url} alt={course.bookName} style={{ width: '50px', height: '50px' }} /></td>
                                 <td>{course.bookPrice}</td>
                                 <td>{course.bookDiscountPresent}</td>

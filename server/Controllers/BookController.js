@@ -5,7 +5,7 @@ const fs = require('fs');
 exports.createBook = async (req, res) => {
     try {
         console.log(req.body);
-        const { bookName, bookCategory, bookSubCategory, bookDescription, bookTagName, bookAuthor, feature, bookPrice, bookAfterDiscount, bookDiscountPresent, BookHSNCode } = req.body;
+        const { bookName, bookCategory, bookSubCategory, bookDescription, bookTagName, bookAuthor, feature, bookPrice, bookAfterDiscount, bookDiscountPresent, BookHSNCode, aditionalInfo } = req.body;
         const emptyField = [];
 
         if (!bookName) emptyField.push('Book Name');
@@ -17,6 +17,7 @@ exports.createBook = async (req, res) => {
         if (!bookAfterDiscount) emptyField.push('Book After Discount');
         if (!bookDiscountPresent) emptyField.push('Book Discount Present');
         if (!BookHSNCode) emptyField.push('Book HSN Code');
+        if (!aditionalInfo) emptyField.push('Aditional Info');
 
         if (emptyField.length > 0) {
             return res.status(400).json({ message: "Please fill all the fields", emptyField });
@@ -34,6 +35,7 @@ exports.createBook = async (req, res) => {
             bookAfterDiscount,
             bookDiscountPresent,
             BookHSNCode,
+            aditionalInfo
         });
 
         if (req.files) {
@@ -169,97 +171,7 @@ exports.deleteBook = async (req, res) => {
 };
 
 
-exports.updateBook = async (req, res) => {
-    try {
-        const id = req.params._id;
-        const {
-            bookName,
-            bookCategory,
-            bookSubCategory,
-            bookDescription,
-            bookTagName,
-            bookAuthor,
-            feature,
-            bookPrice,
-            bookAfterDiscount,
-            bookDiscountPresent,
-            BookHSNCode
-        } = req.body;
 
-        // Find the book by ID
-        const book = await BookSchema.findById(id);
-        if (!book) {
-            return res.status(404).json({
-                success: false,
-                message: 'No book found with this ID'
-            });
-        }
-
-        // If a new image is uploaded, handle image replacement
-        if (req.file) {
-            // Delete the old image from Cloudinary
-            await deleteImageFromCloudinary(book.bookImage.public_id);
-
-            // Upload the new image to Cloudinary
-            const imgUrl = await uploadImage(req.file.path);
-            const { url, public_id } = imgUrl;
-
-            // Set the new image details in the book document
-            book.bookImage.url = url;
-            book.bookImage.public_id = public_id;
-
-            // Remove the uploaded file from the local server
-            try {
-                fs.unlinkSync(req.file.path);
-            } catch (error) {
-                console.error('Error deleting file from local storage:', error);
-            }
-        }
-
-        // if(req.file){
-        //     await deletePdfFromCloudinary(book.bookPdf.public_id)
-        //     const newpdf = await uploadPDF(req.file.path)
-        //     const { url, public_id } = newpdf
-        //     book.bookPdf.url = url;
-        //     book.bookPdf.public_id = public_id;
-        //     try{
-        //         fs.unlinkSync(req.file.path);
-        //     }catch(error){
-        //         console.error('Error deleting pdf file from local storage:', error);
-        //     }
-        // }
-
-        // Update the book details with the data from the request body
-        if (bookName) book.bookName = bookName;
-        if (bookCategory) book.bookCategory = bookCategory;
-        if (bookSubCategory) book.bookSubCategory = bookSubCategory;
-        if (bookDescription) book.bookDescription = bookDescription;
-        if (bookTagName) book.bookTagName = bookTagName;
-        if (bookAuthor) book.bookAuthor = bookAuthor;
-        if (feature !== undefined) book.feature = feature;
-        if (bookPrice) book.bookPrice = bookPrice;
-        if (bookAfterDiscount) book.bookAfterDiscount = bookAfterDiscount;
-        if (bookDiscountPresent) book.bookDiscountPresent = bookDiscountPresent;
-        if (BookHSNCode) book.BookHSNCode = BookHSNCode;
-
-        // Save the updated book document
-        const updatedBook = await book.save();
-        console.log('updatedBook',updatedBook)
-        res.status(200).json({
-            success: true,
-            message: 'Book updated successfully',
-            data: updatedBook
-        });
-
-    } catch (error) {
-        console.error('Internal server error in updating book:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error in updating book',
-            error: error
-        });
-    }
-};
 
 exports.updateBook = async (req, res) => {
     try {
@@ -267,7 +179,7 @@ exports.updateBook = async (req, res) => {
         console.log(req.body);
         const {
             bookName, bookCategory, bookSubCategory, bookDescription, bookTagName, bookAuthor,
-            feature, bookPrice, bookAfterDiscount, bookDiscountPresent, BookHSNCode
+            feature, bookPrice, bookAfterDiscount, bookDiscountPresent, BookHSNCode, aditionalInfo
         } = req.body;
 
         // Check for empty required fields
@@ -281,6 +193,7 @@ exports.updateBook = async (req, res) => {
         if (!bookAfterDiscount) emptyField.push('Book After Discount');
         if (!bookDiscountPresent) emptyField.push('Book Discount Present');
         if (!BookHSNCode) emptyField.push('Book HSN Code');
+        if (!aditionalInfo) emptyField.push('addition Info');
 
         if (emptyField.length > 0) {
             return res.status(400).json({ message: "Please fill all the fields", emptyField });
@@ -304,6 +217,7 @@ exports.updateBook = async (req, res) => {
         existingBook.bookAfterDiscount = bookAfterDiscount || existingBook.bookAfterDiscount;
         existingBook.bookDiscountPresent = bookDiscountPresent || existingBook.bookDiscountPresent;
         existingBook.BookHSNCode = BookHSNCode || existingBook.BookHSNCode;
+        existingBook.aditionalInfo = aditionalInfo || existingBook.aditionalInfo;
 
         if (req.files) {
             const { bookImage, bookPdf } = req.files;

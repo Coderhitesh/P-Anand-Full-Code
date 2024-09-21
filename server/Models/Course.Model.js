@@ -59,6 +59,9 @@ const courseSchema = new mongoose.Schema({
     },
     endingPrice:{
         type:Number
+    },
+    aditionalInfo: {
+        type: String
     }
 })
 

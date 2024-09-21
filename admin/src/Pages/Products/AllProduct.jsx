@@ -55,6 +55,7 @@ const AllProduct = () => {
     };
 
     const handleDelete = async (id) => {
+        // console.log('id',id)
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -160,6 +161,7 @@ const AllProduct = () => {
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Category</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Sub Category</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Description</th>
+                            <th style={{ whiteSpace: 'nowrap' }} scope="col">Addition Info</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Teacher Name</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Course Image</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Starting Price</th>
@@ -181,6 +183,7 @@ const AllProduct = () => {
                                 <td>{getCategoryNameById(course.courseCategory)}</td>
                                 <td>{course.courseSubCategory}</td>
                                 <td>{course.courseDescription.substring(0, 14) + '....'}</td>
+                                <td>{course.aditionalInfo ? course.aditionalInfo.substring(0, 14) + '....' : 'No additional info'}</td>
                                 <td>{getTeacehrById(course.courseTeacherName)}</td>
                                 <td><img src={course.courseImage.url} alt={course.courseName} style={{ width: '50px', height: '50px' }} /></td>
                                 <td>{course.startingPrice}</td>
