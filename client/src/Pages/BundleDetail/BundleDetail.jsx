@@ -213,7 +213,7 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
                                             </p>
 
                                             {/* Add pricing and course mode selection if necessary */}
-                                            <p style={{ fontSize: '22px', fontWeight: "700", color: "#404040" }}>Rs.{bundle.bundleStartingPrice} - Rs.{bundle.bundleEndingPrice}</p>
+                                            <p style={{ fontSize: '22px', fontWeight: "700", color: "#404040" }}>₹{bundle.bundleStartingPrice} - ₹{bundle.bundleEndingPrice}</p>
 
                                             <hr />
 
@@ -279,7 +279,7 @@ function BundleDetail({ handleAddToCart, loadingFromCart }) {
                                                     <img src={item.bundleImage.url} className="card-img-top" alt={item.bundleName} />
                                                     <div className="card-body">
                                                         <h5 className="card-title">{item.bundleName}</h5>
-                                                        <p className="card-text">Rs.{item.bundleStartingPrice} - Rs.{item.bundleEndingPrice}</p>
+                                                        <p className="card-text">₹{item.bundleStartingPrice} - ₹{item.bundleEndingPrice}</p>
                                                         <div className="shop-button">
                                                             <Link to={`/bundle-detail/${item._id}`} className="theme-btn">
                                                                 View Details

@@ -350,7 +350,7 @@ function Shop() {
                                                                         <p>{getCategorygNameById(item.courseCategory)}</p>
                                                                         <ul className="price-list">
                                                                             <li>
-                                                                                Rs.{item.startingPrice} - Rs.{item.endingPrice}
+                                                                                ₹{item.startingPrice} - ₹{item.endingPrice}
                                                                             </li>
                                                                             <li>
                                                                                 <i className="fa-solid fa-star"></i>

@@ -122,9 +122,9 @@ function BundleHome() {
                     <h5>{getCategorygNameById(item.categoryId)}</h5>
                     <h3><Link to={`/bundle-detail/${item._id}`}>{item.bundleName}</Link></h3>
                     <ul className="price-list">
-                      <li>Rs.{item.bundleStartingPrice} - Rs.{item.bundleEndingPrice}</li>
+                      <li>₹{item.bundleStartingPrice} - ₹{item.bundleEndingPrice}</li>
                       {/* <li>
-                        <del>Rs.{item.bundleTotalPrice}</del>
+                        <del>₹{item.bundleTotalPrice}</del>
                       </li> */}
                     </ul>
                   </div>

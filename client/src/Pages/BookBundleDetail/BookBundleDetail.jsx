@@ -160,9 +160,9 @@ function BookBundleDetail({ handleAddToCart, loadingFromCart }) {
 
                                             {/* Add pricing and course mode selection if necessary */}
                                             <ul style={{ display: 'flex', padding: '0%', gap: '8px' }} className="price-list">
-                                                <li style={{ fontWeight: '700', fontSize: '25px' }}>Rs.{bundle.bundlePriceAfterDiscount}</li>
+                                                <li style={{ fontWeight: '700', fontSize: '25px' }}>₹{bundle.bundlePriceAfterDiscount}</li>
                                                 <li>
-                                                    <del style={{ color: '#595C5F' }}>Rs.{bundle.bundlePrice}</del>
+                                                    <del style={{ color: '#595C5F' }}>₹{bundle.bundlePrice}</del>
                                                 </li>
                                             </ul>
 
@@ -200,9 +200,9 @@ function BookBundleDetail({ handleAddToCart, loadingFromCart }) {
                                                     <div className="card-body">
                                                         <h5 className="card-title">{item.bundleName}</h5>
                                                         <ul style={{ display: 'flex', padding: '0%', gap: '8px' }} className="price-list">
-                                                            <li style={{ fontWeight: '700', fontSize: '20px' }}>Rs.{bundle.bundlePriceAfterDiscount}</li>
+                                                            <li style={{ fontWeight: '700', fontSize: '20px' }}>₹{bundle.bundlePriceAfterDiscount}</li>
                                                             <li>
-                                                                <del style={{ color: '#595C5F' }}>Rs.{bundle.bundlePrice}</del>
+                                                                <del style={{ color: '#595C5F' }}>₹{bundle.bundlePrice}</del>
                                                             </li>
                                                         </ul>
 

@@ -142,7 +142,7 @@ function Featurecourse() {
                     <h3><Link to={`/course-detail/${item._id}`}>{item.courseName}</Link></h3>
                     {/* <span>By {getTeacherNameById(item.courseTeacherName)}</span> */}
                     <ul className="price-list">
-                      <li>Rs:{item.startingPrice} - Rs:{item.endingPrice}</li>
+                      <li>₹{item.startingPrice} - ₹{item.endingPrice}</li>
                     </ul>
                   </div>
                   <div className="shop-button">

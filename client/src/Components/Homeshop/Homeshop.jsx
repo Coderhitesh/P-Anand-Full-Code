@@ -116,9 +116,9 @@ function Homeshop() {
                       <h5>{getCategoryNameById(item.bookCategory)}</h5>
                       <h3><Link to={`/Book-detail/${item._id}`}>{item.bookName}</Link></h3>
                       <ul className="price-list">
-                        <li>Rs.{item.bookAfterDiscount}</li>
+                        <li>₹{item.bookAfterDiscount}</li>
                         <li>
-                          <del>Rs.{item.bookPrice}</del>
+                          <del>₹{item.bookPrice}</del>
                         </li>
                       </ul>
                     </div>

@@ -172,8 +172,8 @@ function BookPage() {
                                                         </li>
                                                     </ul>
                                                     <ul className="price-list">
-                                                        <li>Rs.{item.bookAfterDiscount}</li>
-                                                        <li><del>Rs.{item.bookPrice}</del></li>
+                                                        <li>₹{item.bookAfterDiscount}</li>
+                                                        <li><del>₹{item.bookPrice}</del></li>
                                                     </ul>
 
                                                     <div className="shop-button">

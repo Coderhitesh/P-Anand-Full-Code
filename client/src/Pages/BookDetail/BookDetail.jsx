@@ -118,7 +118,7 @@ function BookDetail({ handleAddToCart, loadingFromCart }) {
                             <div className="container">
                                 <div className="row gx-5">
                                     <aside className="col-lg-6">
-                                        <div className="border rounded-4 mb-3 d-flex justify-content-center">
+                                        <div style={{border:'none !important'}} className="border rounded-4 mb-3 d-flex justify-content-center">
                                             {book.bookImage && book.bookImage.url ? (
                                                 <a
                                                     data-fslightbox="mygalley"
@@ -127,9 +127,10 @@ function BookDetail({ handleAddToCart, loadingFromCart }) {
                                                     rel="noopener noreferrer"
                                                     data-type="image"
                                                     href={book.bookImage.url}
+                                                    style={{display:'flex',alignItems:'center',justifyContent:'center'}}
                                                 >
                                                     <img
-                                                        style={{ maxWidth: '100%', maxHeight: '100vh', margin: 'auto' }}
+                                                        style={{ maxWidth: '92%', maxHeight: '100vh', margin: 'auto' }}
                                                         className="rounded-4 fit"
                                                         src={book.bookImage.url}
                                                         alt={book.bookName}
@@ -155,8 +156,8 @@ function BookDetail({ handleAddToCart, loadingFromCart }) {
                                             </p>
 
                                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '10px' }}>
-                                                <p style={{ fontSize: '22px', fontWeight: "700", color: "#404040" }}>Rs.{book.bookAfterDiscount}</p>
-                                                <p><del>Rs.{book.bookPrice}</del></p>
+                                                <p style={{ fontSize: '22px', fontWeight: "700", color: "#404040" }}>₹{book.bookAfterDiscount}</p>
+                                                <p><del>₹{book.bookPrice}</del></p>
                                             </div>
 
                                             <hr />
@@ -247,9 +248,9 @@ function BookDetail({ handleAddToCart, loadingFromCart }) {
                                             <div className="card-body">
                                                 <h5 className="card-title" style={{textAlign:'center'}}>{item.bookName}</h5>
                                                 <ul style={{width:'100%', justifyContent:'center', display: 'flex', alignItems:'center', padding: '0%', gap: '8px', listStyle:'none' }} className="price-list">
-                                                    <li style={{ fontWeight: '700', fontSize: '20px' }}>Rs.{item.bookAfterDiscount}</li>
+                                                    <li style={{ fontWeight: '700', fontSize: '20px' }}>₹{item.bookAfterDiscount}</li>
                                                     <li>
-                                                        <del style={{ color: '#595C5F' }}>Rs.{item.bookPrice}</del>
+                                                        <del style={{ color: '#595C5F' }}>₹{item.bookPrice}</del>
                                                     </li>
                                                 </ul>
                                                 <div style={{marginTop:'10px'}} className="shop-button">
@@ -302,9 +303,9 @@ function BookDetail({ handleAddToCart, loadingFromCart }) {
                                             <div className="card-body">
                                                 <h5 className="card-title">{item.bookName}</h5>
                                                 <ul style={{ display: 'flex', padding: '0%', gap: '8px' }} className="price-list">
-                                                    <li style={{ fontWeight: '700', fontSize: '20px' }}>Rs.{item.bookAfterDiscount}</li>
+                                                    <li style={{ fontWeight: '700', fontSize: '20px' }}>₹{item.bookAfterDiscount}</li>
                                                     <li>
-                                                        <del style={{ color: '#595C5F' }}>Rs.{item.bookPrice}</del>
+                                                        <del style={{ color: '#595C5F' }}>₹{item.bookPrice}</del>
                                                     </li>
                                                 </ul>
                                                 <div style={{marginTop:'10px'}} className="shop-button">

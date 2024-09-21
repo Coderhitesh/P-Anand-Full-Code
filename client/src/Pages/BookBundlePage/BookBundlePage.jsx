@@ -105,8 +105,8 @@ function BookBundlePage() {
                                           <Link to={`/book-bundle-detail/${item._id}`}>{item.bundleName}</Link>
                                       </h3>
                                       <ul className="price-list">
-                                          <li>Rs.{item.bundlePriceAfterDiscount}</li>
-                                          <li><del>Rs.{item.bundlePrice}</del></li>
+                                          <li>₹{item.bundlePriceAfterDiscount}</li>
+                                          <li><del>₹{item.bundlePrice}</del></li>
                                           {/* <li>
                                               <i className="fa-solid fa-star"></i> ({item.courseRating})
                                           </li> */}

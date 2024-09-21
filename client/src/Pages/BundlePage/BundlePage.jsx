@@ -123,8 +123,8 @@ function BundlePage() {
                                                         <Link to={`/bundle-detail/${item._id}`}>{item.bundleName}</Link>
                                                     </h3>
                                                     <ul className="price-list">
-                                                        <li>Rs.{item.bundleStartingPrice} - Rs.{item.bundleEndingPrice}</li>
-                                                        {/* <li><del>Rs.{item.bundleTotalPrice}</del></li> */}
+                                                        <li>₹{item.bundleStartingPrice} - ₹{item.bundleEndingPrice}</li>
+                                                        {/* <li><del>₹{item.bundleTotalPrice}</del></li> */}
                                                         {/* <li>
                                                 <i className="fa-solid fa-star"></i> ({item.courseRating})
                                             </li> */}

@@ -203,10 +203,10 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                             <div className="container">
                                 <div className="row gx-5">
                                     <aside className="col-lg-6">
-                                        <div className="border rounded-4 mb-3 d-flex justify-content-center">
+                                        <div style={{border:'none !important'}} className="border rounded-4 mb-3 d-flex justify-content-center">
                                             {course.courseImage && course.courseImage.url ? (
-                                                <a data-fslightbox="mygalley" className="rounded-4" target="_blank" rel="noopener noreferrer" data-type="image" href={course.courseImage.url}>
-                                                    <img style={{ maxWidth: '100%', maxHeight: '100vh', margin: 'auto' }} className="rounded-4 fit" src={course.courseImage.url} alt={course.courseName} />
+                                                <a data-fslightbox="mygalley" style={{display:'flex',alignItems:'center',justifyContent:'center'}} className="rounded-4" target="_blank" rel="noopener noreferrer" data-type="image" href={course.courseImage.url}>
+                                                    <img style={{ maxWidth: '92%', maxHeight: '100vh', margin: 'auto' }} className="rounded-4 fit" src={course.courseImage.url} alt={course.courseName} />
                                                 </a>
                                             ) : (
                                                 <div>No image available</div>
@@ -240,11 +240,11 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                                                 </div>
                                                 <div>
                                                     <div className="mainprice mt-3">
-                                                        <p style={{ fontSize: '20px' }}><strong>Price :</strong> Rs:{price}</p>
+                                                        <p style={{ fontSize: '20px' }}><strong>Price :</strong> ₹{price}</p>
                                                     </div>
                                                     {discountedPrice !== price && (
                                                         <div className="discountPrice">
-                                                            <del>Rs:{discountedPrice}</del>
+                                                            <del>₹{discountedPrice}</del>
                                                         </div>
                                                     )}
                                                 </div>
@@ -346,7 +346,7 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                                                                 <div className="card-body d-flex flex-column">
                                                                     <h5 className="card-title">{item.courseName}</h5>
                                                                     <p className="card-text">
-                                                                        <strong>Price:</strong> Rs: {item.startingPrice} - Rs: {item.endingPrice}
+                                                                        <strong>Price:</strong> ₹ {item.startingPrice} - ₹ {item.endingPrice}
                                                                     </p>
                                                                     <div className="mt-auto">
                                                                         <Link to={`/course-detail/${item._id}`} className="btn btn-primary">
@@ -375,7 +375,7 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                                                     <div className="card-body">
                                                         <h5 className="card-title">{item.courseName}</h5>
                                                         <p className="card-text">
-                                                            <strong>Price:</strong> Rs: {item.startingPrice} - Rs: {item.endingPrice}
+                                                            <strong>Price:</strong> ₹ {item.startingPrice} - ₹ {item.endingPrice}
                                                         </p>
                                                         <div className="shop-button">
                                                             <Link to={`/course-detail/${item._id}`} className="theme-btn">

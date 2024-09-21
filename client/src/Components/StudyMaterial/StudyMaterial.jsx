@@ -125,7 +125,7 @@ function StudyMaterial() {
                                             <Link to={`/course-detail/${item._id}`}>{item.courseName}</Link>
                                         </h3>
                                         <ul className="price-list">
-                                            <li>Rs.{item.startingPrice} - Rs.{item.endingPrice}</li>
+                                            <li>₹{item.startingPrice} - ₹{item.endingPrice}</li>
                                             <li>
                                                 <i className="fa-solid fa-star"></i> ({item.courseRating})
                                             </li>

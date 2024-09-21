@@ -120,9 +120,9 @@ function BookBundle() {
                       <h5>{getCategorygNameById(item.categoryId)}</h5>
                       <h3><Link to={`/book-bundle-detail/${item._id}`}>{item.bundleName}</Link></h3>
                       <ul className="price-list">
-                        <li>Rs.{item.bundlePriceAfterDiscount}</li>
+                        <li>₹{item.bundlePriceAfterDiscount}</li>
                         <li>
-                          <del>Rs.{item.bundlePrice}</del>
+                          <del>₹{item.bundlePrice}</del>
                         </li>
                       </ul>
                     </div>
