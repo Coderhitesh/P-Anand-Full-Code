@@ -13,62 +13,65 @@ function Footer() {
             console.log(error)
         }
     }
-    useEffect(()=>{
+    useEffect(() => {
         handleFetchCategory();
-    },[])
+    }, [])
     return (
         <div>
             {/* <!-- Footer Section start  --> */}
             <footer class="footer-section footer-bg">
-                <div class="container">
-                    <div class="contact-info-area">
-                        <div class="contact-info-items wow fadeInUp" data-wow-delay=".2s">
-                            <div class="icon">
-                                <i class="icon-icon-5"></i>
+                <div style={{width:'100%',backgroundColor:"#2f2f2f"}} className="top-header">
+                    <div class="container">
+                        <div class="contact-info-area">
+                            <div class="contact-info-items wow fadeInUp" data-wow-delay=".2s">
+                                <div class="icon">
+                                    <i class="icon-icon-5"></i>
+                                </div>
+                                <div class="content">
+                                    <p>Call Us 7/24</p>
+                                    <h3>
+                                        <a href="tel:+919971262737">+91-9971262737</a>
+                                    </h3>
+                                </div>
                             </div>
-                            <div class="content">
-                                <p>Call Us 7/24</p>
-                                <h3>
-                                    <a href="tel:+919971262737">+91-9971262737</a>
-                                </h3>
-                            </div>
-                        </div>
 
-                        <div class="contact-info-items wow fadeInUp" data-wow-delay=".6s">
-                            <div class="icon">
-                                <i class="icon-icon-7"></i>
+                            <div class="contact-info-items wow fadeInUp" data-wow-delay=".6s">
+                                <div class="icon">
+                                    <i class="icon-icon-7"></i>
+                                </div>
+                                <div class="content">
+                                    <p>Opening Hour</p>
+                                    <h3>
+                                        Mon - Sun: 10:00AM - 7:30PM
+                                    </h3>
+                                </div>
                             </div>
-                            <div class="content">
-                                <p>Opening Hour</p>
-                                <h3>
-                                    Mon - Sun: 10:00AM - 7:30PM
-                                </h3>
+                            <div class="contact-info-items wow fadeInUp" data-wow-delay=".8s">
+                                <div class="icon">
+                                    <i class="icon-icon-8"></i>
+                                </div>
+                                <div class="content">
+                                    <p>Location</p>
+                                    <h3>
+                                        <a href="https://maps.app.goo.gl/yA6bwvvVtdtsWevH6" target="_blank">Get Direction</a>
+                                    </h3>
+                                </div>
                             </div>
-                        </div>
-                        <div class="contact-info-items wow fadeInUp" data-wow-delay=".8s">
-                            <div class="icon">
-                                <i class="icon-icon-8"></i>
-                            </div>
-                            <div class="content">
-                                <p>Location</p>
-                                <h3>
-                                    <a href="https://maps.app.goo.gl/yA6bwvvVtdtsWevH6" target="_blank">Get Direction</a>
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="contact-info-items wow fadeInUp" data-wow-delay=".4s">
-                            <div class="icon">
-                                <i class="icon-icon-6"></i>
-                            </div>
-                            <div class="content">
-                                <p>Make a Quote</p>
-                                <h3>
-                                    <a href="mailto:">panandacademy@ gmail.com</a>
-                                </h3>
+                            <div class="contact-info-items wow fadeInUp" data-wow-delay=".4s">
+                                <div class="icon">
+                                    <i class="icon-icon-6"></i>
+                                </div>
+                                <div class="content">
+                                    <p>Make a Quote</p>
+                                    <h3>
+                                        <a href="mailto:">panandacademy@ gmail.com</a>
+                                    </h3>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="footer-widgets-wrapper">
                     <div class="plane-shape float-bob-y">
                         <img src="assets/img/plane-shape.png" alt="img" />
@@ -113,7 +116,7 @@ function Footer() {
                                                 About us
                                             </Link>
                                         </li>
-                                        
+
                                         {/* <li>
                                     <Link to="/">
                                         <i class="fa-solid fa-chevrons-right"></i>

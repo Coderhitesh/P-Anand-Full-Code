@@ -7,6 +7,7 @@ import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
 import './header.css'
 import { CartContext } from '../../Context/CartContext'
+import insta from './insta.png'
 
 function Header() {
     const { productCount, fetchData } = useContext(CartContext);
@@ -139,7 +140,10 @@ function Header() {
                                 </div>
                                 <div className="social-icon d-flex align-items-center">
                                     <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-facebook-f"></i></a>
-                                    <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-instagram"></i></a>
+                                    {/* <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-instagram"></i></a> */}
+                                    <a href="https://www.instagram.com/p.anandacademy/" target="_blank">
+                                    <img src={insta} alt="" />
+                                    </a>
                                     {/* <!-- <a href="https://x.com/"><i className="fab fa-twitter"></i></a> --> */}
                                     <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: 'white' }} className="fab fa-youtube"></i></a>
                                 </div>
@@ -169,7 +173,9 @@ function Header() {
                         </ul>
                         <div className="social-icon topheader-social-icon d-flex align-items-center">
                             <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-instagram"></i></a>
+                            {/* <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-instagram"></i></a> */}
+                            <a href="https://www.instagram.com/p.anandacademy/" target="_blank">
+                            <img style={{widows:'100%',objectFit:'cover'}} src={insta} alt="" /></a>
                             {/* <!-- <a href="https://x.com/"><i className="fab fa-twitter"></i></a> --> */}
                             <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: 'white' }} className="fab fa-youtube"></i></a>
                         </div>
