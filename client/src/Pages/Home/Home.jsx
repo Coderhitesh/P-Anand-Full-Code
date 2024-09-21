@@ -48,9 +48,9 @@ function Home() {
             <Featurecourse />
             <Topcategory />
             <Homeshop />
-            <BundleHome />
+            {/* <BundleHome /> */}
             {/* <Homeofferbanner /> */}
-            <BookBundle />
+            {/* <BookBundle /> */}
             <TopRatedBook />
             <OurClient />
             <FounderHome />

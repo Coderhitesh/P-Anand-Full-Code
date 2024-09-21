@@ -111,7 +111,7 @@ const Header = () => {
                 <i className="fa-regular fa-newspaper me-1"></i> Manage Course Rating
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="/all-bundle"
                 onClick={() => handleTabClick('all-bundle')}
@@ -119,7 +119,7 @@ const Header = () => {
               >
                 <i className="fa-solid fa-tag me-1"></i> Manage Course Bundle
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to="/all-book-tags"
@@ -147,7 +147,7 @@ const Header = () => {
                 <i className="fa-solid fa-layer-group me-1"></i> Manage Book
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="/all-book-bundle"
                 onClick={() => handleTabClick('all-book-bundle')}
@@ -155,7 +155,7 @@ const Header = () => {
               >
                 <i className="fa-solid fa-tag me-1"></i> Manage Book Bundle
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to="/all-book-rating"

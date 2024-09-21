@@ -191,7 +191,7 @@ function Footer() {
                                                 Books
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link to="/Bundle">
                                                 <i class="fa-solid fa-chevrons-right"></i>
                                                 Course Bundle
@@ -202,7 +202,7 @@ function Footer() {
                                                 <i class="fa-solid fa-chevrons-right"></i>
                                                 Book Bundle
                                             </Link>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </div>
                             </div>
