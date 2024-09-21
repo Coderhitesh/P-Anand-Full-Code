@@ -55,7 +55,7 @@ function Home() {
             <OurClient />
             <FounderHome />
             <Features />
-            <OurTeam />
+            {/* <OurTeam /> */}
           </>
         )
       }
