@@ -108,7 +108,7 @@ const EditBanner = () => {
                 ) : (
                     <form className="row g-3" onSubmit={handleSubmit}>
                         <div className="col-md-4">
-                            <label htmlFor="bannerImage" className="form-label">Banner Image</label>
+                            <label htmlFor="bannerImage" className="form-label">Banner Image(1920 x 700)</label>
                             <input type="file" onChange={handleChange} name='bannerImage' className="form-control" id="bannerImage" />
                         </div>
                         {formData.previewImage && (

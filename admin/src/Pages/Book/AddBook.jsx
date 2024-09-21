@@ -205,7 +205,7 @@ function AddBook() {
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="bookImage" className="form-label">Book Image</label>
+                        <label htmlFor="bookImage" className="form-label">Book Image(800 x 800)</label>
                         <input
                             type="file"
                             accept="image/*"

@@ -279,7 +279,7 @@ const EditProduct = () => {
                             </div>
 
                             <div className="col-md-12">
-                                <label htmlFor="courseImage" className="form-label">Course Image</label>
+                                <label htmlFor="courseImage" className="form-label">Course Image(800 x 800)</label>
                                 <input
                                     type="file"
                                     onChange={handleFileChange}

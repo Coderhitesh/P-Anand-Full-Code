@@ -34,7 +34,7 @@ export default function OurTeam() {
       setSlidesPerView(2);
     } else if (windowWidth >= 768 && windowWidth < 1200) {
       setSlidesPerView(4);
-    }else{
+    } else {
       setSlidesPerView(4);
     }
   };
@@ -82,7 +82,7 @@ export default function OurTeam() {
                     </div> */}
                   </div>
                   <div className="team-content text-center">
-                    <h6 style={{marginBottom:'0%'}}><a>{item.teacherName}</a></h6>
+                    <h6 style={{ marginBottom: '0%' }}><a>{item.teacherName}</a></h6>
                     {/* <p>{item.teacherExpertise[0]}</p> */}
                   </div>
                 </div>
@@ -90,55 +90,7 @@ export default function OurTeam() {
             ))
           }
 
-          {/* Repeat SwiperSlide for additional slides */}
-          {/* <SwiperSlide>
-            <div className="team-box-items">
-              <div className="team-image">
-                <div className="thumb">
-                  <img src="assets/img/team/team1.webp" alt="img" />
-                </div>
-                <div className="shape-img">
-                  <img src="assets/img/team/shape-img.png" alt="img" />
-                </div>
-              </div>
-              <div className="team-content text-center">
-                <h6><a href="">Instructor</a></h6>
-                <p>Subject</p>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="team-box-items">
-              <div className="team-image">
-                <div className="thumb">
-                  <img src="assets/img/team/team1.webp" alt="img" />
-                </div>
-                <div className="shape-img">
-                  <img src="assets/img/team/shape-img.png" alt="img" />
-                </div>
-              </div>
-              <div className="team-content text-center">
-                <h6><a href="">Instructor</a></h6>
-                <p>Subject</p>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="team-box-items">
-              <div className="team-image">
-                <div className="thumb">
-                  <img src="assets/img/team/team1.webp" alt="img" />
-                </div>
-                <div className="shape-img">
-                  <img src="assets/img/team/shape-img.png" alt="img" />
-                </div>
-              </div>
-              <div className="team-content text-center">
-                <h6><a href="">Instructor</a></h6>
-                <p>Subject</p>
-              </div>
-            </div>
-          </SwiperSlide> */}
+          
         </Swiper>
       </div>
     </section>

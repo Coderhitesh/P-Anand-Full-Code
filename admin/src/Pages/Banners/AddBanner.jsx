@@ -78,7 +78,7 @@ const AddBanner = () => {
             <div className="d-form">
                 <form className="row g-3" onSubmit={handleSubmit}>
                     <div className="col-md-6">
-                        <label htmlFor="image" className="form-label">Banner Image</label>
+                        <label htmlFor="image" className="form-label">Banner Image(1920 x 700)</label>
                         <input type="file" onChange={handleChange} name='image' className="form-control" id="image" required />
                     </div>
                     <div className="col-12">

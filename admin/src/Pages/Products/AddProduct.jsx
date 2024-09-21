@@ -263,7 +263,7 @@ const AddProduct = () => {
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="courseImage" className="form-label">Course Image</label>
+                        <label htmlFor="courseImage" className="form-label">Course Image(800 x 800)</label>
                         <input
                             type="file"
                             accept="image/*"

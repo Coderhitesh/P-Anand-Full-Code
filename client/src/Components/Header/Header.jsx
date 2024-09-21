@@ -18,6 +18,7 @@ function Header() {
     const [category, setCategory] = useState([])
     const [isMobActive, setIsMobActive] = useState(false)
     const [isActiveDropDown, setIsActiveDropDown] = useState(false)
+    const [isActiveDropDownAbout, setIsActiveDropDownAbout] = useState(false)
     const handleMobActive = () => {
         setIsMobActive(!isMobActive)
     }
@@ -27,6 +28,9 @@ function Header() {
     const handleDropActive = () => {
         setIsActiveDropDown(!isActiveDropDown)
     }
+    const handleAboutDropActive = () => {
+        setIsActiveDropDownAbout(!isActiveDropDownAbout)
+    }
     const handleDropDeActive = () => {
         setIsActiveDropDown(false)
     }
@@ -35,8 +39,11 @@ function Header() {
     const handleFetchCategory = async () => {
         try {
             const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category')
-            // console.log(res.data.data)
-            setCategory(res.data.data)
+
+            // setCategory(res.data.data)
+            // Sort categories by their 'position' field in ascending order
+            const sortedCategories = res.data.data.sort((a, b) => a.position - b.position);
+            setCategory(sortedCategories);
         } catch (error) {
             console.log(error)
         }
@@ -131,10 +138,10 @@ function Header() {
                                     </Link>
                                 </div>
                                 <div className="social-icon d-flex align-items-center">
-                                    <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: '#1877F2' }} className="fab fa-facebook-f"></i></a>
-                                    <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: '#FF005A' }} className="fab fa-instagram"></i></a>
+                                    <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-facebook-f"></i></a>
+                                    <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-instagram"></i></a>
                                     {/* <!-- <a href="https://x.com/"><i className="fab fa-twitter"></i></a> --> */}
-                                    <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: '#BA1F26' }} className="fab fa-youtube"></i></a>
+                                    <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: 'white' }} className="fab fa-youtube"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -161,18 +168,12 @@ function Header() {
                             </li>
                         </ul>
                         <div className="social-icon topheader-social-icon d-flex align-items-center">
-                            <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: '#1877F2' }} className="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: '#FF005A' }} className="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-instagram"></i></a>
                             {/* <!-- <a href="https://x.com/"><i className="fab fa-twitter"></i></a> --> */}
-                            <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: '#BA1F26' }} className="fab fa-youtube"></i></a>
+                            <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: 'white' }} className="fab fa-youtube"></i></a>
                         </div>
                         <ul className="list">
-                            {/* <!-- <li><i className="fa-light fa-comments"></i><a href="#">Live Chat</a></li> --> */}
-                            {/* <li style={{color:'white'}}><i className="fa-light fa-user"></i>
-                                <button data-bs-toggle="modal" data-bs-target="#loginModal">
-                                    Login
-                                </button>
-                            </li> */}
                             <li style={{ color: 'white' }}><i className="fa-light fa-user"></i>
                                 {
                                     isLoggedIn ? <Link to={'/Profile'}>
@@ -207,7 +208,13 @@ function Header() {
                                                 <nav id="mobile-menu">
                                                     <ul>
                                                         <li><Link to={'/'}> Home</Link></li>
-                                                        <li><Link to={'/about'}> About us</Link></li>
+                                                        <li>
+                                                            <Link>About Us<i className="fas fa-angle-down"></i></Link>
+                                                            <ul className="submenu">
+                                                                <li><Link to={'/about'}>About P Anand</Link></li>
+                                                                <li><Link to={'/founder-page'}>Co-Founder & Teams</Link></li>
+                                                            </ul>
+                                                        </li>
                                                         <li>
                                                             <Link to={'/shop'}>Course<i className="fas fa-angle-down"></i></Link>
                                                             <ul className="submenu">
@@ -219,13 +226,8 @@ function Header() {
                                                                 }
                                                             </ul>
                                                         </li>
-                                                        {/* <li><Link to={'/shop'}> Course</Link></li> */}
                                                         <li><Link to={'/Book'}> Books</Link></li>
-                                                        <li><Link to={'/founder-page'}> Founder</Link></li>
                                                         <li><Link to={'/gallery'}> Gallery</Link></li>
-                                                        {/* <li><Link to={'/shop'}> Courses</Link></li> */}
-
-                                                        {/* <li><Link to={''}>Blog</Link></li> */}
                                                         <li>
                                                             <Link to={'/contact'}>Contact us</Link>
                                                         </li>
@@ -243,7 +245,17 @@ function Header() {
                                         </div>
                                         <ul>
                                             <li><Link onClick={handleMobDeActive} to={'/'}>Home</Link></li>
-                                            <li><Link onClick={handleMobDeActive} to={'/about'}>About Us</Link></li>
+                                            <li>
+                                                <Link onClick={handleAboutDropActive}>About Us  <i class="ri-add-line"></i></Link>
+                                                <ul className={`drop-down ${isActiveDropDownAbout ? 'active-drop-down-about' : ''}`}>
+                                                    <li>
+                                                        <Link onClick={handleMobDeActive} to={`/about`}>About P Anand</Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link onClick={handleMobDeActive} to={`/founder-page`}>Co-Founder & Teams</Link>
+                                                    </li>
+                                                </ul>
+                                            </li>
                                             <li>
                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} className="">
                                                     <Link to={'/shop'}>Shop </Link>

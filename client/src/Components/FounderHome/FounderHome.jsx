@@ -29,7 +29,7 @@ function FounderHome() {
     return (
         <>
             <div className="founder-section">
-                <div className="founder-container">
+                <div className="founder-container container">
                     <div className="founder-title">
                         <h2>Our Founders</h2>
                         {/* <p>Meet Our Expert Founder</p> */}

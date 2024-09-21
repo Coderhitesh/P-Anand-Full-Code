@@ -135,7 +135,7 @@ const AddGalleryImage = () => {
           </div>
 
           <div className="col-12 text-center">
-            <button type="submit" className={`btn ${btnLoading ? 'not-allowed' : 'allowed'}`}>
+            <button type="submit" className={`btn btn-primary ${btnLoading ? 'not-allowed' : 'allowed'}`}>
               {btnLoading ? 'Please Wait...' : 'Add Gallery Image'}
             </button>
           </div>

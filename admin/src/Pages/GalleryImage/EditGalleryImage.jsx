@@ -154,7 +154,7 @@ const EditGalleryImage = () => {
           </div>
 
           <div className="col-12 text-center">
-            <button type="submit" disabled={isLoading} className={`${isLoading ? 'not-allowed' : 'allowed'}`}>
+            <button type="submit" disabled={isLoading} className={`btn btn-primary ${isLoading ? 'not-allowed' : 'allowed'}`}>
               {isLoading ? "Please Wait..." : "Update Gallery Image"}
             </button>
           </div>

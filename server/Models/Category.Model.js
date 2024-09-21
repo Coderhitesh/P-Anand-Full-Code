@@ -17,9 +17,9 @@ const CategoryModel = new mongoose.Schema({
             type:String,
         }
     },
-    // position:{
-    //     type:Number
-    // }
+    position:{
+        type:Number
+    }
 })
 
 const Category = mongoose.model('Category', CategoryModel)

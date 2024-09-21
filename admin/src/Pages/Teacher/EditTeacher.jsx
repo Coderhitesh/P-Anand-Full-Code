@@ -213,7 +213,7 @@ function EditTeacher() {
             <input type="text" onChange={handleChange} name='teacherName' value={formData.teacherName} className="form-control" id="teacherName" required />
           </div>
           <div className="col-md-6">
-            <label htmlFor="teacherImage" className="form-label">Teacher Image</label>
+            <label htmlFor="teacherImage" className="form-label">Teacher Image(600 x 600)</label>
             <input type="file" onChange={handleChange} name='teacherImage' className="form-control" id="teacherImage" />
             {imagePreview && <img src={imagePreview} style={{width:'140px'}} alt="Preview" className="img-fluid mt-2" />}
           </div>

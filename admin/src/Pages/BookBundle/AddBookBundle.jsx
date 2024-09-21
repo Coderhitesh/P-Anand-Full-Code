@@ -271,7 +271,7 @@ function AddBookBundle() {
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="bundleImage" className="form-label">Bundle Image</label>
+                        <label htmlFor="bundleImage" className="form-label">Bundle Image(800 x 800)</label>
                         <input
                             type="file"
                             className="form-control"

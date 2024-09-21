@@ -13,7 +13,8 @@ const EditCategory = () => {
         categoryName: '',
         subcategories: [],
         file: null,
-        previewImage: '' 
+        previewImage: '' ,
+        position:''
     });
 
     const [loading, setLoading] = useState(true);
@@ -53,6 +54,7 @@ const EditCategory = () => {
             if (category) {
                 setData({
                     categoryName: category.categoryName || '',
+                    position: category.position || '',
                     subcategories: category.subcategoryName || [],
                     file: null,
                     previewImage: category.categoryImage?.url || '' 
@@ -71,6 +73,7 @@ const EditCategory = () => {
     const prepareFormData = () => {
         const data = new FormData();
         data.append('categoryName', formData.categoryName);
+        data.append('position', formData.position);
     
         // Append subcategories array as JSON string
         data.append('subcategoryName', JSON.stringify(formData.subcategories));
@@ -89,7 +92,7 @@ const EditCategory = () => {
                 }
             });
             toast.success("Category Updated Successfully!");
-            Navigate('all-category')
+            Navigate('/all-category')
         } catch (error) {
             console.error('Error updating category:', error);
             toast.error(error.response?.data?.message || 'An error occurred');
@@ -139,6 +142,27 @@ const EditCategory = () => {
                             />
                         </div>
                         <div className="col-md-6">
+                            <label htmlFor="position" className="form-label">Position</label>
+                            <input
+                                type="Number"
+                                onChange={handleChange}
+                                name='position'
+                                value={formData.position}
+                                className="form-control"
+                                id="position"
+                            />
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="file" className="form-label">Category Image(600 x 600)</label>
+                            <input
+                                type="file"
+                                onChange={handleChange}
+                                name='file'
+                                className="form-control"
+                                id="file"
+                            />
+                        </div>
+                        <div className="col-md-6">
                             <label htmlFor="subcategories" className="form-label">Subcategories (comma-separated)</label>
                             <input
                                 type="text"
@@ -149,16 +173,7 @@ const EditCategory = () => {
                                 id="subcategories"
                             />
                         </div>
-                        <div className="col-md-6">
-                            <label htmlFor="file" className="form-label">Category Image</label>
-                            <input
-                                type="file"
-                                onChange={handleChange}
-                                name='file'
-                                className="form-control"
-                                id="file"
-                            />
-                        </div>
+                        
                         {formData.previewImage && (
                             <div className="col-12">
                                 <img

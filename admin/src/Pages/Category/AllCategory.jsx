@@ -97,6 +97,7 @@ const AllCategory = () => {
                         <tr>
                             <th scope="col">Sr.No.</th>
                             <th scope="col">Category Name</th>
+                            <th scope="col">Position</th>
                             <th scope="col">Sub-Category Name</th>
                             <th scope="col">Image</th>
                             <th scope="col">Edit</th>
@@ -108,6 +109,7 @@ const AllCategory = () => {
                             <tr key={category._id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{category.categoryName}</td>
+                                <td>{category.position}</td>
                                 {/* {console.log(category.subcategoryName)} */}
                                 <td>{category.subcategoryName.join(', ')}</td>
                                 {/* <td><img src={category.categoryImage.url || ''} alt={category.categoryName} /></td> */}

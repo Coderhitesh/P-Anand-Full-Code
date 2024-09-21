@@ -106,7 +106,7 @@ function EditShopBanner() {
             <div className="d-form">
                 <form className="row g-3" onSubmit={handleSubmit}>
                     <div className="col-md-6">
-                        <label htmlFor="homeBannerImage" className="form-label">Shop Banner Image</label>
+                        <label htmlFor="homeBannerImage" className="form-label">Shop Banner Image(800 x 472)</label>
                         <input
                             type="file"
                             onChange={handleChange}

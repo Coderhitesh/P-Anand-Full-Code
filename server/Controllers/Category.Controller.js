@@ -4,13 +4,20 @@ const fs = require('fs')
 
 exports.createCategory = async (req, res) => {
     try {
-        const { categoryName, subcategoryName } = req.body;
+        const { categoryName, subcategoryName, position } = req.body;
 
         if (!categoryName) {
             return res.status(400).json({
                 success: false,
                 message: 'Category Name is required'
             });
+        }
+
+        if(!position){
+            return res.status(400).json({
+                success: false,
+                message: 'Position is required'
+            })
         }
 
         if (!req.file) {
@@ -22,7 +29,8 @@ exports.createCategory = async (req, res) => {
 
         const category = new mainCategory({
             categoryName,
-            subcategoryName: subcategoryName || []
+            subcategoryName: subcategoryName || [],
+            position
         });
 
         // Handle image upload
@@ -140,7 +148,7 @@ exports.deleteCategory = async (req, res) => {
 exports.updateCategory = async (req, res) => {
     try {
         const id = req.params._id;
-        const { categoryName, subcategoryName } = req.body;
+        const { categoryName, subcategoryName, position } = req.body;
 
         // Find the category by ID
         let category = await mainCategory.findById(id);
@@ -162,6 +170,8 @@ exports.updateCategory = async (req, res) => {
                 category.subcategoryName = subcategoryArray.length > 0 ? subcategoryArray : [];
             }
         }
+
+        if(position) category.position = position;
 
         // Handle image update
         if (req.file) {

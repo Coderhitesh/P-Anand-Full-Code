@@ -84,8 +84,8 @@ const UserProfile = () => {
                                 <li className="mb-3"><strong>Name:</strong> {user.FullName}</li>
                                 <li className="mb-3"><strong>Email:</strong> {user.Email}</li>
                                 <li className="mb-3"><strong>Contact Number:</strong> {user.ContactNumber}</li>
-                                <li className="mb-3"><strong>Orders Delivered:</strong> 25</li>
-                                <li className="mb-3"><strong>Active Course:</strong> 12</li>
+                                {/* <li className="mb-3"><strong>Orders Delivered:</strong> 25</li>
+                                <li className="mb-3"><strong>Active Course:</strong> 12</li> */}
                             </ul>
                             <div className='d-flex gap-2'>
                                 <button onClick={handleLogout} className="theme-btn p-3">Logout</button>

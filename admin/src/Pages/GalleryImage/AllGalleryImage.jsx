@@ -14,7 +14,8 @@ const AllGalleryImage = () => {
   const fetchGalleryImages = async () => {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-gallery-image');
-      setGalleryImages(res.data.data);
+      const reverse = res.data.data.reverse()
+      setGalleryImages(reverse);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching gallery images:', error);

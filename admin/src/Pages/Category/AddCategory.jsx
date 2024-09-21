@@ -11,6 +11,7 @@ const AddCategory = () => {
         categoryName: '',
         subcategories: [''],
         categoryImage: null,
+        position:''
     });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -52,6 +53,7 @@ const AddCategory = () => {
         const data = new FormData();
         data.append('categoryName', formData.categoryName);
         data.append('categoryImage', formData.categoryImage);
+        data.append('position', formData.position);
         formData.subcategories.forEach(subcategory => {
             if (subcategory.trim()) {
                 data.append('subcategoryName', subcategory);
@@ -95,7 +97,11 @@ const AddCategory = () => {
                         <input type="text" onChange={handleChange} name='categoryName' value={formData.categoryName} className="form-control" id="categoryName" />
                     </div>
                     <div className="col-md-6">
-                        <label htmlFor="categoryImage" className="form-label">Category Image</label>
+                        <label htmlFor="position" className="form-label">Position</label>
+                        <input type="Number" onChange={handleChange} name='position' value={formData.position} className="form-control" id="position" />
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="categoryImage" className="form-label">Category Image(600 x 600)</label>
                         <input type="file" onChange={handleChange} name='categoryImage' className="form-control" id="categoryImage" />
                     </div>
                     {formData.subcategories.map((subcategory, index) => (

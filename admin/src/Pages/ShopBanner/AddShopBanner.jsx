@@ -79,7 +79,7 @@ const AddShopBanner = () => {
                         <input type="text" onChange={handleChange} name='saleBannerTitle' value={formData.saleBannerTitle} className="form-control" id="saleBannerTitle" />
                     </div> */}
                     <div className="col-md-6">
-                        <label htmlFor="homeBannerImage" className="form-label">Shop Banner Image</label>
+                        <label htmlFor="homeBannerImage" className="form-label">Shop Banner Image(800 x 472)</label>
                         <input type="file" onChange={handleChange} name='homeBannerImage' className="form-control" id="homeBannerImage" />
                     </div>
                     <div className="col-12">
