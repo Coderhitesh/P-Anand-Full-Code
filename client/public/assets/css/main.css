@@ -1507,7 +1507,7 @@ span {
 }
 @media (max-width: 1399px) {
   .header-top-wrapper .contact-list li {
-    padding-right: 25px;
+    padding-right: 15px;
   }
 }
 .header-top-wrapper .contact-list li i {
@@ -1530,7 +1530,7 @@ span {
   font-weight: 500;
 }
 .header-top-wrapper .list {
-  padding-left: 10px;
+  padding-left: 20px;
   display: flex;
   align-items: center;
   gap: 30px;
@@ -2068,7 +2068,7 @@ span {
     gap: 0;
   }
 }
-@media (max-width: 1366px) {
+@media (max-width: 1400px) {
   /* .topheader-social-icon {
     display: none!important;
   } */
