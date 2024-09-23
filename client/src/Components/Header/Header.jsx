@@ -103,8 +103,8 @@ function Header() {
                                             <i className="fal fa-envelope"></i>
                                         </div>
                                         <div className="offcanvas__contact-text">
-                                            <a href=" mailto:panandacademy@gmail.com"><span
-                                                className="canva-email">panandacademy@gmail.com</span></a>
+                                            <a href=" mailto:p.anandacademy@gmail.com"><span
+                                                className="canva-email">p.anandacademy@gmail.com</span></a>
                                         </div>
                                     </li>
                                     <li className="d-flex align-items-center">
@@ -164,7 +164,7 @@ function Header() {
                             </li>
                             <li>
                                 <i className="far fa-envelope"></i>
-                                <a href="mailto:panandacademy@gmail.com">panandacademy@gmail.com</a>
+                                <a href="mailto:p.anandacademy@gmail.com">p.anandacademy@gmail.com</a>
                             </li>
                             <li>
                                 <i className="far fa-clock"></i>

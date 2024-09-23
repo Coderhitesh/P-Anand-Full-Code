@@ -21,7 +21,7 @@ function Refund() {
 
               <h3 className="text-center mb-3">Need help?</h3>
               <p className="text-center">
-                Contact us at <strong>panandacademy@gmail.com</strong> for any questions related to refunds.
+                Contact us at <strong>p.anandacademy@gmail.com</strong> for any questions related to refunds.
               </p>
             </div>
           </div>

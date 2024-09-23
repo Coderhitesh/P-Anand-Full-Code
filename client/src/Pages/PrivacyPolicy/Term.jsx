@@ -53,7 +53,7 @@ function Term() {
               <h3 className="mt-4 mb-3">5. Changes to Terms</h3>
               <p>P Anand Academy reserves the right to modify or revise these terms and conditions at any time. Your continued use of the Website following the posting of changes constitutes your acceptance of such changes.</p>
 
-              <p className="mt-4">By using the Website, you acknowledge that you have read, understood, and agreed to these terms and conditions. If you have any questions or concerns, please contact us at <strong>panandacademy@gmail.com</strong>.</p>
+              <p className="mt-4">By using the Website, you acknowledge that you have read, understood, and agreed to these terms and conditions. If you have any questions or concerns, please contact us at <strong>p.anandacademy@gmail.com</strong>.</p>
             </div>
           </div>
         </div>

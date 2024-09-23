@@ -5,6 +5,7 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import './testimonial.css'
 
 function OurClient() {
   const [slidesPerView, setSlidesPerView] = useState('4');

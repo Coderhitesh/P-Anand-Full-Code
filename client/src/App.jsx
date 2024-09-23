@@ -96,7 +96,7 @@ function App() {
       // Find the price of the selected course mode
       const selectedCourseMode = product?.courseMode?.find(item => item.modeId === product.selectedMode?.id) || product?.bundleMode?.find(item => item.modeId === product.selectedMode?.id) || null;
       const productPrice = product?.bookPrice || product?.bundlePrice || selectedCourseMode?.coursePrice || 0;
-      
+
       const productType = product?.bundleName && product?.bundleCourseId
         ? 'Course-Bundle'
         : product?.bundleName && !product?.bundleCourseId

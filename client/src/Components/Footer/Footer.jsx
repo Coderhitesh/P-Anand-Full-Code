@@ -65,7 +65,7 @@ function Footer() {
                                 <div class="content">
                                     <p>Make a Quote</p>
                                     <h3>
-                                        <a href="mailto:">panandacademy@ gmail.com</a>
+                                        <a href="mailto:">p.anandacademy@ gmail.com</a>
                                     </h3>
                                 </div>
                             </div>
