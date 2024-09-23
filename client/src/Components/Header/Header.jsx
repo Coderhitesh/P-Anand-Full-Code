@@ -290,7 +290,7 @@ function Header() {
                                                 </Link>
                                             }
 
-                                            <Link to={'/cart'} className="theme-btn text-center">
+                                            <Link to={'/cart'} onClick={handleMobDeActive} className="theme-btn text-center">
                                                 Cart <i className="fa-solid fa-arrow-right-long"></i>
                                             </Link>
                                         </div>

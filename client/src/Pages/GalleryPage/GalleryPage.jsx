@@ -67,7 +67,7 @@ function GalleryPage() {
         <>
             <div className="gallery-section">
                 <div className="gallery-container container">
-                    <ul className="nav nav-tabs" id="galleryTab" role="tablist">
+                    <ul className="nav nav-tabs forbg" id="galleryTab" role="tablist">
                         {galleryNames.map((gallery, index) => (
                             <li className="nav-item" role="presentation" key={gallery._id}>
                                 <button
@@ -83,7 +83,7 @@ function GalleryPage() {
                         ))}
                     </ul>
 
-                    <div className="tab-content" id="galleryTabContent">
+                    <div className="tab-content" style={{boxShadow:'none', backgroundColor:'transparent'}} id="galleryTabContent">
                         {galleryNames.map((gallery, index) => (
                             <div
                                 className={`tab-pane fade ${activeTab === index ? 'show active' : ''}`}

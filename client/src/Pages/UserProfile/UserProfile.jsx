@@ -46,6 +46,14 @@ const UserProfile = () => {
         }
     };
 
+    const formatCurrency = (amount) => {
+        if (!amount) return '0.00';
+        return parseFloat(amount)
+            .toFixed(2) // Ensure two decimal places
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+    };
+    
+
     // Logout function
     const handleLogout = () => {
         sessionStorage.clear();
@@ -163,7 +171,7 @@ const UserProfile = () => {
                                                 </td>
                                                 <td>{course.productName}</td>
                                                 <td>{course.selectedMode.name}</td>
-                                                <td>₹{course.productPrice}</td>
+                                                <td>₹{formatCurrency(course.productPrice)}</td>
                                             </tr>
                                         ))
                                     ) : (
@@ -204,7 +212,7 @@ const UserProfile = () => {
                                                     />
                                                 </td>
                                                 <td>{order.productName}</td>
-                                                <td>₹{order.productPrice}</td>
+                                                <td>₹{formatCurrency(order.productPrice)}</td>
                                             </tr>
                                         ))
                                     ) : (

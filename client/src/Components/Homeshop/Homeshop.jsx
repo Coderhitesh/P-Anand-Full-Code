@@ -33,6 +33,14 @@ function Homeshop() {
     }
   }
 
+  const formatCurrency = (amount) => {
+    if (!amount) return '0.00';
+    return parseFloat(amount)
+        .toFixed(2) // Ensure two decimal places
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+};
+
+
   const handleFetchTag = async () => {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag')
@@ -116,9 +124,9 @@ function Homeshop() {
                       <h5>{getCategoryNameById(item.bookCategory)}</h5>
                       <h3><Link to={`/Book-detail/${item._id}`}>{item.bookName}</Link></h3>
                       <ul className="price-list">
-                        <li>₹{item.bookAfterDiscount}</li>
+                        <li>₹{formatCurrency(item.bookAfterDiscount)}</li>
                         <li>
-                          <del>₹{item.bookPrice}</del>
+                          <del>₹{formatCurrency(item.bookPrice)}</del>
                         </li>
                       </ul>
                     </div>

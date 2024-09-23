@@ -88,6 +88,14 @@ function Shop() {
         return matchesCategory && matchesSearch && matchesRating;
     });
 
+    const formatCurrency = (amount) => {
+        if (!amount) return '0.00';
+        return parseFloat(amount)
+            .toFixed(2) // Ensure two decimal places
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+    };
+    
+
     // Calculate the total number of pages
     const totalPages = Math.ceil(filteredCourses.length / itemsPerPage);
 
@@ -350,7 +358,7 @@ function Shop() {
                                                                         <p>{getCategorygNameById(item.courseCategory)}</p>
                                                                         <ul className="price-list">
                                                                             <li>
-                                                                                ₹{item.startingPrice} - ₹{item.endingPrice}
+                                                                                ₹{formatCurrency(item.startingPrice)} - ₹{formatCurrency(item.endingPrice)}
                                                                             </li>
                                                                             <li>
                                                                                 <i className="fa-solid fa-star"></i>

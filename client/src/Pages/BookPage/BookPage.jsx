@@ -57,6 +57,14 @@ function BookPage() {
         }
     }
 
+    const formatCurrency = (amount) => {
+        if (!amount) return '0.00';
+        return parseFloat(amount)
+            .toFixed(2) // Ensure two decimal places
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+    };
+    
+
     const getTagNameById = (tagId) => {
         const foundTag = tag.find(tag => tag._id === tagId);
         return foundTag ? foundTag.tagName : "No Tag";
@@ -172,8 +180,8 @@ function BookPage() {
                                                         </li>
                                                     </ul>
                                                     <ul className="price-list">
-                                                        <li>₹{item.bookAfterDiscount}</li>
-                                                        <li><del>₹{item.bookPrice}</del></li>
+                                                        <li>₹{formatCurrency(item.bookAfterDiscount)}</li>
+                                                        <li><del>₹{formatCurrency(item.bookPrice)}</del></li>
                                                     </ul>
 
                                                     <div className="shop-button">

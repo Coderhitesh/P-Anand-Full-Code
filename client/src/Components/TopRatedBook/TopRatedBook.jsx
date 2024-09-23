@@ -48,6 +48,14 @@ function TopRatedBook() {
     }
   };
 
+  const formatCurrency = (amount) => {
+    if (!amount) return '0.00';
+    return parseFloat(amount)
+        .toFixed(2) // Ensure two decimal places
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+};
+
+
   const getCategorygNameById = (CategoryId) => {
     const foundCategory = allCategory.find(category => category._id === CategoryId);
     return foundCategory ? foundCategory.categoryName : "No Category";
@@ -127,7 +135,7 @@ function TopRatedBook() {
                   <div className="book-availablity">
                     <div className="details">
                       <ul className="price-list">
-                        <li style={{ fontSize: '16px', width:'100%' }}>₹{item.startingPrice} - ₹{item.endingPrice}</li>
+                        <li style={{ fontSize: '16px', width:'100%' }}>₹{formatCurrency(item.startingPrice)} - ₹{formatCurrency(item.endingPrice)}</li>
                       </ul>
                       <div className="progress-line"></div>
                     </div>

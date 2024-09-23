@@ -130,6 +130,13 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
         return foundTeacher ? foundTeacher.teacherName : "No Teacher assigned";
     };
 
+    const formatCurrency = (amount) => {
+        if (!amount) return '0.00';
+        return parseFloat(amount)
+            .toFixed(2) // Ensure two decimal places
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+    };
+    
 
 
     useEffect(() => {
@@ -203,9 +210,9 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                             <div className="container">
                                 <div className="row gx-5">
                                     <aside className="col-lg-6">
-                                        <div style={{border:'none !important'}} className="border rounded-4 mb-3 d-flex justify-content-center">
+                                        <div style={{ border: 'none !important' }} className="rounded-4 mb-3 d-flex justify-content-center">
                                             {course.courseImage && course.courseImage.url ? (
-                                                <a data-fslightbox="mygalley" style={{display:'flex',alignItems:'center',justifyContent:'center'}} className="rounded-4" target="_blank" rel="noopener noreferrer" data-type="image" href={course.courseImage.url}>
+                                                <a data-fslightbox="mygalley" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="rounded-4" target="_blank" rel="noopener noreferrer" data-type="image" href={course.courseImage.url}>
                                                     <img style={{ maxWidth: '92%', maxHeight: '100vh', margin: 'auto' }} className="rounded-4 fit" src={course.courseImage.url} alt={course.courseName} />
                                                 </a>
                                             ) : (
@@ -240,11 +247,11 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                                                 </div>
                                                 <div>
                                                     <div className="mainprice mt-3">
-                                                        <p style={{ fontSize: '20px' }}><strong>Price :</strong> ₹{price}</p>
+                                                        <p style={{ fontSize: '20px' }}><strong>Price :</strong> ₹{formatCurrency(price)}</p>
                                                     </div>
                                                     {discountedPrice !== price && (
                                                         <div className="discountPrice">
-                                                            <del>₹{discountedPrice}</del>
+                                                            <del>₹{formatCurrency(discountedPrice)}</del>
                                                         </div>
                                                     )}
                                                 </div>
@@ -282,7 +289,7 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                                 <div className="course-container">
                                     {/* <h4 className="title text-dark mb-4">Course Details</h4> */}
                                     {/* Nav Pills */}
-                                    <ul style={{listStyle:'none'}} className="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+                                    <ul style={{ listStyle: 'none' }} className="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
                                         <li className="nav-item" role="presentation">
                                             <button className="nav-link active" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="true">Description</button>
                                         </li>

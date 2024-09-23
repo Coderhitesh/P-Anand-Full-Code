@@ -58,6 +58,13 @@ function Featurecourse() {
     };
   }, []);
 
+  const formatCurrency = (amount) => {
+    if (!amount) return '0.00';
+    return parseFloat(amount)
+        .toFixed(2) // Ensure two decimal places
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+};
+
   const handleFetchTeacher = async () => {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher');
@@ -142,7 +149,7 @@ function Featurecourse() {
                     <h3><Link to={`/course-detail/${item._id}`}>{item.courseName}</Link></h3>
                     {/* <span>By {getTeacherNameById(item.courseTeacherName)}</span> */}
                     <ul className="price-list">
-                      <li>₹{item.startingPrice} - ₹{item.endingPrice}</li>
+                      <li>₹{formatCurrency(item.startingPrice)} - ₹{formatCurrency(item.endingPrice)}</li>
                     </ul>
                   </div>
                   <div className="shop-button">

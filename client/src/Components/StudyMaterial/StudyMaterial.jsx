@@ -59,6 +59,14 @@ function StudyMaterial() {
         handleFetchCourse();
     }, [id]);
 
+    const formatCurrency = (amount) => {
+        if (!amount) return '0.00';
+        return parseFloat(amount)
+            .toFixed(2) // Ensure two decimal places
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+    };
+    
+
     // Calculate the total number of pages
     const totalPages = Math.ceil(filterCourse.length / itemsPerPage);
 
@@ -125,7 +133,7 @@ function StudyMaterial() {
                                             <Link to={`/course-detail/${item._id}`}>{item.courseName}</Link>
                                         </h3>
                                         <ul className="price-list">
-                                            <li>₹{item.startingPrice} - ₹{item.endingPrice}</li>
+                                            <li>₹{formatCurrency(item.startingPrice)} - ₹{formatCurrency(item.endingPrice)}</li>
                                             <li>
                                                 <i className="fa-solid fa-star"></i> ({item.courseRating})
                                             </li>

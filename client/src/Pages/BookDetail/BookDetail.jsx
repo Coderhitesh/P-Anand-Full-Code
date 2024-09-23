@@ -66,6 +66,13 @@ function BookDetail({ handleAddToCart, loadingFromCart }) {
         return foundCategory ? foundCategory.categoryName : 'No Category';
     };
 
+    const formatCurrency = (amount) => {
+        if (!amount) return '0.00';
+        return parseFloat(amount)
+            .toFixed(2) // Ensure two decimal places
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+    };
+
     const renderStars = (rating) => {
         const fullStars = Math.floor(rating);
         const halfStar = rating % 1 >= 0.5;
@@ -118,7 +125,7 @@ function BookDetail({ handleAddToCart, loadingFromCart }) {
                             <div className="container">
                                 <div className="row gx-5">
                                     <aside className="col-lg-6">
-                                        <div style={{border:'none !important'}} className="border rounded-4 mb-3 d-flex justify-content-center">
+                                        <div style={{border:'none !important'}} className="rounded-4 mb-3 d-flex justify-content-center">
                                             {book.bookImage && book.bookImage.url ? (
                                                 <a
                                                     data-fslightbox="mygalley"
@@ -156,8 +163,8 @@ function BookDetail({ handleAddToCart, loadingFromCart }) {
                                             </p>
 
                                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '10px' }}>
-                                                <p style={{ fontSize: '22px', fontWeight: "700", color: "#404040" }}>₹{book.bookAfterDiscount}</p>
-                                                <p><del>₹{book.bookPrice}</del></p>
+                                                <p style={{ fontSize: '22px', fontWeight: "700", color: "#404040" }}>₹{formatCurrency(book.bookAfterDiscount)}</p>
+                                                <p><del>₹{formatCurrency(book.bookPrice)}</del></p>
                                             </div>
 
                                             <hr />

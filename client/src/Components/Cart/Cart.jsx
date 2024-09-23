@@ -16,6 +16,14 @@ function Cart() {
         fetchData,
     } = useContext(CartContext);
 
+    const formatCurrency = (amount) => {
+        if (!amount) return '0.00';
+        return parseFloat(amount)
+            .toFixed(2) // Ensure two decimal places
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
+    };
+    
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -72,14 +80,14 @@ function Cart() {
                                                                 </span>
                                                             </td>
                                                             <td>
-                                                                <span className="cart-price">₹ {item.productPrice} </span>
+                                                                <span className="cart-price">₹ {formatCurrency(item.productPrice)} </span>
                                                             </td>
                                                             <td>
                                                                 <span className="cart-price"> {item.selectedMode?.name} </span>
                                                             </td>
                                                             <td>
                                                                 <span className="subtotal-price">
-                                                                    ₹ {1 * item.productPrice}
+                                                                    ₹ {formatCurrency(1 * item.productPrice)}
                                                                 </span>
                                                             </td>
                                                             <td>
@@ -111,7 +119,7 @@ function Cart() {
                                                         <span className="d-flex gap-5 align-items-center justify-content-between">
                                                             <span className="sub-title">Total:</span>
                                                             <span className="sub-price sub-price-total">
-                                                                ₹ {totalPrice}
+                                                                ₹ {formatCurrency(totalPrice)}
                                                             </span>
                                                         </span>
                                                     </td>
