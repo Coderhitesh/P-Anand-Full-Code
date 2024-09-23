@@ -71,7 +71,7 @@ function GalleryPage() {
                         {galleryNames.map((gallery, index) => (
                             <li className="nav-item" role="presentation" key={gallery._id}>
                                 <button
-                                    className={`nav-link ${activeTab === index ? 'active' : ''}`}
+                                    className={`nav-link forbtbg ${activeTab === index ? 'active' : ''}`}
                                     onClick={() => setActiveTab(index)}
                                     aria-controls={`gallery-tab-${index}`}
                                     role="tab"
@@ -91,9 +91,9 @@ function GalleryPage() {
                                 role="tabpanel"
                                 key={gallery._id}
                             >
-                                <div className="row">
+                                <div style={{padding:'0px'}} className="row">
                                     {groupedImages[gallery._id] && groupedImages[gallery._id].map((imageUrl, imageIndex) => (
-                                        <div className="column" key={imageIndex}>
+                                        <div className="column" style={{padding:'0px'}} key={imageIndex}>
                                             <img src={imageUrl} alt={`Gallery ${imageIndex}`} onClick={() => handleImageClick(imageUrl)} />
                                         </div>
                                     ))}

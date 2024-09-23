@@ -6,20 +6,25 @@
     max-width: 1920px;
     margin: 0 auto;
     padding: 40px 60px;
-    background-color: aliceblue;
+    background-color: #eaeef1;
 }
 
 .forbg{
-    background-color: #f5f5f5;
+    background-color: #AA5C18;
+    border: 1px solid white !important;
     padding: 10px 0px;
     border-radius: 10px;
 }
 
+/* .forbtbg{
+    background-color: black;
+} */
+
 .nav-tabs {
     justify-content: center; /* Center align tabs */
-    border: none; /* Remove border */
+    border: none;
     margin-bottom: 20px; /* Spacing below tabs */
-    border: none !important;
+    /* border: none !important; */
     gap: 10px;
     /* background-color: #AA5C18; */
 }
@@ -35,13 +40,13 @@
 }
 
 .nav-tabs .nav-link:hover {
-    background-color: #AA5C18; /* Blue background on hover */
+    background-color: black; /* Blue background on hover */
     color: white; /* White text on hover */
-    border: 1px solid #AA5C18; /* Blue border on hover */
+    border: 1px solid white !important; /* Blue border on hover */
 }
 
 .nav-tabs .nav-link.active {
-    background-color: #AA5C18 !important; /* Active tab background */
+    background-color: black !important; /* Active tab background */
     color: white !important; /* Active tab text color */
     border: 1px solid #AA5C18 !important; /* Active tab border */
 }
