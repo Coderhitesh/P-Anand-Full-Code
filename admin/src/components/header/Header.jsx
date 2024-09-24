@@ -194,11 +194,38 @@ const Header = () => {
             </li>
             <li>
               <Link
+                to="/all-gallery-name"
+                onClick={() => handleTabClick('all-gallery-name')}
+                className={activeTab === 'all-gallery-name' ? 'active' : ''}
+              >
+                <i className="fa-solid fa-truck-arrow-right me-1"></i> Gallery Name
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/all-gallery-image"
                 onClick={() => handleTabClick('all-gallery-image')}
                 className={activeTab === 'all-gallery-image' ? 'active' : ''}
               >
                 <i className="fa-solid fa-truck-arrow-right me-1"></i> Gallery Image
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/all-free-resource-category"
+                onClick={() => handleTabClick('all-free-resource-category')}
+                className={activeTab === 'all-free-resource-category' ? 'active' : ''}
+              >
+                <i className="fa-solid fa-truck-arrow-right me-1"></i> Free Resource Category
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/all-free-resource"
+                onClick={() => handleTabClick('all-free-resource')}
+                className={activeTab === 'all-free-resource' ? 'active' : ''}
+              >
+                <i className="fa-solid fa-truck-arrow-right me-1"></i> Free Resource
               </Link>
             </li>
             <li>

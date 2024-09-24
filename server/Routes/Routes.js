@@ -22,6 +22,8 @@ const { CreateCheckOut, FindMode, MakeOrder, MyOrderOfPenDrive, OrderStatusById,
 const { createCourseMode, getCourseMode, getSingleCourseMode, deleteCourseMode, updateCourseMode } = require('../Controllers/CourseMode.controller')
 const { createGalleryCategory, getAllImageCategory, deleteGalleryCategory, singleGalleryCategory, updateGalleryCategory } = require('../Controllers/GalleryCategory.Controller')
 const { createGalleryImage, getSingleGalleryImage, getAllGalleryImage, deleteGalleryImage, updateGalleryImage } = require('../Controllers/GalleryImage.controller')
+const { createFreeResourceCategory, updateFreeResourceCategory, getAllFreeResourceCategory, getSingleFreeResourceCategory, deleteFreeResourceCategory } = require('../Controllers/FreeResourcesCategory.controller')
+const { createFreeResource, getFreeResource, getSingleFreeResource, updateFreeResource, deleteFreeResource } = require('../Controllers/FreeResource.Controller')
 const router = express.Router()
 
 // user routers 
@@ -211,6 +213,22 @@ router.get('/get-single-gallery-image/:_id',getSingleGalleryImage)
 router.get('/get-all-gallery-image',getAllGalleryImage)
 router.delete('/delete-gallery-image/:_id',deleteGalleryImage)
 router.put('/update-gallery-image/:_id',upload.single('image'),updateGalleryImage)
+
+// free resource category router 
+
+router.post('/create-free-resource-category',createFreeResourceCategory)
+router.put('/update-free-resource-category/:_id',updateFreeResourceCategory)
+router.get('/get-all-free-resource-category',getAllFreeResourceCategory)
+router.get('/get-single-free-resource-category/:_id',getSingleFreeResourceCategory)
+router.delete('/delete-free-resource-category/:_id',deleteFreeResourceCategory)
+
+// free resurce router 
+
+router.post('/create-free-resource',upload.single('FreePDF'),createFreeResource)
+router.get('/get-all-free-resource',getFreeResource)
+router.get('/get-single-free-resource/:_id',getSingleFreeResource)
+router.put('/update-free-resource/:_id',upload.single('FreePDF'),updateFreeResource)
+router.delete('/delete-free-resource/:_id',deleteFreeResource)
 
 
 module.exports = router

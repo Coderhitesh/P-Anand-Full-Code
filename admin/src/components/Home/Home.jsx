@@ -71,6 +71,12 @@ import EditGalleryCategoryName from '../../Pages/GalleryCategoryName/EditGallery
 import AllGalleryImage from '../../Pages/GalleryImage/AllGalleryImage'
 import AddGalleryImage from '../../Pages/GalleryImage/AddGalleryImage'
 import EditGalleryImage from '../../Pages/GalleryImage/EditGalleryImage'
+import AllFreeResourceCategory from '../../Pages/FreeResourceCategory/AllFreeResourceCategory'
+import EditFreeResourceCategory from '../../Pages/FreeResourceCategory/EditFreeResourceCategory'
+import AddFreeResourceCategory from '../../Pages/FreeResourceCategory/AddFreeResourceCategory'
+import AllFreeResource from '../../Pages/FreeResource/AllFreeResource'
+import AddFreeResource from '../../Pages/FreeResource/AddFreeResource'
+import EditFreeResource from '../../Pages/FreeResource/EditFreeResource'
 
 
 const Home = () => {
@@ -206,6 +212,17 @@ const Home = () => {
           <Route path={"/add-gallery-image"} element={<AddGalleryImage />} />
           <Route path={"/edit-gallery-image/:id"} element={<EditGalleryImage />} />
 
+          {/* free resource category router  */}
+
+          <Route path={'/all-free-resource-category'} element={<AllFreeResourceCategory />} />
+          <Route path={'/edit-free-resource-category/:id'} element={<EditFreeResourceCategory />} />
+          <Route path={'/add-free-resource-category'} element={<AddFreeResourceCategory />} />
+
+          {/* free resource router  */}
+
+          <Route path={'/all-free-resource'} element={<AllFreeResource />} />
+          <Route path={'/add-free-resource'} element={<AddFreeResource />} />
+          <Route path={'/edit-free-resource/:id'} element={<EditFreeResource />} />
 
           {/* all-shop */}
 

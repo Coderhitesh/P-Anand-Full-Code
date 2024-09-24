@@ -63,6 +63,21 @@ const deletePdfFromCloudinary = async (public_id) => {
     }
 }
 
+// const uploadPDF = async (filePath) => {
+//     try {
+//         const result = await cloudinary.uploader.upload(filePath, {
+//             resource_type: 'raw', // Important: Specify that the resource is raw (for non-image files)
+//             eager: [{ width: 300, height: 300, crop: 'fit' }]
+//         });
+//         return {
+//             pdf: result.secure_url, // URL to access the PDF
+//             public_id: result.public_id
+//         };
+//     } catch (error) {
+//         throw new Error('Failed to upload PDF: ' + error.message);
+//     }
+// };
+
 module.exports = {
     uploadImage, uploadVideo, deleteImageFromCloudinary, uploadPDF, deletePdfFromCloudinary
 };

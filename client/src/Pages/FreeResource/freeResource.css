@@ -1,0 +1,83 @@
+.free-resource-section {
+    width: 100%;
+}
+
+.free-resource-section .free-resource-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 40px 60px;
+}
+
+/* .free-resource-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+} */
+
+/* .free-resource-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+  } */
+  
+  .free-resource-section .free-resource-container .nav-pills .nav-link {
+    margin-right: 10px;
+  }
+  
+  .free-resource-section .free-resource-container .nav-pills .nav-item {
+    margin-bottom: 10px;
+  }
+  
+  .free-resource-section .free-resource-container .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    height: 100%;
+    
+  }
+
+  .custom-pill{
+    background-color: #AA5C18;
+    border: 1px solid white !important;
+    padding: 10px 0px;
+    border-radius: 10px;
+  }
+
+  .free-resource-section .tab-content{
+    border-radius: 10px;
+  }
+
+  .active-btn{
+    background-color: black !important;
+    color: white !important;
+  }
+  
+  .free-resource-section .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px ;
+  }
+  
+  .free-resource-section .pdf-image {
+    width: 100px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+  }
+  
+  .free-resource-section .card-footer {
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .free-resource-section .card-title {
+    font-size: 1.2rem;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .free-resource-section .btn {
+    background-color: #AA5C18;
+    border: none;
+    margin-top: 10px;
+  }
+  

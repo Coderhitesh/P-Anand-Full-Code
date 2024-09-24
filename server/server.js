@@ -6,6 +6,7 @@ const cors = require('cors')
 const ConnectDB = require('./Config/DataBase');
 const cookieParser = require('cookie-parser')
 const Router = require('./Routes/Routes')
+const path = require('path')
 const { rateLimit } = require('express-rate-limit')
 // Middlewares
 ConnectDB()
@@ -26,6 +27,8 @@ const limiter = rateLimit({
 
 })
 
+app.use('./public/artits',express.static('files'))
+app.use('/files',express.static(path.join(__dirname,'artits')))
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -34,6 +34,7 @@ import Refund from './Pages/PrivacyPolicy/Refund';
 import { CartContext } from './Context/CartContext';
 import FounderPage from './Pages/FounderPage/FounderPage';
 import GalleryPage from './Pages/GalleryPage/GalleryPage';
+import FreeResource from './Pages/FreeResource/FreeResource';
 
 const SESSION_KEY = 'user_session';
 const SESSION_EXPIRATION_KEY = 'user_session_expiration';
@@ -184,6 +185,7 @@ function App() {
 
           {/* <Route path="/founder-page/:name" element={<FounderPage />} /> */}
           <Route path="/founder-page" element={<FounderPage />} />
+          <Route path="/free-resource" element={<FreeResource />} />
         </Routes>
         <Footer />
         {/* <ToastCon??tainer /> */}

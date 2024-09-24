@@ -20,6 +20,7 @@ function Header() {
     const [isMobActive, setIsMobActive] = useState(false)
     const [isActiveDropDown, setIsActiveDropDown] = useState(false)
     const [isActiveDropDownAbout, setIsActiveDropDownAbout] = useState(false)
+    const [isActiveDropDownUsefull, setIsActiveDropDownUsefull] = useState(false)
     const handleMobActive = () => {
         setIsMobActive(!isMobActive)
     }
@@ -31,6 +32,9 @@ function Header() {
     }
     const handleAboutDropActive = () => {
         setIsActiveDropDownAbout(!isActiveDropDownAbout)
+    }
+    const handleUsefullDropActive = () => {
+        setIsActiveDropDownUsefull(!isActiveDropDownUsefull)
     }
     const handleDropDeActive = () => {
         setIsActiveDropDown(false)
@@ -142,7 +146,7 @@ function Header() {
                                     <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-facebook-f"></i></a>
                                     {/* <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-instagram"></i></a> */}
                                     <a href="https://www.instagram.com/p.anandacademy/" target="_blank">
-                                    <img src={insta} alt="" />
+                                        <img src={insta} alt="" />
                                     </a>
                                     {/* <!-- <a href="https://x.com/"><i className="fab fa-twitter"></i></a> --> */}
                                     <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: 'white' }} className="fab fa-youtube"></i></a>
@@ -175,7 +179,7 @@ function Header() {
                             <a href="https://www.facebook.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-facebook-f"></i></a>
                             {/* <a href="https://www.instagram.com/p.anandacademy/" target="_blank"><i style={{ color: 'white' }} className="fab fa-instagram"></i></a> */}
                             <a href="https://www.instagram.com/p.anandacademy/" target="_blank">
-                            <img style={{widows:'100%',objectFit:'cover'}} src={insta} alt="" /></a>
+                                <img style={{ widows: '100%', objectFit: 'cover' }} src={insta} alt="" /></a>
                             {/* <!-- <a href="https://x.com/"><i className="fab fa-twitter"></i></a> --> */}
                             <a href="https://www.youtube.com/channel/UCk2FPN1Rbugxai5koCMUXzw" target="_blank"><i style={{ color: 'white' }} className="fab fa-youtube"></i></a>
                         </div>
@@ -222,6 +226,14 @@ function Header() {
                                                             </ul>
                                                         </li>
                                                         <li>
+                                                            <Link>Usefull Links<i className="fas fa-angle-down"></i></Link>
+                                                            <ul className="submenu">
+                                                                <li><Link target='_blank' to={'https://www.cbse.gov.in/'}>CBSE</Link></li>
+                                                                <li><Link target='_blank' to={'https://ncert.nic.in/'}>NCERT</Link></li>
+                                                                <li><Link target='_blank' to={'https://www.icai.org/'}>ICAI</Link></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
                                                             <Link to={'/shop'}>Course<i className="fas fa-angle-down"></i></Link>
                                                             <ul className="submenu">
                                                                 {
@@ -233,6 +245,7 @@ function Header() {
                                                             </ul>
                                                         </li>
                                                         <li><Link to={'/Book'}> Books</Link></li>
+                                                        <li><Link to={'/free-resource'}>Free Resources</Link></li>
                                                         <li><Link to={'/gallery'}> Gallery</Link></li>
                                                         <li>
                                                             <Link to={'/contact'}>Contact us</Link>
@@ -263,6 +276,16 @@ function Header() {
                                                 </ul>
                                             </li>
                                             <li>
+                                                <Link onClick={handleUsefullDropActive}>Usefull Links<i class="ri-add-line"></i></Link>
+                                                <ul className={`drop-down ${isActiveDropDownUsefull ? 'active-drop-down-usefull' : ''}`}>
+
+
+                                                    <li><Link onClick={handleMobDeActive} target='_blank' to={'https://www.cbse.gov.in/'}>CBSE</Link></li>
+                                                    <li><Link onClick={handleMobDeActive} target='_blank' to={'https://ncert.nic.in/'}>NCERT</Link></li>
+                                                    <li><Link onClick={handleMobDeActive} target='_blank' to={'https://www.icai.org/'}>ICAI</Link></li>
+                                                </ul>
+                                            </li>
+                                            <li>
                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} className="">
                                                     <Link to={'/shop'}>Shop </Link>
                                                     <i style={{ fontWeight: '700', fontSize: '25px', paddingRight: '5px' }} onClick={handleDropActive} class="ri-add-line"></i>
@@ -278,6 +301,7 @@ function Header() {
                                                 </ul>
                                             </li>
                                             <li><Link onClick={handleMobDeActive} to={'/founder-page'}>Founder</Link></li>
+                                            <li><Link onClick={handleMobDeActive} to={'/free-resource'}>Free Resources</Link></li>
                                             <li><Link onClick={handleMobDeActive} to={'/gallery'}>Gallery</Link></li>
                                             <li><Link onClick={handleMobDeActive} to={'/contact'}>Contact Us</Link></li>
                                         </ul>

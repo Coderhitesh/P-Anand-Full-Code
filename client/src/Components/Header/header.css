@@ -6,6 +6,10 @@
     display: none;
 }
 
+.header-1 .header-left .logo a{
+    margin-right: 28px;
+}
+
 .relativecontainer {
     padding: 0px 0px !important;
 }
@@ -161,6 +165,10 @@
         display: flex !important;
     }
 
+    .active-drop-down-usefull{
+        display: flex !important;
+    }
+
     .menu-bar .navigation-parent ul li .drop-down li a{
         padding-left: 20px;
     }
@@ -222,3 +230,13 @@
         border-radius: 100px;
     }
   }
+
+  @media (max-width:1900px) {
+    .header-logo img {
+        width: 210px;
+    }
+
+    .main-menu{
+        width: 930px;
+    }
+}
