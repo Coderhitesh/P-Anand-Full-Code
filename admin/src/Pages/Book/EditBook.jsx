@@ -52,7 +52,8 @@ function EditBook() {
                     aditionalInfo: book.aditionalInfo || '' // Fetch aditionalInfo data
                 });
                 setImagePreview(book.bookImage.url);
-                setPdfPreview(book.bookPdf);
+                // console.log('bookpdf',book.bookPdf)
+                // setPdfPreview(book.bookPdf);
             } catch (error) {
                 console.error('Error fetching book details:', error);
                 toast.error('Failed to fetch book details.');
@@ -315,17 +316,18 @@ function EditBook() {
                             accept=".pdf"
                             onChange={handlePdfChange}
                             className="form-control"
+                            // value={formData.bookPdf}
                         />
                         {/* Uncomment if you want to display PDF preview */}
-                        {/* {pdfPreview && (
-                            <embed
+                        {pdfPreview && (
+                            <iframe
                                 src={pdfPreview}
                                 type="application/pdf"
                                 width="200px"
                                 height="p00px"
                                 style={{ marginTop: '10px' }}
                             />
-                        )} */}
+                        )}
                     </div>
 
                     {/* Book Price */}

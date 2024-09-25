@@ -147,7 +147,11 @@ exports.updateFreeResource = async (req, res) => {
         // Check if a new file is uploaded
         if (req.file) {
             if (existingResource.FreePDF) {
-                await fs.unlinkSync(existingResource.FreePDF)
+                try {
+                    await fs.promises.unlink(existingResource.FreePDF); // Async version to avoid blocking
+                } catch (err) {
+                    console.error("Error deleting previous PDF:", err);
+                }
             }
             pdf = req.file.path;
         }
@@ -188,10 +192,12 @@ exports.deleteFreeResource = async (req, res) => {
             });
         }
 
-        console.log(resource.FreePDF)
-
         if (resource.FreePDF) {
-            fs.unlinkSync(resource.FreePDF)
+            try {
+                await fs.promises.unlink(resource.FreePDF); // Async version
+            } catch (err) {
+                console.error("Error deleting PDF:", err);
+            }
         }
 
         // Remove the resource from the database

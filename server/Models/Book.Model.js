@@ -56,12 +56,7 @@ const BookSchema = new mongoose.Schema({
         default:0
     },
     bookPdf: {
-        url:{
-            type:String,
-        },
-        public_id:{
-            type:String,
-        }
+        type:String
     },
     aditionalInfo: {
         type: String

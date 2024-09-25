@@ -51,10 +51,10 @@ exports.createBook = async (req, res) => {
             }
 
             if (bookPdf) {
-                const pdfUrl = await uploadPDF(bookPdf[0].path);
-                newBook.bookPdf.url = pdfUrl.pdf;
-                newBook.bookPdf.public_id = pdfUrl.public_id;
-                fs.unlinkSync(bookPdf[0].path);
+                const pdfUrl = bookPdf[0].path;
+                newBook.bookPdf = pdfUrl;
+                // newBook.bookPdf.public_id = pdfUrl.public_id;
+                // fs.unlinkSync(bookPdf[0].path);
             } else {
                 return res.status(400).json({ success: false, message: 'Please upload a Book PDF' });
             }
@@ -65,7 +65,8 @@ exports.createBook = async (req, res) => {
         const newBookSave = await newBook.save();
         if (!newBookSave) {
             if (newBook.bookImage.public_id) await deleteImageFromCloudinary(newBook.bookImage.public_id);
-            if (newBook.bookPdf.public_id) await deletePdfFromCloudinary(newBook.bookPdf.public_id);
+            // if (newBook.bookPdf.public_id) await deletePdfFromCloudinary(newBook.bookPdf.public_id);
+            if(newBook.bookPdf) fs.promises.unlink(newBook.bookPdf)
             return res.status(400).json({ success: false, message: 'Failed to save Book' });
         }
 
@@ -143,7 +144,8 @@ exports.deleteBook = async (req, res) => {
         // Step 2: Delete image and PDF from Cloudinary
         await Promise.all([
             deleteImageFromCloudinary(book.bookImage.public_id),
-            deletePdfFromCloudinary(book.bookPdf.public_id),
+            // deletePdfFromCloudinary(book.bookPdf.public_id),
+            fs.promises.unlink(book.bookPdf)
         ]);
 
         // Step 3: Delete the book record
@@ -235,13 +237,18 @@ exports.updateBook = async (req, res) => {
 
             // Update the book PDF if a new one is uploaded
             if (bookPdf) {
-                if (existingBook.bookPdf.public_id) {
-                    await deletePdfFromCloudinary(existingBook.bookPdf.public_id); // Delete old PDF
+                if (existingBook.bookPdf) {
+                    try {
+                        await fs.promises.unlink(existingBook.bookPdf)
+                    } catch (error) {
+                        console.log('Error in deleting previous book pdf')
+                    }
+                    // await deletePdfFromCloudinary(existingBook.bookPdf.public_id); // Delete old PDF
                 }
-                const pdfUrl = await uploadPDF(bookPdf[0].path);
-                existingBook.bookPdf.url = pdfUrl.pdf;
-                existingBook.bookPdf.public_id = pdfUrl.public_id;
-                fs.unlinkSync(bookPdf[0].path); // Delete local file after upload
+                const pdfUrl = bookPdf[0].path;
+                existingBook.bookPdf = pdfUrl;
+                // existingBook.bookPdf.public_id = pdfUrl.public_id;
+                // fs.unlinkSync(bookPdf[0].path); 
             }
         }
 
