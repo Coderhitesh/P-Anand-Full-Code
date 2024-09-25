@@ -146,12 +146,12 @@ function AllBook() {
                 </div>
             </div>
 
-            <div className="filteration">
+            {/* <div className="filteration">
                 <div className="search">
                     <label htmlFor="search">Search </label> &nbsp;
                     <input type="text" name="search" id="search" />
                 </div>
-            </div>
+            </div> */}
 
             <section className="table-responsive d-table-h table-container">
                 <table className="table table-bordered table-striped table-hover">

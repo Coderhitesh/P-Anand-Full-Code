@@ -117,19 +117,69 @@ function Footer() {
                                                 About us
                                             </Link>
                                         </li>
-
-                                        {/* <li>
-                                    <Link to="/">
-                                        <i class="fa-solid fa-chevrons-right"></i>
-                                        Blog
-                                    </Link>
-                                </li> */}
+                                <li>
+                                            <Link to="/gallery">
+                                                <i class="fa-solid fa-chevrons-right"></i>
+                                                Gallery
+                                            </Link>
+                                        </li>
                                         <li>
                                             <Link to="/contact">
                                                 <i class="fa-solid fa-chevrons-right"></i>
                                                 Contact us
                                             </Link>
                                         </li>
+                                        <li>
+                                            <Link to="/Book">
+                                                <i class="fa-solid fa-chevrons-right"></i>
+                                                Books
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/free-resource">
+                                                <i class="fa-solid fa-chevrons-right"></i>
+                                                Free Resources
+                                            </Link>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-3 col-lg-4 col-md-6 ps-lg-5 wow fadeInUp" data-wow-delay=".6s">
+                                <div class="single-footer-widget">
+                                    <div class="widget-head">
+                                        <h3>Our Courses</h3>
+                                    </div>
+                                    <ul class="list-area">
+                                        {
+                                            category && category.map((item, index) => (
+                                                <li key={index}>
+                                                    <Link to={`/category/${item._id}`}>
+                                                        <i class="fa-solid fa-chevrons-right"></i>
+                                                        {item.categoryName}
+                                                    </Link>
+                                                </li>
+                                            ))
+                                        }
+                                        {/* <li>
+                                            <Link to="/Book">
+                                                <i class="fa-solid fa-chevrons-right"></i>
+                                                Books
+                                            </Link>
+                                        </li> */}
+                                        {/* <li>
+                                            <Link to="/Bundle">
+                                                <i class="fa-solid fa-chevrons-right"></i>
+                                                Course Bundle
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/book-bundle">
+                                                <i class="fa-solid fa-chevrons-right"></i>
+                                                Book Bundle
+                                            </Link>
+                                        </li> */}
                                     </ul>
                                 </div>
                             </div>
@@ -139,12 +189,12 @@ function Footer() {
                                         <h3>Support</h3>
                                     </div>
                                     <ul class="list-area">
-                                        <li>
+                                        {/* <li>
                                             <Link to="/about">
                                                 <i class="fa-solid fa-chevrons-right"></i>
                                                 About us
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <Link to="/term">
                                                 <i class="fa-solid fa-chevrons-right"></i>
@@ -173,53 +223,17 @@ function Footer() {
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 ps-lg-5 wow fadeInUp" data-wow-delay=".6s">
-                                <div class="single-footer-widget">
-                                    <div class="widget-head">
-                                        <h3>Our Top Category</h3>
-                                    </div>
-                                    <ul class="list-area">
-                                        {
-                                            category && category.map((item, index) => (
-                                                <li key={index}>
-                                                    <Link to={`/category/${item._id}`}>
-                                                        <i class="fa-solid fa-chevrons-right"></i>
-                                                        {item.categoryName}
-                                                    </Link>
-                                                </li>
-                                            ))
-                                        }
-                                        <li>
-                                            <Link to="/Book">
-                                                <i class="fa-solid fa-chevrons-right"></i>
-                                                Books
-                                            </Link>
-                                        </li>
-                                        {/* <li>
-                                            <Link to="/Bundle">
-                                                <i class="fa-solid fa-chevrons-right"></i>
-                                                Course Bundle
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/book-bundle">
-                                                <i class="fa-solid fa-chevrons-right"></i>
-                                                Book Bundle
-                                            </Link>
-                                        </li> */}
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="footer-bottom">
                     <div class="container">
                         <div class="footer-wrapper d-flex align-items-center justify-content-between">
                             <p class="wow fadeInLeft" data-wow-delay=".3s">
                                 P Anand Academy © Copyright 2024. All Rights Reserved. Manage By <a href="#">Hover Business Servicess LLP</a>
                             </p>
-                            <ul class="brand-logo wow fadeInRight" data-wow-delay=".5s">
+                            {/* <ul class="brand-logo wow fadeInRight" data-wow-delay=".5s">
                                 <li>
                                     <Link to="contact.html">
                                         <img src="assets/img/visa-logo.png" alt="img" />
@@ -240,7 +254,7 @@ function Footer() {
                                         <img src="assets/img/affirm.png" alt="img" />
                                     </Link>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 </div>

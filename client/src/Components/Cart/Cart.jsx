@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { CartContext } from '../../Context/CartContext';
 import AddressForOrder from '../Address/AddressForOrder';
+import './cart.css'
 
 function Cart() {
     const {

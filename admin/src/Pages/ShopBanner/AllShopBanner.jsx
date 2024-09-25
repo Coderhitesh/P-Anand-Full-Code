@@ -80,18 +80,18 @@ const AllShopBanner = () => {
                 </div>
             </div>
 
-            <div className="filteration">
+            {/* <div className="filteration">
                 <div className="selects">
-                    {/* <select>
+                    <select>
                         <option>Ascending Order </option>
                         <option>Descending Order </option>
-                    </select> */}
+                    </select>
                 </div>
                 <div className="search">
                     <label htmlFor="search">Search </label> &nbsp;
                     <input type="text" name="search" id="search" />
                 </div>
-            </div>
+            </div> */}
 
             <section className="d-table-h ">
                 <table class="table table-bordered table-striped table-hover">

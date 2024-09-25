@@ -120,6 +120,13 @@
   }
 }
 
+@media (max-width: 1400px) {
+  .theme-btn {
+    padding: 18px 30px;
+    font-size: 16px;
+  }
+}
+
 .theme-btn-2 {
   font-size: 16px;
   display: inline-block;

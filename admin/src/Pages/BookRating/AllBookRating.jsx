@@ -111,13 +111,13 @@ function AllBookRating() {
                 </div>
             </div>
 
-            <div className="filteration">
+            {/* <div className="filteration">
                 <div className="selects"></div>
                 <div className="search">
                     <label htmlFor="search">Search </label> &nbsp;
                     <input type="text" name="search" id="search" />
                 </div>
-            </div>
+            </div> */}
 
             <section className="d-table-h overflow-auto">
                 <table className="table table-bordered table-striped table-hover">
