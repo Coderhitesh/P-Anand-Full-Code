@@ -52,7 +52,7 @@ function EditBook() {
                     aditionalInfo: book.aditionalInfo || '' // Fetch aditionalInfo data
                 });
                 setImagePreview(book.bookImage.url);
-                setPdfPreview(book.bookPdf.url);
+                setPdfPreview(book.bookPdf);
             } catch (error) {
                 console.error('Error fetching book details:', error);
                 toast.error('Failed to fetch book details.');
@@ -321,8 +321,8 @@ function EditBook() {
                             <embed
                                 src={pdfPreview}
                                 type="application/pdf"
-                                width="100%"
-                                height="100px"
+                                width="200px"
+                                height="p00px"
                                 style={{ marginTop: '10px' }}
                             />
                         )} */}
