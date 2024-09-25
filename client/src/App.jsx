@@ -134,7 +134,7 @@ function App() {
       setIsloading(true);
 
       // Make the API call to add the product to the cart
-      const res = await axios.post('https://api.panandacademy.com/api/v1/add-to-cart', addProductToCartData);
+      const res = await axios.post('https://www.api.panandacademy.com/api/v1/add-to-cart', addProductToCartData);
 
       // Handle successful addition
       toast.success(res.data.message || 'Product added to cart successfully');

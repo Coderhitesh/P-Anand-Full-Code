@@ -13,7 +13,7 @@ const AllFreeResourceCategory = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-free-resource-category');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-free-resource-category');
       const reverseData = res.data.data;
       const main = reverseData.reverse();
       setCategories(main);
@@ -48,7 +48,7 @@ const AllFreeResourceCategory = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await axios.delete(`https://api.panandacademy.com/api/v1/delete-free-resource-category/${id}`);
+          const res = await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-free-resource-category/${id}`);
           console.log(res.data);
           toast.success('Category Deleted Successfully');
           fetchCategories();

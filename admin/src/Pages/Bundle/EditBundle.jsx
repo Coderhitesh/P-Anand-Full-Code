@@ -31,7 +31,7 @@ const EditBundle = () => {
   useEffect(() => {
     const fetchBundleData = async () => {
       try {
-        const res = await axios.get(`https://api.panandacademy.com/api/v1/single-bundle/${id}`);
+        const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-bundle/${id}`);
         const bundle = res.data.data;
 
         // Set initial form data
@@ -53,7 +53,7 @@ const EditBundle = () => {
 
         // Fetch courses based on the category ID
         if (bundle.categoryId) {
-          const courseRes = await axios.get(`https://api.panandacademy.com/api/v1/get-courses-by-category/${bundle.categoryId}`);
+          const courseRes = await axios.get(`https://www.api.panandacademy.com/api/v1/get-courses-by-category/${bundle.categoryId}`);
           setFilteredCourses(courseRes.data.data); // Assuming `data.data` contains courses
         }
       } catch (error) {
@@ -70,8 +70,8 @@ const EditBundle = () => {
     const fetchData = async () => {
       try {
         const [tagsResponse, categoriesResponse] = await Promise.all([
-          axios.get('https://api.panandacademy.com/api/v1/get-all-tag'),
-          axios.get('https://api.panandacademy.com/api/v1/get-all-category'),
+          axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag'),
+          axios.get('https://www.api.panandacademy.com/api/v1/get-all-category'),
         ]);
 
         setAllTag(tagsResponse.data.data || []);
@@ -113,7 +113,7 @@ const EditBundle = () => {
       console.log(selectedCategory)
 
       try {
-        const res = await axios.get(`https://api.panandacademy.com/api/v1/get-courses-by-category/${selectedCategory.value}`);
+        const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-courses-by-category/${selectedCategory.value}`);
         console.log(res.data.data)
         // console.log("ss", res.data.data)
         setFilteredCourses(res.data.data);
@@ -220,7 +220,7 @@ const EditBundle = () => {
     }
 
     try {
-      const res = await axios.put(`https://api.panandacademy.com/api/v1/update-bundle/${id}`, data, {
+      const res = await axios.put(`https://www.api.panandacademy.com/api/v1/update-bundle/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -26,7 +26,7 @@ function AddTeacher() {
   // Fetch all categories
   const handleFetchCategory = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-category');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
       setCategories(res.data.data);
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ function AddTeacher() {
   // Fetch all courses
   const fetchCourses = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-course');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
       setAllCourses(res.data.data);
     } catch (error) {
       console.log(error);
@@ -109,7 +109,7 @@ function AddTeacher() {
     });
 
     try {
-      const response = await axios.post('https://api.panandacademy.com/api/v1/create-teacher', data, {
+      const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-teacher', data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

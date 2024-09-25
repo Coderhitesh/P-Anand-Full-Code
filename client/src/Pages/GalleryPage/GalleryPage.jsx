@@ -20,7 +20,7 @@ function GalleryPage() {
 
     const fetchGalleryName = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-gallery-category-name');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-gallery-category-name');
             setGalleryNames(res.data.data);
         } catch (error) {
             console.log(error);
@@ -29,7 +29,7 @@ function GalleryPage() {
 
     const fetchImages = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-gallery-image');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-gallery-image');
             setImages(res.data.data);
         } catch (error) {
             console.log(error);

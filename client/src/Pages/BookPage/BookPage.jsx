@@ -31,7 +31,7 @@ function BookPage() {
 
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get(`https://api.panandacademy.com/api/v1/get-all-book-category`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-book-category`);
             // console.log(res.data.data);
             setCategory(res.data.data);
         } catch (error) {
@@ -41,7 +41,7 @@ function BookPage() {
 
     const handleFetchBook = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book');
             setBook(res.data.data)
         } catch (error) {
             console.log(error);
@@ -50,7 +50,7 @@ function BookPage() {
 
     const handleFetchTag = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-tag')
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag')
             setTag(res.data.data)
         } catch (error) {
             console.log(error)

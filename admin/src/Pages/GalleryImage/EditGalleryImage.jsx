@@ -18,7 +18,7 @@ const EditGalleryImage = () => {
   // Fetch the current gallery image details
   const fetchGalleryImage = async () => {
     try {
-      const res = await axios.get(`https://api.panandacademy.com/api/v1/get-single-gallery-image/${id}`);
+      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-gallery-image/${id}`);
       setFormData({
         image: res.data.data.image,
         galleryCategoryId: res.data.data.galleryCategoryId,
@@ -35,7 +35,7 @@ const EditGalleryImage = () => {
   // Fetch all gallery categories for the dropdown
   const fetchCategories = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-gallery-category-name');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-gallery-category-name');
       setCategories(res.data.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -79,7 +79,7 @@ const EditGalleryImage = () => {
     }
 
     try {
-      await axios.put(`https://api.panandacademy.com/api/v1/update-gallery-image/${id}`, data, {
+      await axios.put(`https://www.api.panandacademy.com/api/v1/update-gallery-image/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

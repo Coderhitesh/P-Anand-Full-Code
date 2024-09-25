@@ -13,7 +13,7 @@ const AllGalleryImage = () => {
   // Fetch Gallery Images
   const fetchGalleryImages = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-gallery-image');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-gallery-image');
       const reverse = res.data.data.reverse()
       setGalleryImages(reverse);
       setLoading(false);
@@ -37,7 +37,7 @@ const AllGalleryImage = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`https://api.panandacademy.com/api/v1/delete-gallery-image/${id}`);
+          await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-gallery-image/${id}`);
           toast.success('Gallery image deleted successfully');
           fetchGalleryImages();
           Swal.fire('Deleted!', 'Your gallery image has been deleted.', 'success');
@@ -158,7 +158,7 @@ const GalleryCategoryName = ({ id }) => {
     const fetchCategoryName = async () => {
       try {
         const res = await axios.get(
-          `https://api.panandacademy.com/api/v1/get-single-gallery-category-name/${id}`
+          `https://www.api.panandacademy.com/api/v1/get-single-gallery-category-name/${id}`
         );
         setCategoryName(res.data.data.name);
         console.log(res.data.data.name)

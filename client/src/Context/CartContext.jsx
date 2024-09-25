@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
     // Fetch cart items from API
     const fetchData = async () => {
         try {
-            const response = await axios.get(`https://api.panandacademy.com/api/v1/get-products-by-session/${session}`);
+            const response = await axios.get(`https://www.api.panandacademy.com/api/v1/get-products-by-session/${session}`);
             if (response.data) {
                 setCartItems(response.data.cart);
                 setProductCount(response.data.cart.length); // Update product count
@@ -40,7 +40,7 @@ export const CartProvider = ({ children }) => {
     // Add a product to the cart (trigger an immediate update)
     const addProductToCart = async (productId) => {
         try {
-            const response = await axios.post('https://api.panandacademy.com/api/v1/add-product', {
+            const response = await axios.post('https://www.api.panandacademy.com/api/v1/add-product', {
                 productId,
                 sessionId: session,
             });
@@ -60,7 +60,7 @@ export const CartProvider = ({ children }) => {
     // Remove product from cart
     const removeProduct = async (productId) => {
         try {
-            const response = await axios.post(`https://api.panandacademy.com/api/v1/remove-product`, {
+            const response = await axios.post(`https://www.api.panandacademy.com/api/v1/remove-product`, {
                 productId,
                 sessionId: session,
             });
@@ -80,7 +80,7 @@ export const CartProvider = ({ children }) => {
     // Delete all products from cart
     const deleteAll = async () => {
         try {
-            await axios.post('https://api.panandacademy.com/api/v1/delete-by-session', { session });
+            await axios.post('https://www.api.panandacademy.com/api/v1/delete-by-session', { session });
             setCartItems([]);
             setProductCount(0); // Reset product count
         } catch (error) {
@@ -111,7 +111,7 @@ export const CartProvider = ({ children }) => {
                 };
 
                 try {
-                    const response = await axios.post('https://api.panandacademy.com/api/v1/Make-Order', cartData, {
+                    const response = await axios.post('https://www.api.panandacademy.com/api/v1/Make-Order', cartData, {
                         headers: {
                             Authorization: `Bearer ${userToken}`,
                         },

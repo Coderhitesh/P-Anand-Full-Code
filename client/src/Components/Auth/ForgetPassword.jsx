@@ -38,7 +38,7 @@ const ForgetPassword = () => {
         setLoading(true)
         event.preventDefault()
         try {
-            const response = await axios.post("https://api.panandacademy.com/api/v1/Password-Change", formData)
+            const response = await axios.post("https://www.api.panandacademy.com/api/v1/Password-Change", formData)
             console.log(response.data);
             setLoading(false);
             toast.success(response.data.msg)
@@ -57,7 +57,7 @@ const ForgetPassword = () => {
         setLoading(true)
         otpevent.preventDefault()
         try {
-            const response = await axios.post(`https://api.panandacademy.com/api/v1/Verify-Otp/${formData.Email}/${formData.NewPassword}`, formData)
+            const response = await axios.post(`https://www.api.panandacademy.com/api/v1/Verify-Otp/${formData.Email}/${formData.NewPassword}`, formData)
             console.log(response.data);
             setLoading(false);
             toast.success(response.data.msg)
@@ -77,7 +77,7 @@ const ForgetPassword = () => {
         setLoading(true)
         otpevent.preventDefault()
         try {
-            const response = await axios.post(`https://api.panandacademy.com/api/v1/resend-otp/`, formData)
+            const response = await axios.post(`https://www.api.panandacademy.com/api/v1/resend-otp/`, formData)
             console.log(response.data);
             setLoading(false);
 

@@ -15,7 +15,7 @@ function Topcategory() {
 
   const handleFetchCategory = async (pageNumber) => {
     try {
-      const res = await axios.get(`https://api.panandacademy.com/api/v1/get-all-category`);
+      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-category`);
       console.log(res.data.data); // Log the response to see its structure
       setCategory((prevCategories) => [...prevCategories, ...res.data.data]); // Adjust this based on the actual structure
     } catch (error) {
