@@ -18,7 +18,7 @@ const AllProduct = () => {
 
     const handleFetchCourses = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-course');
             const reverseData = res.data.data.reverse();
             setCourse(reverseData);
             paginateData(reverseData, currentPage);
@@ -29,7 +29,7 @@ const AllProduct = () => {
 
     const handleFetchCategories = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-category');
             setCategory(res.data.data);
         } catch (error) {
             console.error('There was an error fetching the categories!', error);
@@ -38,7 +38,7 @@ const AllProduct = () => {
 
     const handleFetchTeacher = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher')
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-teacher')
             setTeacher(res.data.data)
         } catch (error) {
             console.log(error)
@@ -47,7 +47,7 @@ const AllProduct = () => {
 
     const handleFetchTags = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-tag');
             setTags(res.data.data);
         } catch (error) {
             console.error('There was an error fetching the tags!', error);
@@ -67,7 +67,7 @@ const AllProduct = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-course/${id}`);
+                    await axios.delete(`https://api.panandacademy.com/api/v1/delete-course/${id}`);
                     toast.success("Course Deleted Successfully");
                     handleFetchCourses(); // Re-fetch courses after deletion
                     Swal.fire({
@@ -86,7 +86,7 @@ const AllProduct = () => {
     const toggleFeatureStatus = async (courseId, currentStatus) => {
         try {
             const updatedStatus = !currentStatus;
-            await axios.put(`https://www.api.panandacademy.com/api/v1/update-course-feature/${courseId}`, { feature: updatedStatus });
+            await axios.put(`https://api.panandacademy.com/api/v1/update-course-feature/${courseId}`, { feature: updatedStatus });
             handleFetchCourses(); // Refresh the course list to reflect changes
             toast.success("Course feature status updated successfully!");
         } catch (error) {

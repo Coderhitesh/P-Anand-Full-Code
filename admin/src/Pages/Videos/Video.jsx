@@ -12,7 +12,7 @@ const AllVideos = () => {
     const itemsPerPage = 8;
     const [showModal, setShowModal] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
-    const BackendUrl = "https://www.api.panandacademy.com/api/v1";
+    const BackendUrl = "https://api.panandacademy.com/api/v1";
 
     const handleFetch = async () => {
         try {

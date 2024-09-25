@@ -18,7 +18,7 @@ function AddCourseTitle() {
 
     const fetchTags = async () => {
         try {
-            const response = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
+            const response = await axios.get('https://api.panandacademy.com/api/v1/get-all-tag');
             setTags(response.data.data); // Assuming tags are returned in response.data.data
             // console.log(response.data.data)
         } catch (error) {
@@ -47,7 +47,7 @@ function AddCourseTitle() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-course-title', formData);
+            const response = await axios.post('https://api.panandacademy.com/api/v1/create-course-title', formData);
             setIsLoading(false);
             toast.success("Course Title Added Successfully !!");
             // Optionally, redirect or reset the form here

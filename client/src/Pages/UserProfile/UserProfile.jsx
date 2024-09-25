@@ -13,7 +13,7 @@ const UserProfile = () => {
     // Fetch user profile data
     const handleFetchUserProfile = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/user-details', {
+            const res = await axios.get('https://api.panandacademy.com/api/v1/user-details', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUser(res.data.user);
@@ -25,7 +25,7 @@ const UserProfile = () => {
     // Fetch course data
     const handleFetchCourseData = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/show-course', {
+            const res = await axios.get('https://api.panandacademy.com/api/v1/show-course', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setCourses(res.data.data);
@@ -37,7 +37,7 @@ const UserProfile = () => {
     // Fetch order data
     const handleFetchOrderData = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/book-order', {
+            const res = await axios.get('https://api.panandacademy.com/api/v1/book-order', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setOrders(res.data.data);

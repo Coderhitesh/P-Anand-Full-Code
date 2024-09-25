@@ -18,7 +18,7 @@ function EditShopBanner() {
         // Fetch the existing banner data
         const fetchBanner = async () => {
             try {
-                const response = await axios.get(`https://www.api.panandacademy.com/api/v1/single-home-banner/${id}`);
+                const response = await axios.get(`https://api.panandacademy.com/api/v1/single-home-banner/${id}`);
                 const banner = response.data.data;
 
                 // Set the form data with existing banner data
@@ -75,7 +75,7 @@ function EditShopBanner() {
         data.append('active', formData.active);
 
         try {
-            await axios.put(`https://www.api.panandacademy.com/api/v1/update-home-banner/${id}`, data, {
+            await axios.put(`https://api.panandacademy.com/api/v1/update-home-banner/${id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

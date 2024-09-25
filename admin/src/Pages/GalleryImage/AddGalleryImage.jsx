@@ -18,7 +18,7 @@ const AddGalleryImage = () => {
   // Fetch Gallery Categories for Dropdown
   const fetchGalleryCategories = async () => {
     try {
-      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-gallery-category-name');
+      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-gallery-category-name');
       setGalleryCategories(res.data.data); // Assuming categories come as `data.data`
     } catch (error) {
       console.error('Error fetching gallery categories:', error);
@@ -68,7 +68,7 @@ const AddGalleryImage = () => {
     formDataToSend.append('galleryCategoryId', formData.galleryCategoryId);
 
     try {
-      await axios.post('https://www.api.panandacademy.com/api/v1/create-gallery-image', formDataToSend, {
+      await axios.post('https://api.panandacademy.com/api/v1/create-gallery-image', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set correct content-type
         },

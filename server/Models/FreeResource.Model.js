@@ -5,17 +5,20 @@ const FreeResourceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    FreePDF: {
-        url:{
-            type:String,
-        },
-        public_id:{
-            type:String,
-        }
+    // FreePDF: {
+    //     url:{
+    //         type:String,
+    //     },
+    //     public_id:{
+    //         type:String,
+    //     }
+    // },
+    FreePDF:{
+        type:String
     },
     categoryId: {
         type: String,
-        required: true
+        // required: true
     }
 })
 

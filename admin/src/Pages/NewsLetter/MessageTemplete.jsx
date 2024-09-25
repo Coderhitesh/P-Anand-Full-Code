@@ -14,7 +14,7 @@ const MessageTemplate = () => {
     // Fetch all templates
     const handleFetchTemplates = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-templates');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-templates');
             setTemplates(res.data || []);
         } catch (error) {
             console.error('There was an error fetching the templates!', error);
@@ -24,7 +24,7 @@ const MessageTemplate = () => {
     // Handle delete template
     const handleDeleteTemplate = async () => {
         try {
-            await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-template/${selectedTemplate._id}`);
+            await axios.delete(`https://api.panandacademy.com/api/v1/delete-template/${selectedTemplate._id}`);
             handleFetchTemplates();
             setShowDeleteModal(false);
             toast.success('Template deleted successfully!');
@@ -37,7 +37,7 @@ const MessageTemplate = () => {
     // Handle send template
     const handleSendTemplate = async (_id) => {
         try {
-            await axios.post('https://www.api.panandacademy.com/api/v1/send-emails-in-batches', {
+            await axios.post('https://api.panandacademy.com/api/v1/send-emails-in-batches', {
                 id: _id
             });
             toast.success('Emails sent successfully!');

@@ -12,7 +12,7 @@ function FreeResource() {
     // Fetch all categories on component mount
     const fetchCategories = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-free-resource-category');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-free-resource-category');
             setCategories(res.data.data);
             if (res.data.data.length > 0) {
                 setActiveCategory(res.data.data[0]._id); // Set the first category as active
@@ -26,7 +26,7 @@ function FreeResource() {
     const fetchResources = async (categoryId) => {
         setLoading(true);
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-free-resource');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-free-resource');
             const filteredResources = res.data.data.filter(resource => resource.categoryId === categoryId);
             setResources(filteredResources);
         } catch (error) {
@@ -81,7 +81,7 @@ function FreeResource() {
                                             <div className="card-footer">
                                                 <h5 className="card-title">{resource.name}</h5>
                                             </div>
-                                            <a href={resource.FreePDF.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-2">
+                                            <a href={`https://api.panandacademy.com/${resource.FreePDF}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-2">
                                                 View PDF
                                             </a>
                                         </div>

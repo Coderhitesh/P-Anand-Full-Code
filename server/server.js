@@ -27,8 +27,11 @@ const limiter = rateLimit({
 
 })
 
-app.use('./public/artits',express.static('files'))
-app.use('/files',express.static(path.join(__dirname,'artits')))
+// app.use('./public/artits',express.static('files'))
+// app.use('/files',express.static(path.join(__dirname,'artits')))
+app.set(express.static('public'))
+app.use('/public',express.static('public'))
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -18,7 +18,7 @@ export default function OurTeam() {
   const [teacher, setTeacher] = useState([])
   const handleFetchTeacher = async () => {
     try {
-      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher')
+      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-teacher')
       setTeacher(res.data.data)
     } catch (error) {
       console.log(error)

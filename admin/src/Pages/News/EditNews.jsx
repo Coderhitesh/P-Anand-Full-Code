@@ -24,7 +24,7 @@ const EditNews = () => {
         // Fetch news data when component mounts
         const fetchNewsData = async () => {
             try {
-                const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-news/${id}`);
+                const res = await axios.get(`https://api.panandacademy.com/api/v1/get-single-news/${id}`);
                 setFormData(res.data);
             } catch (error) {
                 console.error('There was an error fetching the news!', error);
@@ -53,7 +53,7 @@ const EditNews = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.put(`https://www.api.panandacademy.com/api/v1/update-news/${id}`, formData);
+            await axios.put(`https://api.panandacademy.com/api/v1/update-news/${id}`, formData);
             toast.success("News updated successfully!");
             navigate('/all-news'); // Redirect to the news list page
         } catch (error) {
