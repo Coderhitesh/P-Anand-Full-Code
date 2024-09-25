@@ -43,6 +43,7 @@ function Home() {
           </>
         ) : (
           <>
+          {/* <i class="ri-menu-2-line"></i> */}
             <Hero />
             <Homepost />
             <Featurecourse />
