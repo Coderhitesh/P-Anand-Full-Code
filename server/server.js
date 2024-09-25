@@ -29,12 +29,13 @@ const limiter = rateLimit({
 
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 // All other routes should serve the index.html file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '../client/build/index.html'));
+  res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
 });
+
 
 // app.use('./public/artits',express.static('files'))
 // app.use('/files',express.static(path.join(__dirname,'artits')))
