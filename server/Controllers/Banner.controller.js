@@ -75,13 +75,27 @@ exports.getAllBanner = async (req,res) => {
 exports.deletebanner = async (req,res) => {
     try {
         const id = req.params._id
-        const banner = await mainBanner.findByIdAndDelete(id)
+        const banner = await mainBanner.findById(id)
         if(!banner) {
             return res.status(404).json({
                 success: false,
                 message: 'Banner not found'
             })
         }
+
+        if(banner.bannerImage && banner.bannerImage.public_id){
+           try {
+            await deleteImageFromCloudinary(banner.bannerImage.public_id) 
+           } catch (error) {
+            console.log('Error in deleting banner image from cloudinary',error)
+            return res.status(500).json({
+                success: false,
+                message: 'failed to delete banner image from cloudinary'
+            })
+           }
+        }
+
+        await banner.deleteOne();
 
         res.status(200).json({
             success: true,
