@@ -137,23 +137,23 @@ function Featurecourse() {
               <SwiperSlide key={index}>
                 <div className="shop-box-items style-2">
                   <div className="book-thumb center">
-                    <a href={`/course-detail/${item._id}`}>
+                    <Link to={`/course-detail/${item._id}`}>
                       <img src={item.courseImage.url} alt={item.courseName} />
-                    </a>
+                    </Link>
                     <ul className="post-box">
                       <li>{getTagNameById(item.courseTagName)}</li>
                     </ul>
                   </div>
                   <div className="shop-content">
                     <h5>{getCategorygNameById(item.courseCategory)}</h5>
-                    <h3><a href={`/course-detail/${item._id}`}>{item.courseName}</a></h3>
+                    <h3><Link to={`/course-detail/${item._id}`}>{item.courseName}</Link></h3>
                     {/* <span>By {getTeacherNameById(item.courseTeacherName)}</span> */}
                     <ul className="price-list">
                       <li>₹{formatCurrency(item.startingPrice)} - ₹{formatCurrency(item.endingPrice)}</li>
                     </ul>
                   </div>
                   <div className="shop-button">
-                    <a href={`/course-detail/${item._id}`} className="theme-btn"> View Detail</a>
+                    <Link to={`/course-detail/${item._id}`} className="theme-btn"> View Detail</Link>
                   </div>
                 </div>
               </SwiperSlide>
