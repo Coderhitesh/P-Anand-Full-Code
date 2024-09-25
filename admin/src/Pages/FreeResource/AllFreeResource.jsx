@@ -118,7 +118,7 @@ const AllFreeResource = () => {
                   <td>{resource.name}</td>
                   <td>{getCategoryNameById(resource.categoryId)}</td>
                   <td>
-                    <a href={`https://panandacademy.com/${resource.FreePDF}`} target="_blank" rel="noopener noreferrer">View PDF</a>
+                    <a href={`https://api.panandacademy.com/${resource.FreePDF}`} target="_blank" rel="noopener noreferrer">View PDF</a>
                   </td>
                   <td>
                     <Link to={`/edit-free-resource/${resource._id}`}>
