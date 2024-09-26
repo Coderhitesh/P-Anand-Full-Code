@@ -12,7 +12,7 @@ const { createTeacherRating, getAllTeacherRating, singleTeacherRating, updateTea
 const { createCourseRating, getAllCourseRating, singleCourseRating, updateCourseRating, deleteCourseRating } = require('../Controllers/CourseRating.controller')
 const { createHomeBanner, getAllHomeBanner, deleteHomeBanner, getSingleHomeBanner, updateHomeBanner } = require('../Controllers/HomeBanner.Controller')
 const { createCourseTitle, getAllCourseTitle, deleteCourseTitle, updateCourseTitle, getSingleCourseTitle } = require('../Controllers/CourseTitle.controller')
-const { createBook, getAllBook, getSingleBook, deleteBook, updateBook, updateBookFeature, getBookByCategory } = require('../Controllers/BookController')
+const { createBook, getAllBook, getSingleBook, deleteBook, updateBook, updateBookFeature, getBookByCategory, updateBookFeatureById } = require('../Controllers/BookController')
 const { createBookCategory, getAllBookCategory, singleBookCategory, deleteBookCategory, updateBookCategory } = require('../Controllers/BookCategory.controller')
 const { createBookTag, getAllBookTags, getSingleBookTag, deleteBookTag, updateBookTag } = require('../Controllers/BookTag.controller')
 const { createBookRating, getAllBookRating, singleBookRating, updateBookRating, deleteBookRating } = require('../Controllers/BookRating.controller')
@@ -132,6 +132,7 @@ router.get('/get-single-book/:_id', getSingleBook)
 router.delete('/delete-book/:_id', deleteBook)
 router.put('/update-book/:_id', upload.fields([{ name: 'bookImage' }, { name: 'bookPdf' }]), updateBook)
 router.get('/get-book-by-category/:categoryId', getBookByCategory)
+router.get('/update-book-feature/:_id', updateBookFeatureById)
 
 // category book routers 
 

@@ -292,3 +292,22 @@ exports.getBookByCategory = async (req, res) => {
         });
     }
 };
+
+exports.updateBookFeatureById = async (req,res) => {
+    const id = req.params._id;
+    const { feature } = req.body;
+
+    try {
+        const updatedBook = await BookSchema.findByIdAndUpdate(id, { feature }, { new: true });
+        if (!updatedBook) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
+        return res.status(200).json({ message: 'Book feature status updated', updatedBook });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error in update book feature by id "
+        })
+    }
+}
