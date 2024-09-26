@@ -10,14 +10,14 @@ exports.createBook = async (req, res) => {
 
         if (!bookName) emptyField.push('Book Name');
         if (!bookCategory) emptyField.push('Book Category');
-        if (!bookDescription) emptyField.push('Book Description');
+        // if (!bookDescription) emptyField.push('Book Description');
         if (!bookTagName) emptyField.push('Book TagName');
         if (!feature) emptyField.push('Feature');
         if (!bookPrice) emptyField.push('Book Price');
         if (!bookAfterDiscount) emptyField.push('Book After Discount');
         if (!bookDiscountPresent) emptyField.push('Book Discount Present');
-        if (!BookHSNCode) emptyField.push('Book HSN Code');
-        if (!aditionalInfo) emptyField.push('Aditional Info');
+        // if (!BookHSNCode) emptyField.push('Book HSN Code');
+        // if (!aditionalInfo) emptyField.push('Aditional Info');
 
         if (emptyField.length > 0) {
             return res.status(400).json({ message: "Please fill all the fields", emptyField });
@@ -185,21 +185,21 @@ exports.updateBook = async (req, res) => {
         } = req.body;
 
         // Check for empty required fields
-        const emptyField = [];
-        if (!bookName) emptyField.push('Book Name');
-        if (!bookCategory) emptyField.push('Book Category');
-        if (!bookDescription) emptyField.push('Book Description');
-        if (!bookTagName) emptyField.push('Book TagName');
-        if (!feature) emptyField.push('Feature');
-        if (!bookPrice) emptyField.push('Book Price');
-        if (!bookAfterDiscount) emptyField.push('Book After Discount');
-        if (!bookDiscountPresent) emptyField.push('Book Discount Present');
-        if (!BookHSNCode) emptyField.push('Book HSN Code');
-        if (!aditionalInfo) emptyField.push('addition Info');
+        // const emptyField = [];
+        // if (!bookName) emptyField.push('Book Name');
+        // if (!bookCategory) emptyField.push('Book Category');
+        // if (!bookDescription) emptyField.push('Book Description');
+        // if (!bookTagName) emptyField.push('Book TagName');
+        // if (!feature) emptyField.push('Feature');
+        // if (!bookPrice) emptyField.push('Book Price');
+        // if (!bookAfterDiscount) emptyField.push('Book After Discount');
+        // if (!bookDiscountPresent) emptyField.push('Book Discount Present');
+        // if (!BookHSNCode) emptyField.push('Book HSN Code');
+        // if (!aditionalInfo) emptyField.push('addition Info');
 
-        if (emptyField.length > 0) {
-            return res.status(400).json({ message: "Please fill all the fields", emptyField });
-        }
+        // if (emptyField.length > 0) {
+        //     return res.status(400).json({ message: "Please fill all the fields", emptyField });
+        // }
 
         // Find the existing book by ID
         const existingBook = await BookSchema.findById(id);
