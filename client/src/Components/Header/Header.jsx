@@ -39,6 +39,24 @@ function Header() {
     const handleDropDeActive = () => {
         setIsActiveDropDown(false)
     }
+
+    useEffect(() => {
+        const header = document.querySelector('.header-1');
+        
+        const handleScroll = () => {
+          if (window.scrollY > 0) {
+            header.classList.add('stuck');  // Add the 'stuck' class when scrolling down
+          } else {
+            header.classList.remove('stuck');  // Remove it when at the top
+          }
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+        
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
     const token = sessionStorage.getItem('token')
     // console.log(token)
     const handleFetchCategory = async () => {
@@ -201,7 +219,7 @@ function Header() {
 
 
             {/* <!-- Main Header Section start  --> */}
-            <header className="header-1 sticky-top">
+            <header className="header-1 forstickyheader">
                 <div className="mega-menu-wrapper">
                     <div className="header-main">
                         <div className="container relativecontainer">
