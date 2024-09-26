@@ -132,7 +132,7 @@ router.get('/get-single-book/:_id', getSingleBook)
 router.delete('/delete-book/:_id', deleteBook)
 router.put('/update-book/:_id', upload.fields([{ name: 'bookImage' }, { name: 'bookPdf' }]), updateBook)
 router.get('/get-book-by-category/:categoryId', getBookByCategory)
-router.get('/update-book-feature/:_id', updateBookFeatureById)
+router.put('/update-book-feature/:_id', updateBookFeatureById)
 
 // category book routers 
 
