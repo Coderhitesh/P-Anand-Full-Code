@@ -184,7 +184,9 @@ exports.updateCourse = async (req, res) => {
             courseTagName,
             courseMode,
             feature,
-            aditionalInfo
+            aditionalInfo,
+            startingPrice,
+            endingPrice
         } = req.body
 
         const data = await MainCourse.findById(id)
@@ -206,6 +208,8 @@ exports.updateCourse = async (req, res) => {
         if (feature) data.feature = feature
         if (courseTagName) data.courseTagName = courseTagName
         if (aditionalInfo) data.aditionalInfo = aditionalInfo
+        if (startingPrice) data.startingPrice = startingPrice
+        if (endingPrice) data.endingPrice = endingPrice
 
         // Handle image update
         if (req.file) {

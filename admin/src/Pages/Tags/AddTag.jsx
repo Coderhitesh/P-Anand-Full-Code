@@ -51,7 +51,7 @@ const AddTag = () => {
             setIsLoading(false);
             toast.success("Tag Added Successfully !!");
             // Optionally, redirect or reset the form here
-            // window.location.href = '/all-tags';
+            window.location.href = '/all-tags';
         } catch (error) {
             setIsLoading(false);
             console.error('Error:', error);

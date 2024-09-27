@@ -123,6 +123,7 @@ const EditProduct = () => {
     // Handle Input Change
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+        console.log('checking field data',name, value);
         setFormData((prevFormData) => ({
             ...prevFormData,
             [name]: type === 'checkbox' ? checked : value
@@ -184,6 +185,7 @@ const EditProduct = () => {
     // Handle Form Submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Submitting form with:', formData);
         setIsLoading(true);
 
         try {
@@ -284,7 +286,7 @@ const EditProduct = () => {
                                 <select onChange={handleChange} name='courseTagName' value={formData.courseTagName} className="form-select" id="courseTagName">
                                     <option value="">Choose Tag</option>
                                     {allTags && allTags.map((tag) => (
-                                        <option key={tag._id} value={tag.tagName}>{tag.tagName}</option>
+                                        <option key={tag._id} value={tag._id}>{tag.tagName}</option>
                                     ))}
                                 </select>
                             </div>
@@ -409,7 +411,7 @@ const EditProduct = () => {
                             <div className="col-md-6">
                                 <label htmlFor="startingPrice" className="form-label">Starting Price</label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="startingPrice"
                                     value={formData.startingPrice}
                                     onChange={handleChange}
@@ -422,7 +424,7 @@ const EditProduct = () => {
                             <div className="col-md-6">
                                 <label htmlFor="endingPrice" className="form-label">Ending Price</label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="endingPrice"
                                     value={formData.endingPrice}
                                     onChange={handleChange}

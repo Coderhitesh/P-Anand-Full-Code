@@ -190,6 +190,7 @@ const AddProduct = () => {
 
             toast.success('Course Added Successfully');
             setIsLoading(false);
+            window.location.href = '/all-courses';
             // setFormData({
             //     courseName: '',
             //     courseDescription: '',

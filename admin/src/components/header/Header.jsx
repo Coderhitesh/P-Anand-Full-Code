@@ -192,7 +192,7 @@ const Header = () => {
                 <i className="fa-solid fa-truck-arrow-right me-1"></i> Gallery Name
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="/all-gallery-name"
                 onClick={() => handleTabClick('all-gallery-name')}
@@ -200,7 +200,7 @@ const Header = () => {
               >
                 <i className="fa-solid fa-truck-arrow-right me-1"></i> Gallery Name
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to="/all-gallery-image"
