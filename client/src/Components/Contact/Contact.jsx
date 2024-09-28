@@ -34,12 +34,6 @@ function Contact() {
             <div className="contact-container">
               {/* Breadcumb Section Start */}
               <div className="breadcrumb-wrapper">
-                {/* <div className="book1">
-            <img src="assets/img/hero/book1.png" alt="book" />
-        </div>
-        <div className="book2">
-            <img src="assets/img/hero/book2.png" alt="book" />
-        </div> */}
                 <div className="container">
                   <div className="page-heading">
                     <h1>Contact Us</h1>
@@ -92,6 +86,9 @@ function Contact() {
                     <a href=""><i className="ri-twitter-x-fill"></i></a>
                   </div>
                 </div>
+              </div>
+              <div className="map-container">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3501.5281125749134!2d77.3398054!3d28.6439018!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfb429faa566b%3A0x3e25c0e72d49aa5a!2sP%20Anand%20Academy!5e0!3m2!1sen!2sin!4v1727518237431!5m2!1sen!2sin"   allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
           </section>
