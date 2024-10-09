@@ -12,12 +12,17 @@ const AllOrder = () => {
     const [itemPerPage] = useState(15);
     const [filterType, setFilterType] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const token = sessionStorage.getItem('token')
+    // console.log('token',token)
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/all-order');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/all-orders', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             const reverseData = res.data.data.reverse();
             setOrders(reverseData);
+            console.log('data',reverseData)
             setFilteredOrders(reverseData); // Initialize filtered orders with all orders
         } catch (error) {
             console.error('There was an error fetching the Orders!', error);
@@ -40,7 +45,7 @@ const AllOrder = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-order/${id}`);
+                    await axios.delete(`https://api.panandacademy.com/api/v1/delete-order/${id}`);
                     toast.success('Order Deleted Successfully');
                     handleFetch();
                     Swal.fire({
@@ -166,8 +171,8 @@ const AllOrder = () => {
                             <th scope="col">Items</th>
                             <th scope="col">Final Price</th>
                             <th scope="col">Order Status</th>
-                            <th scope="col">Payment Mode</th>
                             <th scope="col">Payment Status</th>
+                            {/* <th scope="col">Payment Status</th> */}
                             <th scope="col">Order Date</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -180,20 +185,21 @@ const AllOrder = () => {
                                     <Link to={`/edit-order/${order._id}`}>{order._id}</Link>
                                 </td>
                                 <td>
-                                    {order.items.map((item, idx) => (
-                                        <div key={idx}>
-                                            <strong>{item.name}</strong><br />
-                                            SKU: {item.sku}<br />
+                                {
+                                        order.CartItems.map((item,index)=>(
+                                            <div key={index}>
+                                            <strong>{item.productName}</strong><br />
                                             Quantity: {item.quantity}<br />
-                                            Price: {item.price}
+                                            Price: {`${item.productPrice} * ${item.quantity} = ${item.totalPrice}`}
                                         </div>
-                                    ))}
+                                        ))
+                                    }
                                 </td>
                                 <td>{order.FinalPrice}</td>
                                 <td>{order.OrderStatus}</td>
-                                <td>{order.PaymentMode}</td>
-                                <td>{order.PaymentStatus}</td>
-                                <td>{new Date(order.OrderDate).toLocaleString()}</td>
+                                <td>{order.paymentStatus}</td>
+                                {/* <td>{order.PaymentStatus}</td> */}
+                                <td>{new Date(order.createdAt).toLocaleString()}</td>
                                 <td>
                                     <Link onClick={() => handleDelete(order._id)} className="bt delete">
                                         Delete <i className="fa-solid fa-trash"></i>

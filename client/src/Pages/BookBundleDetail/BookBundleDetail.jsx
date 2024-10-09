@@ -17,7 +17,7 @@ function BookBundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchCourse = async () => {
         try {
-            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-book-bundle/${id}`);
+            const res = await axios.get(`https://api.panandacademy.com/api/v1/get-single-book-bundle/${id}`);
             setBundle(res.data.data);
             // if (res.data.data.bundleMode.length > 0) {
             //     setSelectedMode(res.data.data.bundleMode[0]._id);
@@ -33,7 +33,7 @@ function BookBundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchAllBundle = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-bundle')
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-bundle')
             setFilterData(res.data.data)
         } catch (error) {
             console.log(error)
@@ -42,7 +42,7 @@ function BookBundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchAllCourse = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book');
             setCourse(res.data.data);
         } catch (error) {
             console.log(error);
@@ -51,7 +51,7 @@ function BookBundleDetail({ handleAddToCart, loadingFromCart }) {
 
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-category');
             setCategory(res.data.data);
         } catch (error) {
             console.log(error);

@@ -7,7 +7,7 @@ function Footer() {
     const [category, setCategory] = useState([])
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category')
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-category')
             const sortedCategories = res.data.data.sort((a, b) => a.position - b.position);
             setCategory(sortedCategories);
         } catch (error) {
@@ -231,7 +231,7 @@ function Footer() {
                     <div class="container">
                         <div class="footer-wrapper d-flex align-items-center justify-content-between">
                             <p class="wow fadeInLeft" data-wow-delay=".3s">
-                                P Anand Academy © Copyright 2024. All Rights Reserved. Manage By <a href="#">Hover Business Servicess LLP</a>
+                                P Anand Academy © Copyright 2024. All Rights Reserved.
                             </p>
                             {/* <ul class="brand-logo wow fadeInRight" data-wow-delay=".5s">
                                 <li>

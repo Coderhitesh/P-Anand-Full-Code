@@ -34,7 +34,7 @@ const EditProduct = () => {
     // Fetch Categories
     const fetchCategories = useCallback(async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-category');
             setCategories(res.data.data);
         } catch (error) {
             console.error('There was an error fetching the categories!', error);
@@ -44,7 +44,7 @@ const EditProduct = () => {
     // Fetch Tags
     const fetchTags = useCallback(async () => {
         try {
-            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-tag');
+            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-tag');
             setTags(res.data.data);
         } catch (error) {
             console.error('There was an error fetching the tags!', error);
@@ -54,7 +54,7 @@ const EditProduct = () => {
     // Fetch Single Product Data
     const fetchSingleProduct = useCallback(async () => {
         try {
-            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/single-course/${id}`);
+            const res = await axios.get(`https://api.panandacademy.com/api/v1/single-course/${id}`);
             const data = res.data.data;
 
             setFormData({
@@ -111,7 +111,7 @@ const EditProduct = () => {
 
         if (value) {
             try {
-                const response = await axios.get(`https://www.api.panandacademy.com/api/v1/single-category/${value}`);
+                const response = await axios.get(`https://api.panandacademy.com/api/v1/single-category/${value}`);
                 setSubcategories(response.data.data.subcategoryName);
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
@@ -200,7 +200,7 @@ const EditProduct = () => {
                 }
             }
 
-            const response = await axios.put(`https://www.api.panandacademy.com/api/v1/update-course/${id}`, formDataToSend, {
+            const response = await axios.put(`https://api.panandacademy.com/api/v1/update-course/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

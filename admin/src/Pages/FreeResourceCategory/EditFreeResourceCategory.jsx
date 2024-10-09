@@ -23,7 +23,7 @@ const EditFreeResourceCategory = () => {
 
   const handleFetch = async () => {
     try {
-      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-free-resource-category');
+      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-free-resource-category');
       const categories = res.data.data;
       const filteredData = categories.find((category) => category._id === id);
 
@@ -44,7 +44,7 @@ const EditFreeResourceCategory = () => {
     setBtnLoading(true);
 
     try {
-      await axios.put(`https://www.api.panandacademy.com/api/v1/update-free-resource-category/${id}`, formData);
+      await axios.put(`https://api.panandacademy.com/api/v1/update-free-resource-category/${id}`, formData);
       toast.success('Free Resource Category Updated Successfully!');
       setBtnLoading(false);
       window.location.href = '/all-free-resource-category'; // Redirect after successful update

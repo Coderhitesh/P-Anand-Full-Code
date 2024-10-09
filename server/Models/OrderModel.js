@@ -28,7 +28,8 @@ const OrderSchema = new mongoose.Schema({
     },
     OrderStatus: {
         type: String,
-        enum: ["Pending", 'Order-Packed', 'Ready To Ship', 'Dispatch', 'Delivered', 'Cancelled']
+        enum: ["Pending", 'Order-Packed', 'Ready To Ship', 'Dispatch', 'Delivered', 'Cancelled'],
+        default:'Pending'
     },
     CourseStartData: {
         type: Date,

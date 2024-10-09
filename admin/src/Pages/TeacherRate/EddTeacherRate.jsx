@@ -17,7 +17,7 @@ function EddTeacherRate() {
   // Fetch all teachers
   const handleFetchingTeacher = async () => {
     try {
-      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-teacher');
+      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-teacher');
       console.log(res.data.data);
       setTeacher(res.data.data);
     } catch (error) {
@@ -28,7 +28,7 @@ function EddTeacherRate() {
   // Fetch the single teacher rating data
   const fetchTeacherRating = async () => {
     try {
-      const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-teacher-rating/${id}`);
+      const res = await axios.get(`https://api.panandacademy.com/api/v1/get-single-teacher-rating/${id}`);
       const ratingData = res.data.data;
       setFormData({
         teacherId: ratingData.teacherId,
@@ -75,7 +75,7 @@ function EddTeacherRate() {
     };
 
     try {
-      await axios.put(`https://www.api.panandacademy.com/api/v1/update-teacher-rating/${id}`, data);
+      await axios.put(`https://api.panandacademy.com/api/v1/update-teacher-rating/${id}`, data);
       setIsLoading(false);
       toast.success("Rating Updated Successfully!");
       window.location.href = '/all-teacher-rating';

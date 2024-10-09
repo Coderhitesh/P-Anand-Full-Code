@@ -30,7 +30,7 @@ function AddFreeResourceCategory() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-free-resource-category', formData);
+            const response = await axios.post('https://api.panandacademy.com/api/v1/create-free-resource-category', formData);
             setIsLoading(false);
             toast.success('Free Resource Category Added Successfully !!');
             // Optionally, reset the form or fetch categories again

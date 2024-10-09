@@ -17,7 +17,7 @@ function BookBundle() {
     const [slidesPerView, setSlidesPerView] = useState('4');
     const handleFetchCategory = async () => {
       try {
-        const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category')
+        const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-category')
         setCategory(res.data.data)
       } catch (error) {
         console.log(error)
@@ -26,7 +26,7 @@ function BookBundle() {
   
     const handleFetchTag = async () => {
       try {
-        const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag')
+        const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-tag')
         setTag(res.data.data)
       } catch (error) {
         console.log(error)
@@ -35,7 +35,7 @@ function BookBundle() {
   
     const handleFetchBundle = async () => {
       try {
-        const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-bundle')
+        const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-bundle')
         setAllBundle(res.data.data)
       } catch (error) {
         console.log('Error in fetchin bundle', error)

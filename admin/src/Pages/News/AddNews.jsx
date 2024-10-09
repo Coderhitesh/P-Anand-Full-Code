@@ -36,7 +36,7 @@ const AddNews = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await axios.post('https://www.api.panandacademy.com/api/v1/create-news', formData);
+            const res = await axios.post('https://api.panandacademy.com/api/v1/create-news', formData);
             console.log(res.data);
             toast.success("News added successfully!");
             setFormData({

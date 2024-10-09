@@ -79,6 +79,7 @@ exports.OrderStatusById = async (req, res) => {
         })
     }
 }
+
 exports.ShowMyCourse = async (req, res) => {
     try {
         const user = req.user.id._id;
@@ -127,6 +128,31 @@ exports.ShowMyCourse = async (req, res) => {
         });
     }
 };
+
+exports.getAllOrders = async (req,res) => {
+    try {
+        const checkOrder = await OrderModel.find();
+
+        if (!checkOrder.length) {
+            return res.status(402).json({
+                success: false,
+                message: "No Orders Found"
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: "Orders Found Successfully",
+            data: checkOrder
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            error: error,
+            message: "Error in finding orders"
+        })
+    }
+}
 
 
 exports.BookOrder = async (req, res) => {

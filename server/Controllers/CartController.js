@@ -266,36 +266,38 @@ exports.GetAllByUserIdProductCart = async (req, res) => {
 
 exports.deleteBySessionId = async (req, res) => {
     try {
-      const { session } = req.body;
-  console.log(session)
-      if (!session) {
-        return res.status(400).json({
-          success: false,
-          message: 'Session ID is required',
+        const { session } = req.body;
+
+        if (!session) {
+            return res.status(400).json({
+                success: false,
+                message: 'Session ID is required',
+            });
+        }
+
+        const deletedCart = await Cart.find({ sessionId: session });
+
+        if (deletedCart.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'No cart items found for the given session ID',
+            });
+        }
+
+        // Delete all cart items for the given session ID
+        await Cart.deleteMany({ sessionId: session });
+
+        res.status(200).json({
+            success: true,
+            message: 'Cart items deleted successfully',
+            deletedCart,
         });
-      }
-  
-      const deletedCart = await Cart.findOneAndDelete({ sessionId:session });
-  
-      if (!deletedCart) {
-        return res.status(404).json({
-          success: false,
-          message: 'No cart items found for the given session ID',
-        });
-      }
-  
-      res.status(200).json({
-        success: true,
-        message: 'Cart items deleted successfully',
-        deletedCart,
-      });
     } catch (error) {
-      // Handle any errors during the process
-      res.status(500).json({
-        success: false,
-        message: 'An error occurred while deleting cart items',
-        error: error.message,
-      });
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while deleting cart items',
+            error: error.message,
+        });
     }
-  };
-  
+};

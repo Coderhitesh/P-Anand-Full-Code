@@ -14,7 +14,7 @@ const AllFreeResource = () => {
   // Fetch Free Resources
   const fetchFreeResources = async () => {
     try {
-      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-free-resource');
+      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-free-resource');
       const reverse = res.data.data.reverse();
       setFreeResources(reverse);
       setLoading(false);
@@ -28,7 +28,7 @@ const AllFreeResource = () => {
   // Fetch Free Resources
   const fetchCategoryName = async () => {
     try {
-      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-free-resource-category');
+      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-free-resource-category');
       serCategoryName(res.data.data);
     //   setLoading(false);
     } catch (error) {
@@ -51,7 +51,7 @@ const AllFreeResource = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-free-resource/${id}`);
+          await axios.delete(`https://api.panandacademy.com/api/v1/delete-free-resource/${id}`);
           toast.success('Free resource deleted successfully');
           fetchFreeResources();
           Swal.fire('Deleted!', 'Your free resource has been deleted.', 'success');
@@ -118,7 +118,7 @@ const AllFreeResource = () => {
                   <td>{resource.name}</td>
                   <td>{getCategoryNameById(resource.categoryId)}</td>
                   <td>
-                    <a href={`https://www.api.panandacademy.com/${resource.FreePDF}`} target="_blank" rel="noopener noreferrer">View PDF</a>
+                    <a href={`https://api.panandacademy.com/${resource.FreePDF}`} target="_blank" rel="noopener noreferrer">View PDF</a>
                   </td>
                   <td>
                     <Link to={`/edit-free-resource/${resource._id}`}>

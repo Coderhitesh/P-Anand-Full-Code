@@ -34,7 +34,7 @@ function EditBook() {
     useEffect(() => {
         const fetchBookDetails = async () => {
             try {
-                const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-book/${id}`);
+                const res = await axios.get(`https://api.panandacademy.com/api/v1/get-single-book/${id}`);
                 const book = res.data.data;
                 setFormData({
                     bookName: book.bookName,
@@ -67,7 +67,7 @@ function EditBook() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category');
+                const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-category');
                 setCategories(res.data.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -77,7 +77,7 @@ function EditBook() {
 
         const fetchTags = async () => {
             try {
-                const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag');
+                const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-tag');
                 setTags(res.data.data);
             } catch (error) {
                 console.error('Error fetching tags:', error);
@@ -123,7 +123,7 @@ function EditBook() {
 
         if (value) {
             try {
-                const response = await axios.get(`https://www.api.panandacademy.com/api/v1/single-book-category/${value}`);
+                const response = await axios.get(`https://api.panandacademy.com/api/v1/single-book-category/${value}`);
                 setSubcategories(response.data.data.subcategoryName);
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
@@ -179,7 +179,7 @@ function EditBook() {
                 }
             }
 
-            const response = await axios.put(`https://www.api.panandacademy.com/api/v1/update-book/${id}`, formDataToSend, {
+            const response = await axios.put(`https://api.panandacademy.com/api/v1/update-book/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
