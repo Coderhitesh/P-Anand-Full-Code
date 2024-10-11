@@ -308,13 +308,13 @@ exports.passwordChangeRequest = async (req, res) => {
 
 
 exports.verifyOtpAndChangePassword = async (req, res) => {
-    const { Email, OTP ,NewPassword} = req.body;
+    const { Email, PasswordChangeOtp ,NewPassword} = req.body;
 
     try {
         // Check if OTP is valid and not expired
         const user = await User.findOne({
             Email,
-            PasswordChangeOtp: OTP,
+            PasswordChangeOtp: PasswordChangeOtp,
             OtpExpiredTime: { $gt: Date.now() } // Check if OTP is not expired
         });
 

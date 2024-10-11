@@ -57,7 +57,7 @@ const ForgetPassword = () => {
         setLoading(true)
         otpevent.preventDefault()
         try {
-            const response = await axios.post(`https://api.panandacademy.com/api/v1/Verify-Otp/${formData.Email}/${formData.NewPassword}`, formData)
+            const response = await axios.post(`https://api.panandacademy.com/api/v1/Verify-Otp`, formData)
             console.log(response.data);
             setLoading(false);
             toast.success(response.data.msg)
