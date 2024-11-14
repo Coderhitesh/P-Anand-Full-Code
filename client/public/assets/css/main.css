@@ -8013,7 +8013,7 @@ span {
   margin: 0 auto;
 }
 .team-box-items .team-image .thumb img {
-  height: auto;
+  height: 100%;
   border-radius: 8px;
   width: 100%;
   /* width: 100%;
