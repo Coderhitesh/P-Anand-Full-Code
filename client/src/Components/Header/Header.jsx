@@ -243,14 +243,14 @@ function Header() {
                                                                 <li><Link to={'/founder-page'}>Co-Founder & Teams</Link></li>
                                                             </ul>
                                                         </li>
-                                                        <li>
+                                                        {/* <li>
                                                             <Link>Usefull Links<i className="fas fa-angle-down"></i></Link>
                                                             <ul className="submenu">
                                                                 <li><Link target='_blank' to={'https://www.cbse.gov.in/'}>CBSE</Link></li>
                                                                 <li><Link target='_blank' to={'https://ncert.nic.in/'}>NCERT</Link></li>
                                                                 <li><Link target='_blank' to={'https://www.icai.org/'}>ICAI</Link></li>
                                                             </ul>
-                                                        </li>
+                                                        </li> */}
                                                         <li>
                                                             <Link to={'/shop'}>Course<i className="fas fa-angle-down"></i></Link>
                                                             <ul className="submenu">
@@ -293,7 +293,7 @@ function Header() {
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li>
+                                            {/* <li>
                                                 <Link onClick={handleUsefullDropActive}>Usefull Links<i class="ri-add-line"></i></Link>
                                                 <ul className={`drop-down ${isActiveDropDownUsefull ? 'active-drop-down-usefull' : ''}`}>
 
@@ -302,7 +302,7 @@ function Header() {
                                                     <li><Link onClick={handleMobDeActive} target='_blank' to={'https://ncert.nic.in/'}>NCERT</Link></li>
                                                     <li><Link onClick={handleMobDeActive} target='_blank' to={'https://www.icai.org/'}>ICAI</Link></li>
                                                 </ul>
-                                            </li>
+                                            </li> */}
                                             <li>
                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} className="">
                                                     <Link to={'/shop'}>Shop </Link>
