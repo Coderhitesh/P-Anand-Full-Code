@@ -11,7 +11,7 @@ const AllPartners = () => {
   // Fetch logos
   const handleFetch = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-company-logos');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-company-logos');
       setLogos(res.data.data || []);
     } catch (error) {
       console.error('There was an error fetching the logos!', error);
@@ -21,7 +21,7 @@ const AllPartners = () => {
   // Handle delete logo
   const handleDelete = async () => {
     try {
-      await axios.delete(`https://api.panandacademy.com/api/v1/delete-company-logo/${selectedLogoId}`);
+      await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-company-logo/${selectedLogoId}`);
       handleFetch();
       setShowDeleteModal(false);
     } catch (error) {
@@ -39,7 +39,7 @@ const AllPartners = () => {
     try {
       const formData = new FormData();
       formData.append('image', file);
-      await axios.post('https://api.panandacademy.com/api/v1/upload-logo-of-Company', formData);
+      await axios.post('https://www.api.panandacademy.com/api/v1/upload-logo-of-Company', formData);
       handleFetch();
       setShowUploadModal(false);
     } catch (error) {

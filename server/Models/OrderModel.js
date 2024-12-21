@@ -24,7 +24,9 @@ const OrderSchema = new mongoose.Schema({
             enum: ['Home', 'Work', 'Other'],
             default: 'Home'
         },
-        confirm: { type: Boolean }
+        confirm: { type: Boolean },
+        City:{type:String},
+        State:{type:String}
     },
     OrderStatus: {
         type: String,
@@ -38,8 +40,9 @@ const OrderSchema = new mongoose.Schema({
     CourseExpireData: {
         type: Date,
     },
-    PhonePeOrderId: { type: String, required: true },
-    PhonePePaymentId: { type: String, required: true },
+    totalPrice:{type:Number},
+    PhonePeOrderId: { type: String, },
+    PhonePePaymentId: { type: String, },
     transactionId: { type: String },
     PaymentDone: { type: Boolean, default: false },
     paymentStatus: { type: String, enum: ['Pending', 'Completed', 'Failed'], default: 'Pending' },

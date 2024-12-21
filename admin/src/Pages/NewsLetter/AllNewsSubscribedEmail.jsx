@@ -10,7 +10,7 @@ const AllNewsSubscribedEmail = () => {
     // Fetch all subscribed emails
     const handleFetch = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-subscribe-newsletter-email');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-subscribe-newsletter-email');
             console.log(res.data)
             setEmails(res.data);
         } catch (error) {
@@ -21,7 +21,7 @@ const AllNewsSubscribedEmail = () => {
     // Handle delete email
     const handleDelete = async () => {
         try {
-            await axios.delete(`https://api.panandacademy.com/api/v1/delete-newsletter-email/${selectedEmailId}`);
+            await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-newsletter-email/${selectedEmailId}`);
             handleFetch();
             setShowDeleteModal(false);
         } catch (error) {

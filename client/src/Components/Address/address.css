@@ -1,0 +1,48 @@
+.modal-header.bg-gradient-primary {
+    background: linear-gradient(135deg, #222120 0%, #222120 100%);
+  }
+  
+  .form-floating > .form-control,
+  .form-floating > .form-select {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+  }
+  
+  .form-floating > label {
+    padding: 1rem 0.75rem;
+  }
+  
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #A46023;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  }
+  
+  .btn-primary {
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+  }
+  
+  .form-check-input:checked {
+    background-color: #A46023;
+    border-color: #A46023;
+  }
+  
+  .modal-content {
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-10%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }

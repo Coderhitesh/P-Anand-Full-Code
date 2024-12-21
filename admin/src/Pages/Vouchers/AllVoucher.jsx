@@ -8,7 +8,7 @@ const AllVoucher = () => {
     useEffect(() => {
         const fetchVouchers = async () => {
             try {
-                const response = await axios.get('https://api.panandacademy.com/api/v1/getAllVouncher');
+                const response = await axios.get('https://www.api.panandacademy.com/api/v1/getAllVouncher');
                 setVouchers(response.data.data);
             } catch (error) {
                 console.error("Error fetching vouchers:", error);
@@ -20,7 +20,7 @@ const AllVoucher = () => {
 
     const markActive = async (id) => {
         try {
-            await axios.put(`https://api.panandacademy.com/api/v1/vouchers/activateVoucher/${id}`);
+            await axios.put(`https://www.api.panandacademy.com/api/v1/vouchers/activateVoucher/${id}`);
             setVouchers(vouchers.map(voucher => voucher._id === id ? { ...voucher, isActive: true } : voucher));
         } catch (error) {
             console.error("Error marking voucher as active:", error);
@@ -29,7 +29,7 @@ const AllVoucher = () => {
 
     const markInActive = async (id) => {
         try {
-            await axios.put(`https://api.panandacademy.com/api/v1/vouchers/deactivateVoucher/${id}`);
+            await axios.put(`https://www.api.panandacademy.com/api/v1/vouchers/deactivateVoucher/${id}`);
             setVouchers(vouchers.map(voucher => voucher._id === id ? { ...voucher, isActive: false } : voucher));
         } catch (error) {
             console.error("Error marking voucher as inactive:", error);
@@ -38,7 +38,7 @@ const AllVoucher = () => {
 
     const markDelete = async (id) => {
         try {
-            await axios.delete(`https://api.panandacademy.com/api/v1/deleteVouncher/${id}`);
+            await axios.delete(`https://www.api.panandacademy.com/api/v1/deleteVouncher/${id}`);
             setVouchers(vouchers.filter(voucher => voucher._id !== id));
         } catch (error) {
             console.error("Error deleting voucher:", error);

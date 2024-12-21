@@ -1,10 +1,13 @@
-const merchantId = "M2257T8PKCFTS"
-const apiKey = "382a6ef0-8a78-4abd-bc79-5fd4afca18e6"
 const crypto = require('crypto');
 const axios = require('axios');
 const Course = require('../Models/Course.Model')
 const CourseBundle = require('../Models/Bundles.Model');
 const OrderModel = require('../Models/OrderModel');
+require('dotenv').config()
+// const merchantId = "M2257T8PKCFTS"
+// const apiKey = "382a6ef0-8a78-4abd-bc79-5fd4afca18e6"
+const merchantId = process.env.PHONEPAY_MERCHANT_ID
+const apiKey = process.env.PHONEPAY_API_KEY
 
 exports.MyOrderOfPenDrive = async (req, res) => {
     try {
@@ -80,6 +83,65 @@ exports.OrderStatusById = async (req, res) => {
     }
 }
 
+exports.updateOrderStatus = async (req, res) => {
+    try {
+        const user = req.user.id; // Assume middleware sets req.user
+        const OrderId = req.params.OrderId;
+        const { OrderStatus } = req.body;
+
+        // console.log("detail",user,OrderId,OrderStatus)
+
+        // Validate user authentication
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'User not authorized'
+            });
+        }
+        const userId = user._id
+        console.log("userId", userId)
+
+        // Validate OrderStatus
+        const validStatuses = ["Pending", "Order-Packed", "Ready To Ship", "Dispatch", "Delivered", "Cancelled"];
+        if (!validStatuses.includes(OrderStatus)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid OrderStatus'
+            });
+        }
+
+        // Find and validate the order
+        const order = await OrderModel.findOne({
+            _id: OrderId,
+            // userId: userId
+        });
+
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: 'Order not found'
+            });
+        }
+
+        // Update the order status
+        order.OrderStatus = OrderStatus;
+        await order.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Order status updated successfully',
+            data: order
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Error updating order status'
+        });
+    }
+};
+
+
 exports.ShowMyCourse = async (req, res) => {
     try {
         const user = req.user.id._id;
@@ -93,6 +155,8 @@ exports.ShowMyCourse = async (req, res) => {
 
         const checkOrder = await OrderModel.find({ userId: user });
 
+        console.log("checkOrder", checkOrder)
+
         if (!checkOrder.length) {
             return res.status(402).json({
                 success: false,
@@ -101,8 +165,8 @@ exports.ShowMyCourse = async (req, res) => {
         }
 
         // Iterate through orders and filter CartItems
-        const checkOrderType = checkOrder.flatMap(order => 
-            order.CartItems?.filter(item => 
+        const checkOrderType = checkOrder.flatMap(order =>
+            order.CartItems?.filter(item =>
                 ["Google Drive", "Offline", "Live", "Pen Drive"].includes(item.selectedMode?.name)
             ) || []
         );
@@ -129,9 +193,9 @@ exports.ShowMyCourse = async (req, res) => {
     }
 };
 
-exports.getAllOrders = async (req,res) => {
+exports.getAllOrders = async (req, res) => {
     try {
-        const checkOrder = await OrderModel.find();
+        const checkOrder = await OrderModel.find().populate('userId');
 
         if (!checkOrder.length) {
             return res.status(402).json({
@@ -158,7 +222,7 @@ exports.getAllOrders = async (req,res) => {
 exports.BookOrder = async (req, res) => {
     // console.log("req",req)
     try {
-        
+
         const user = req.user.id._id
         // console.log(user)
         if (!user) {
@@ -170,13 +234,13 @@ exports.BookOrder = async (req, res) => {
         const checkOrder = await OrderModel.find({ userId: user })
         //console.log("checkOrder",checkOrder)
 
-        const checkOrderType = checkOrder.flatMap(order => 
-            order.CartItems?.filter(item => 
+        const checkOrderType = checkOrder.flatMap(order =>
+            order.CartItems?.filter(item =>
                 item.selectedMode === null
             ) || []
         );
-        
-        console.log(checkOrderType)
+
+        // console.log(checkOrderType)
 
         if (!checkOrderType) {
             return res.status(402).json({
@@ -207,11 +271,8 @@ exports.BookOrder = async (req, res) => {
 exports.MakeOrder = async (req, res) => {
     try {
         const userId = req.user.id;
-        const { CartItems, AddressDetails } = req.body;
+        const { CartItems, AddressDetails, totalPrice } = req.body;
 
-        const PhonePeOrderId = crypto.randomBytes(9).toString('hex');
-        const transactionId = crypto.randomBytes(9).toString('hex');
-        const PhonePePaymentId = crypto.randomBytes(10).toString('hex');
 
         const hasPenDrive = CartItems.some(item => item.selectedMode?.name === "Pen Drive");
         const hasGoogleDrive = CartItems.some(item => item.selectedMode?.name === "Google Drive");
@@ -233,12 +294,10 @@ exports.MakeOrder = async (req, res) => {
             CartItems,
             OrderStatus,
             Address: AddressDetails,
-            PhonePeOrderId,
-            transactionId,
             CourseExpireData: CourseEnd,
             CourseStartData,
-            PhonePePaymentId,
-            PaymentDone: true
+            totalPrice: totalPrice
+            // PaymentDone: true
         });
 
         await newOrder.save();
@@ -246,7 +305,7 @@ exports.MakeOrder = async (req, res) => {
         res.status(201).json({
             success: true,
             message: "Order Placed Successfully",
-            OrderData: newOrder
+            data: newOrder
         });
 
     } catch (error) {
@@ -263,7 +322,7 @@ exports.MakeOrder = async (req, res) => {
 exports.CreateCheckOut = async (req, res) => {
     try {
 
-        const { totalPrice } = req.body.CheckOutData
+        const { totalPrice, orderId } = req.body
 
         const transactionId = crypto.randomBytes(9).toString('hex');
         const merchantUserId = crypto.randomBytes(12).toString('hex');
@@ -273,7 +332,7 @@ exports.CreateCheckOut = async (req, res) => {
             merchantUserId,
             name: "User",
             amount: totalPrice * 100,
-            redirectUrl: `${process.env.BACKEND_URL}/api/v1/status/${transactionId}}`,
+            redirectUrl: `${process.env.BACKEND_URL}/api/v1/status-payment/${transactionId}}`,
             redirectMode: 'POST',
             paymentInstrument: {
                 type: 'PAY_PAGE'
@@ -301,7 +360,12 @@ exports.CreateCheckOut = async (req, res) => {
         };
 
         const response = await axios.request(options);
-        console.log(response.data);
+        console.log("i am response id ", response?.data?.data?.merchantTransactionId);
+        const updateOrder = await OrderModel.findById(orderId)
+        if (updateOrder) {
+            updateOrder.PhonePeOrderId = response?.data?.data?.merchantTransactionId
+            await updateOrder.save()
+        }
         res.status(201).json({
             success: true,
             url: response.data.data.instrumentResponse.redirectInfo.url
@@ -311,6 +375,120 @@ exports.CreateCheckOut = async (req, res) => {
         res.status(501).json({
             success: false,
             msg: "Payment initiated failed"
+        })
+    }
+}
+
+exports.checkStatus = async (req, res) => {
+    const { transactionId: merchantTransactionId } = req.body;
+
+    if (!merchantTransactionId) {
+        return res.status(400).json({ success: false, message: "Merchant transaction ID not provided" });
+    }
+
+    try {
+        const merchantIdD = merchantId; // Ensure merchantId is defined
+        const keyIndex = 1;
+        const string = `/pg/v1/status/${merchantIdD}/${merchantTransactionId}` + apiKey;
+        const sha256 = crypto.createHash('sha256').update(string).digest('hex');
+        const checksum = sha256 + "###" + keyIndex;
+        const testUrlCheck = "https://api.phonepe.com/apis/hermes/pg/v1";
+
+        const options = {
+            method: 'GET',
+            url: `${testUrlCheck}/status/${merchantId}/${merchantTransactionId}`,
+            headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-VERIFY': checksum,
+                'X-MERCHANT-ID': `${merchantId}`
+            }
+        };
+
+        const { data } = await axios.request(options);
+
+        if (data.status === "success") {
+            const findOrder = await OrderModel.findOne({ PhonePeOrderId: merchantTransactionId });
+            if (findOrder) {
+                findOrder.transactionId = data?.data?.transaction; // Ensure correct key in `data`
+                findOrder.PaymentDone = true;
+                findOrder.paymentStatus = "paid";
+                await findOrder.save();
+            }
+
+            const successRedirect = `${process.env.FRONTEND_URL}/Order-Confirmed?id=${merchantTransactionId}&success=true`;
+            return res.redirect(successRedirect);
+        } else {
+            return res.status(400).json({ success: false, message: "Payment not successful", data });
+        }
+    } catch (error) {
+        console.error("Error in checkStatus:", error);
+        return res.status(500).json({ success: false, message: "Internal Server Error", error });
+    }
+};
+
+
+exports.PaymentCallback = async (req, res) => {
+    try {
+        const { merchantTransactionId, amount, status, message } = req.body;
+        const order = await OrderModel.findOne({ transactionId: merchantTransactionId });
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: "Order not found"
+            });
+        }
+
+        if (status === "SUCCESS") {
+            order.PaymentDone = true;
+            order.paymentStatus = "Completed";
+            await order.save();
+
+            return res.status(200).json({
+                success: true,
+                message: "Payment successful",
+                order
+            });
+        } else {
+            order.paymentStatus = "Failed";
+            await order.save();
+
+            return res.status(400).json({
+                success: false,
+                message: `Payment failed: ${message}`
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Error processing payment callback",
+            error: error.message
+        });
+    }
+};
+
+
+exports.deleteOrder = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const order = await OrderModel.findByIdAndDelete(id);
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                msg: "Order not found"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            msg: "Order deleted successfully"
+        })
+
+    } catch (error) {
+        console.log("Internal server error", error)
+        res.status(500).json({
+            success: false,
+            msg: "Internal server error"
         })
     }
 }

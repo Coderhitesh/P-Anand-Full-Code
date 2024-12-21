@@ -4,9 +4,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AllContacts = () => {
-    const backend = 'https://api.panandacademy.com/api/v1/get-contact';
-    const deleteRoute = 'https://api.panandacademy.com/api/v1/delete-contact/';
-    const addMessageRoute = 'https://api.panandacademy.com/api/v1/push-Message/';
+    const backend = 'https://www.api.panandacademy.com/api/v1/get-contact';
+    const deleteRoute = 'https://www.api.panandacademy.com/api/v1/delete-contact/';
+    const addMessageRoute = 'https://www.api.panandacademy.com/api/v1/push-Message/';
 
     const [contacts, setContacts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

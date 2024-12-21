@@ -42,7 +42,7 @@ function Shop() {
 
     const handleCourseFetching = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-course');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
             // setCourse(res.data.data);
             const shuffledCourses = shuffleArray(res.data.data);
             setCourse(shuffledCourses);
@@ -53,7 +53,7 @@ function Shop() {
 
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category');
             setCategory(res.data.data);
         } catch (error) {
             console.log(error);

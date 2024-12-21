@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
     // Fetch cart items from API
     const fetchData = async () => {
         try {
-            const response = await axios.get(`https://api.panandacademy.com/api/v1/get-products-by-session/${session}`);
+            const response = await axios.get(`https://www.api.panandacademy.com/api/v1/get-products-by-session/${session}`);
             if (response.data) {
                 setCartItems(response.data.cart);
                 setProductCount(response.data.cart.length); // Update product count
@@ -40,7 +40,7 @@ export const CartProvider = ({ children }) => {
     // Add a product to the cart (trigger an immediate update)
     const addProductToCart = async (productId) => {
         try {
-            const response = await axios.post('https://api.panandacademy.com/api/v1/add-product', {
+            const response = await axios.post('https://www.api.panandacademy.com/api/v1/add-product', {
                 productId,
                 sessionId: session,
             });
@@ -60,7 +60,7 @@ export const CartProvider = ({ children }) => {
     // Remove product from cart
     const removeProduct = async (productId) => {
         try {
-            const response = await axios.post(`https://api.panandacademy.com/api/v1/remove-product`, {
+            const response = await axios.post(`https://www.api.panandacademy.com/api/v1/remove-product`, {
                 productId,
                 sessionId: session,
             });
@@ -80,8 +80,8 @@ export const CartProvider = ({ children }) => {
     // Delete all products from cart
     const deleteAll = async () => {
         try {
-           const res = await axios.post('https://api.panandacademy.com/api/v1/delete-by-session', { session });
-           console.log('res',res.data)
+            const res = await axios.post('https://www.api.panandacademy.com/api/v1/delete-by-session', { session });
+            console.log('res', res.data)
             setCartItems([]);
             setTotalPrice(0);
             setProductCount(0); // Reset product count
@@ -100,36 +100,65 @@ export const CartProvider = ({ children }) => {
     const clickToCheckout = async () => {
         if (userToken) {
             const checkAddressDetails = JSON.parse(sessionStorage.getItem('Address-Details'));
-            const cartItemsInCheckout = cartItems.some((item) =>
-                item.selectedMode?.name === 'Pen Drive' || item.selectedMode?.id === '66d84947fe3508950760fa0a'
+            const cartItemsInCheckout = cartItems.some(
+                (item) =>
+                    item.selectedMode?.name === 'Pen Drive' ||
+                    item.selectedMode?.id === '66d84947fe3508950760fa0a'
             );
-            console.log('cartItemsInCheckout', cartItemsInCheckout)
+
             if (cartItemsInCheckout && !checkAddressDetails) {
                 setOpen(true);
             } else {
-                console.log('cartitem',cartItems)
+                console.log('cartitem', cartItems);
+
                 const cartData = {
                     CartItems: cartItems,
                     AddressDetails: cartItemsInCheckout ? checkAddressDetails : undefined,
+                    totalPrice: totalPrice,
                 };
 
                 try {
-                    const response = await axios.post('https://api.panandacademy.com/api/v1/Make-Order', cartData, {
+                    // Call Make-Order API
+                    const orderResponse = await axios.post('https://www.api.panandacademy.com/api/v1/Make-Order', cartData, {
                         headers: {
                             Authorization: `Bearer ${userToken}`,
                         },
                     });
+
+                    const orderData = orderResponse.data.data;
+                    console.log('orderData', orderData?._id);
+
+
+                    const checkoutResponse = await axios.post(
+                        'https://www.api.panandacademy.com/api/v1/Checkout',
+                        { totalPrice: totalPrice, orderId: orderData?._id },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${userToken}`,
+                            },
+                        }
+                    );
+
+                    if (checkoutResponse.data.success) {
+
+                        window.location.href = checkoutResponse.data.url;
+                    } else {
+                        console.error('Error initiating payment:', checkoutResponse.data.msg);
+                    }
+
+
                     deleteAll();
-                    setTotalPrice(0)
-                    // window.location.href = "/Order-Confirmed";
+                    setTotalPrice(0);
+                    sessionStorage.setItem('Address-Details', null);
                 } catch (error) {
-                    console.error("Error placing the order:", error);
+                    console.error('Error placing the order or initiating payment:', error);
                 }
             }
         } else {
             window.location.href = `/login?redirect=cart`;
         }
     };
+
 
     // Context values
     const contextValues = {

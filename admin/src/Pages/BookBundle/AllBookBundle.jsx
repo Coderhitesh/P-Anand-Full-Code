@@ -18,7 +18,7 @@ function AllBookBundle() {
 
     const handleFetchBundle = async () => {
         try {
-            const res = await axios.get(`https://api.panandacademy.com/api/v1/get-all-book-bundle`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-book-bundle`);
             const reverseData = res.data.data.reverse();
             setBundle(reverseData);
         } catch (error) {
@@ -28,7 +28,7 @@ function AllBookBundle() {
 
     const handleFechCourse = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book');
             setCourse(res.data.data);
         } catch (error) {
             console.log(error);
@@ -37,7 +37,7 @@ function AllBookBundle() {
 
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-category');
             setCategory(res.data.data);
         } catch (error) {
             console.log(error);
@@ -78,7 +78,7 @@ function AllBookBundle() {
 
     const handleFetchTag = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-book-tag')
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book-tag')
             setTag(res.data.data)
         } catch (error) {
             console.log(error)
@@ -111,7 +111,7 @@ function AllBookBundle() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`https://api.panandacademy.com/api/v1/delete-book-bundle/${id}`);
+                    await axios.delete(`https://www.api.panandacademy.com/api/v1/delete-book-bundle/${id}`);
                     toast.success("Bundle Deleted Successfully");
                     handleFetchBundle();
 

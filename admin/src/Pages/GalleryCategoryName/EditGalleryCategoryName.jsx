@@ -23,7 +23,7 @@ const EditGalleryCategoryName = () => {
 
   const handleFetch = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-gallery-category-name');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-gallery-category-name');
       const categories = res.data.data;
       const filteredData = categories.find((category) => category._id === id);
 
@@ -44,7 +44,7 @@ const EditGalleryCategoryName = () => {
     setBtnLoading(true);
 
     try {
-      await axios.put(`https://api.panandacademy.com/api/v1/update-gallery-category-name/${id}`, formData);
+      await axios.put(`https://www.api.panandacademy.com/api/v1/update-gallery-category-name/${id}`, formData);
       toast.success('Gallery Category Updated Successfully!');
       setBtnLoading(false);
       window.location.href = '/all-gallery-name'; // Redirect after successful update

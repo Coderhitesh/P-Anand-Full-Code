@@ -34,7 +34,7 @@ function AddGalleryCategoryName() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('https://api.panandacademy.com/api/v1/create-gallery-category-name', formData);
+            const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-gallery-category-name', formData);
             setIsLoading(false);
             toast.success('Gallery Category Added Successfully !!');
             // Optionally, reset the form or fetch categories again

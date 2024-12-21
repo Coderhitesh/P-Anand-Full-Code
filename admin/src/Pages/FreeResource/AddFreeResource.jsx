@@ -18,7 +18,7 @@ const AddFreeResource = () => {
     // Fetch Free Resource Categories for Dropdown
     const fetchFreeResourceCategories = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-free-resource-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-free-resource-category');
             setFreeResourceCategories(res.data.data); // Assuming categories come as `data.data`
         } catch (error) {
             console.error('Error fetching free resource categories:', error);
@@ -66,7 +66,7 @@ const AddFreeResource = () => {
         formDataToSend.append('name', formData.name);
 
         try {
-            await axios.post('https://api.panandacademy.com/api/v1/create-free-resource', formDataToSend, {
+            await axios.post('https://www.api.panandacademy.com/api/v1/create-free-resource', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Set correct content-type
                 },

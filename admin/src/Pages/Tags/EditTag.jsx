@@ -25,7 +25,7 @@ const EditTag = () => {
 
     const handleFetch = async () => {
         try {
-            const res = await axios.get(`https://api.panandacademy.com/api/v1/get-all-tag`);
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-tag`);
             const tags = res.data.data;
             const filterData = tags.filter((item) => item._id === id);
             if (filterData.length > 0) {
@@ -45,7 +45,7 @@ const EditTag = () => {
         setBtnLoading(true);
 
         try {
-            await axios.put(`https://api.panandacademy.com/api/v1/update-tag/${id}`, formData);
+            await axios.put(`https://www.api.panandacademy.com/api/v1/update-tag/${id}`, formData);
             toast.success("Tag Updated Successfully!");
             setBtnLoading(false);
             window.location.href = '/all-tags';

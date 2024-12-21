@@ -18,7 +18,7 @@ const { createBookTag, getAllBookTags, getSingleBookTag, deleteBookTag, updateBo
 const { createBookRating, getAllBookRating, singleBookRating, updateBookRating, deleteBookRating } = require('../Controllers/BookRating.controller')
 const { createBookBundle, getBookBundle, getSingleBookBundle, updateBookBundle, deleteBookBundle } = require('../Controllers/BookBundle.controller')
 const { AddProductIncart, increaseQuantity, removeProductFromCart, GetAllProductCart, GetAllBySessionIdProductCart, GetAllByUserIdProductCart, decreaseQuantity, deleteBySessionId } = require('../Controllers/CartController')
-const { CreateCheckOut, FindMode, MakeOrder, MyOrderOfPenDrive, OrderStatusById, ShowMyCourse, BookOrder, getAllOrders } = require('../Controllers/Ordercontroller')
+const { CreateCheckOut, FindMode, MakeOrder, MyOrderOfPenDrive, OrderStatusById, ShowMyCourse, BookOrder, getAllOrders, deleteOrder, updateOrderStatus, checkStatus } = require('../Controllers/Ordercontroller')
 const { createCourseMode, getCourseMode, getSingleCourseMode, deleteCourseMode, updateCourseMode } = require('../Controllers/CourseMode.controller')
 const { createGalleryCategory, getAllImageCategory, deleteGalleryCategory, singleGalleryCategory, updateGalleryCategory } = require('../Controllers/GalleryCategory.Controller')
 const { createGalleryImage, getSingleGalleryImage, getAllGalleryImage, deleteGalleryImage, updateGalleryImage } = require('../Controllers/GalleryImage.controller')
@@ -183,11 +183,15 @@ router.get('/get-products-by-user/:userId', GetAllByUserIdProductCart);
 
 router.post('/Checkout', CreateCheckOut);
 router.post('/Make-Order', protect, MakeOrder);
+router.post('/status-payment/:transactionId',  checkStatus);
+
 router.get('/my-Order-PenDrive', protect, MyOrderOfPenDrive);
 router.get('/Order-Status/:OrderId', protect, OrderStatusById);
 router.get('/show-course', protect, ShowMyCourse);
 router.get('/book-order', protect, BookOrder);
 router.get('/all-orders', protect, getAllOrders);
+router.put('/update-penDrive-order-status/:OrderId', protect, updateOrderStatus);
+router.delete('/delete-order/:id',deleteOrder)
 
 
 // router.post('/Find-Mode', FindMode)

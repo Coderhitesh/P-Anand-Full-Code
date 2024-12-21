@@ -19,7 +19,7 @@ const EditFreeResource = () => {
     // Fetch Free Resource Categories for Dropdown
     const fetchFreeResourceCategories = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-free-resource-category');
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-free-resource-category');
             setFreeResourceCategories(res.data.data); // Assuming categories come as `data.data`
         } catch (error) {
             console.error('Error fetching free resource categories:', error);
@@ -30,7 +30,7 @@ const EditFreeResource = () => {
     // Fetch the current free resource details
     const fetchFreeResourceDetails = async () => {
         try {
-            const res = await axios.get(`https://api.panandacademy.com/api/v1/get-single-free-resource/${id}`); // Adjust endpoint as necessary
+            const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-single-free-resource/${id}`); // Adjust endpoint as necessary
             setFormData({
                 FreePDF: null, // Keep this null until a new file is uploaded
                 categoryId: res.data.data.categoryId,
@@ -78,7 +78,7 @@ const EditFreeResource = () => {
         formDataToSend.append('name', formData.name);
 
         try {
-            await axios.put(`https://api.panandacademy.com/api/v1/update-free-resource/${id}`, formDataToSend, {
+            await axios.put(`https://www.api.panandacademy.com/api/v1/update-free-resource/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Set correct content-type
                 },

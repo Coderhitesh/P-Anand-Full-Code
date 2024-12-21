@@ -5,7 +5,7 @@ function Homepost() {
   const [banner,setBanner] = useState([])
   const handleFetchBanner = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-home-banner')
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-home-banner')
       setBanner(res.data.data)
       console.log(res.data.data)
     } catch (error) {

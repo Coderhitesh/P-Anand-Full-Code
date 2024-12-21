@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ActiveCourse from './ActiveCourse';
+import BookOrder from './BookOrder';
+import UserOrder from './UserOrder'
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState('activeCourse');
@@ -13,7 +16,7 @@ const UserProfile = () => {
     // Fetch user profile data
     const handleFetchUserProfile = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/user-details', {
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/user-details', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUser(res.data.user);
@@ -25,10 +28,12 @@ const UserProfile = () => {
     // Fetch course data
     const handleFetchCourseData = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/show-course', {
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/show-course', {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            setCourses(res.data.data);
+            const allData = res.data.data;
+            setCourses([...allData].reverse());
+
         } catch (error) {
             console.log(error);
         }
@@ -37,7 +42,7 @@ const UserProfile = () => {
     // Fetch order data
     const handleFetchOrderData = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/book-order', {
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/book-order', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setOrders(res.data.data);
@@ -52,7 +57,7 @@ const UserProfile = () => {
             .toFixed(2) // Ensure two decimal places
             .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
     };
-    
+
 
     // Logout function
     const handleLogout = () => {
@@ -104,12 +109,12 @@ const UserProfile = () => {
                 </div>
             </div>
 
-            {/* Tabs Section */}
+            {/* Tabs */}
             <ul className="nav nav-tabs">
                 <li className="nav-item">
                     <button
                         className={`nav-link ${activeTab === 'activeCourse' ? 'active' : ''}`}
-                        onClick={() => handleTabChange('activeCourse')}
+                        onClick={() => setActiveTab('activeCourse')}
                     >
                         Active Course
                     </button>
@@ -117,116 +122,26 @@ const UserProfile = () => {
                 <li className="nav-item">
                     <button
                         className={`nav-link ${activeTab === 'bookOrder' ? 'active' : ''}`}
-                        onClick={() => handleTabChange('bookOrder')}
+                        onClick={() => setActiveTab('bookOrder')}
                     >
                         Book Order
                     </button>
                 </li>
-                <li className="nav-item">
-                    <button
-                        className={`nav-link ${activeTab === 'orderStatus' ? 'active' : ''}`}
-                        onClick={() => handleTabChange('orderStatus')}
-                    >
-                        Order Status
-                    </button>
-                </li>
                 {/* <li className="nav-item">
                     <button
-                        className={`nav-link ${activeTab === 'passwordChange' ? 'active' : ''}`}
-                        onClick={() => handleTabChange('passwordChange')}
+                        className={`nav-link ${activeTab === 'order' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('order')}
                     >
-                        Password Change
+                        Order
                     </button>
                 </li> */}
             </ul>
 
-            {/* Tab Content Section */}
+            {/* Tab Content */}
             <div className="tab-content mt-4">
-                {activeTab === 'activeCourse' && (
-                    <div className="tab-pane fade show active">
-                        <h3 className="mb-4">Active Courses</h3>
-                        <div className="table-responsive">
-                            <table className="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th style={{ whiteSpace: 'nowrap' }}>Sr.No.</th>
-                                        <th style={{ whiteSpace: 'nowrap' }}>Image</th>
-                                        <th style={{ whiteSpace: 'nowrap' }}>Course Name</th>
-                                        <th style={{ whiteSpace: 'nowrap' }}>Course Mode</th>
-                                        <th style={{ whiteSpace: 'nowrap' }}>Course Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {courses.length > 0 ? (
-                                        courses.map((course, index) => (
-                                            <tr key={course.productId}>
-                                                <td>{index + 1}</td>
-                                                <td>
-                                                    <img
-                                                        src={course.productImage}
-                                                        alt={course.productName}
-                                                        className="img-thumbnail"
-                                                        style={{ width: '100px', height: 'auto' }}
-                                                    />
-                                                </td>
-                                                <td>{course.productName}</td>
-                                                <td>{course.selectedMode.name}</td>
-                                                <td>₹{formatCurrency(course.productPrice)}</td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan="5" className="text-center">No courses found</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                )}
-
-                {activeTab === 'bookOrder' && (
-                    <div className="tab-pane fade show active">
-                        <h3 className="mb-4">Book Orders</h3>
-                        <div className="table-responsive">
-                            <table className="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Sr.No.</th>
-                                        <th>Image</th>
-                                        <th>Course Name</th>
-                                        <th>Course Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {orders.length > 0 ? (
-                                        orders.map((order, index) => (
-                                            <tr key={index}>
-                                                <td>{index + 1}</td>
-                                                <td>
-                                                    <img
-                                                        src={order.productImage}
-                                                        alt={order.productName}
-                                                        className="img-thumbnail"
-                                                        style={{ width: '100px', height: 'auto' }}
-                                                    />
-                                                </td>
-                                                <td>{order.productName}</td>
-                                                <td>₹{formatCurrency(order.productPrice)}</td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan="4" className="text-center">No orders found</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                )}
-
-                {/* Other tab contents like Order Status and Password Change can go here */}
+                {activeTab === 'activeCourse' && <ActiveCourse courses={courses} />}
+                {activeTab === 'bookOrder' && <BookOrder orders={orders} />}
+                {activeTab === 'order' && <UserOrder orders={orders} />}
             </div>
         </div>
     );

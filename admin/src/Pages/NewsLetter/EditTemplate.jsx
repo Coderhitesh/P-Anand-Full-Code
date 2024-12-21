@@ -18,7 +18,7 @@ const EditTemplate = () => {
 
   const handleFetchTemplate = async () => {
     try {
-      const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-templates');
+      const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-templates');
       const template = res.data.find((item) => item._id === id);  // Adjust '_id' if your id field name is different
       if (template) {
         setSubject(template.subject || '');
@@ -35,7 +35,7 @@ const EditTemplate = () => {
   const handleEditTemplate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://api.panandacademy.com/api/v1/edit-template/${id}`, {
+      await axios.put(`https://www.api.panandacademy.com/api/v1/edit-template/${id}`, {
         subject,
         message:content,
       });

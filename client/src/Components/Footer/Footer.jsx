@@ -7,7 +7,7 @@ function Footer() {
     const [category, setCategory] = useState([])
     const handleFetchCategory = async () => {
         try {
-            const res = await axios.get('https://api.panandacademy.com/api/v1/get-all-category')
+            const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category')
             const sortedCategories = res.data.data.sort((a, b) => a.position - b.position);
             setCategory(sortedCategories);
         } catch (error) {

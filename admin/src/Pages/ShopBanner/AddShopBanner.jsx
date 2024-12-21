@@ -42,7 +42,7 @@ const AddShopBanner = () => {
         data.append('active', formData.active);
 
         try {
-            const response = await axios.post('https://api.panandacademy.com/api/v1/create-home-banner', data, {
+            const response = await axios.post('https://www.api.panandacademy.com/api/v1/create-home-banner', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

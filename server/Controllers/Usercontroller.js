@@ -2,6 +2,8 @@ const User = require('../Models/UserModel');
 const SendToken = require('../utils/SendToken');
 const SendEmail = require('../utils/SendEmail');
 const Orders = require('../Models/OrderModel')
+// const bcrypt = require('bcrypt');
+
 exports.register = async (req, res) => {
     try {
         console.log("I am hit")
@@ -308,7 +310,7 @@ exports.passwordChangeRequest = async (req, res) => {
 
 
 exports.verifyOtpAndChangePassword = async (req, res) => {
-    const { Email, PasswordChangeOtp ,NewPassword} = req.body;
+    const { Email, PasswordChangeOtp, NewPassword } = req.body;
 
     try {
         // Check if OTP is valid and not expired
@@ -567,3 +569,57 @@ exports.getAllUsers = async (req, res) => {
         })
     }
 }
+
+exports.updatePassword = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { Password, NewPassword } = req.body;
+
+        // Validate new password length
+        if (NewPassword.length <= 6) {
+            return res.status(400).json({
+                success: false,
+                message: 'New password length must be greater than 6 characters',
+            });
+        }
+
+        // Find user by ID
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found',
+            });
+        }
+
+        // Verify the current password
+        const isMatch = await bcrypt.compare(Password, user.Password);
+        if (!isMatch) {
+            return res.status(401).json({
+                success: false,
+                message: 'Current password is incorrect',
+            });
+        }
+
+        // Hash the new password
+        // const hashedPassword = await bcrypt.hash(NewPassword, 10);
+
+        // Update the user's password
+        user.Password = NewPassword;
+
+        // Save the updated user to the database
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Password updated successfully',
+        });
+    } catch (error) {
+        console.error('Internal server error', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message,
+        });
+    }
+};
