@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 const PORT = process.env.PORT || 9123;
+const helmet = require('helmet');
 const cors = require('cors')
 const ConnectDB = require('./Config/DataBase');
 const cookieParser = require('cookie-parser')
@@ -35,6 +36,11 @@ app.use('/public',express.static('public'))
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(
+    helmet.referrerPolicy({
+      policy: 'strict-origin-when-cross-origin',
+    })
+  );
 app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
     origin: [
