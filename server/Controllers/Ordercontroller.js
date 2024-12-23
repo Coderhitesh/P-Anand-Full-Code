@@ -332,7 +332,7 @@ exports.CreateCheckOut = async (req, res) => {
             merchantUserId,
             name: "User",
             amount: totalPrice * 100,
-            redirectUrl: `${process.env.BACKEND_URL}/api/v1/status-payment/${transactionId}}`,
+            redirectUrl: `https://www.api.panandacademy.com/api/v1/status-payment/${transactionId}}`,
             redirectMode: 'POST',
             paymentInstrument: {
                 type: 'PAY_PAGE'
@@ -410,13 +410,13 @@ exports.checkStatus = async (req, res) => {
         if (data.status === "success") {
             const findOrder = await OrderModel.findOne({ PhonePeOrderId: merchantTransactionId });
             if (findOrder) {
-                findOrder.transactionId = data?.data?.transaction; // Ensure correct key in `data`
+                findOrder.transactionId = data?.data?.transaction; 
                 findOrder.PaymentDone = true;
                 findOrder.paymentStatus = "paid";
                 await findOrder.save();
             }
 
-            const successRedirect = `${process.env.FRONTEND_URL}/Order-Confirmed?id=${merchantTransactionId}&success=true`;
+            const successRedirect = `https://www.panandacademy.com/Order-Confirmed?id=${merchantTransactionId}&success=true`;
             return res.redirect(successRedirect);
         } else {
             return res.status(400).json({ success: false, message: "Payment not successful", data });
