@@ -32,15 +32,14 @@ const limiter = rateLimit({
 // app.use('./public/artits',express.static('files'))
 // app.use('/files',express.static(path.join(__dirname,'artits')))
 app.set(express.static('public'))
-app.use('/public',express.static('public'))
+app.use('/public', express.static('public'))
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(
-    helmet.referrerPolicy({
-      policy: 'strict-origin-when-cross-origin',
-    })
-  );
+app.use((req, res, next) => {
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    next();
+});
 app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
     origin: [
@@ -49,11 +48,11 @@ const corsOptions = {
         'https://admin.panandacademy.com',
         'https://panandacademy.com',
         'http://localhost:3000',
-        'http://localhost:3001' ,
+        'http://localhost:3001',
         'http://localhost:5173'
 
     ],
-    credentials: true 
+    credentials: true
 };
 
 app.use(cors(corsOptions));

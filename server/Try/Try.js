@@ -15,7 +15,7 @@ exports.createCheckOutFunction = async (req, res) => {
             merchantUserId,
             name: "User",
             amount: 50000,
-            redirectUrl: `http://localhost:9123/api/v1/status-payment/${transactionId}}`,
+            redirectUrl: `https://www.api.panandacademy.com/api/v1/status-payment/${transactionId}}`,
             redirectMode: 'POST',
             paymentInstrument: {
                 type: 'PAY_PAGE'
