@@ -24,6 +24,7 @@ const { createGalleryCategory, getAllImageCategory, deleteGalleryCategory, singl
 const { createGalleryImage, getSingleGalleryImage, getAllGalleryImage, deleteGalleryImage, updateGalleryImage } = require('../Controllers/GalleryImage.controller')
 const { createFreeResourceCategory, updateFreeResourceCategory, getAllFreeResourceCategory, getSingleFreeResourceCategory, deleteFreeResourceCategory } = require('../Controllers/FreeResourcesCategory.controller')
 const { createFreeResource, getFreeResource, getSingleFreeResource, updateFreeResource, deleteFreeResource } = require('../Controllers/FreeResource.Controller')
+const { createCheckOutFunction } = require('../Try/Try')
 const router = express.Router()
 
 // user routers 
@@ -193,6 +194,7 @@ router.get('/all-orders', protect, getAllOrders);
 router.put('/update-penDrive-order-status/:OrderId', protect, updateOrderStatus);
 router.delete('/delete-order/:id',deleteOrder)
 
+router.post('/try',createCheckOutFunction)
 
 // router.post('/Find-Mode', FindMode)
 

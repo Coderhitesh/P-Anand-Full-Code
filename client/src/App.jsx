@@ -35,6 +35,7 @@ import { CartContext } from './Context/CartContext';
 import FounderPage from './Pages/FounderPage/FounderPage';
 import GalleryPage from './Pages/GalleryPage/GalleryPage';
 import FreeResource from './Pages/FreeResource/FreeResource';
+import TryHit from './TryHit';
 
 const SESSION_KEY = 'user_session';
 const SESSION_EXPIRATION_KEY = 'user_session_expiration';
@@ -176,6 +177,8 @@ function App() {
           <Route path='/Order-Confirmed' element={<OrderSuccess />} />
           <Route path='/Profile' element={<UserProfile />} />
           <Route path='/*' element={<PageNotFound />} />
+          <Route path='/try' element={<TryHit />} />
+
           <Route path='/book-bundle-detail/:id' element={<BookBundleDetail loadingFromCart={loading} handleAddToCart={handleAddToCart} />} />
 
           <Route path="/privacy-policy" element={<Privacy />} />

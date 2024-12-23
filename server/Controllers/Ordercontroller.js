@@ -410,7 +410,7 @@ exports.checkStatus = async (req, res) => {
         if (data.status === "success") {
             const findOrder = await OrderModel.findOne({ PhonePeOrderId: merchantTransactionId });
             if (findOrder) {
-                findOrder.transactionId = data?.data?.transaction; 
+                findOrder.transactionId = data?.data?.transaction;
                 findOrder.PaymentDone = true;
                 findOrder.paymentStatus = "paid";
                 await findOrder.save();
