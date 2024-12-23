@@ -623,3 +623,33 @@ exports.updatePassword = async (req, res) => {
         });
     }
 };
+
+exports.updateProfile = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { FullName, Email, ContactNumber } = req.body;
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found',
+                error: 'User not found',
+            });
+        }
+        if(FullName) user.FullName = FullName;
+        if(Email) user.Email = Email;
+        if(ContactNumber) user.ContactNumber = ContactNumber;
+        await user.save();
+        res.status(200).json({
+            success: true,
+            message: 'Profile updated successfully',
+        });
+    } catch (error) {
+        console.log("Internal server error", error)
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        })
+    }
+}

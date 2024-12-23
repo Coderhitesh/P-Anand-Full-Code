@@ -78,6 +78,9 @@ const tempCartSchema = new mongoose.Schema(
       default: 'INR',
       enum: ['USD', 'EUR', 'INR', 'GBP', 'AUD'], // Include only valid currencies
     },
+    link: {
+      type: String,
+    },
     userLoginWhenAdd: {
       type: Boolean,
       default: false,

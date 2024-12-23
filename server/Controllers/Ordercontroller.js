@@ -165,23 +165,23 @@ exports.ShowMyCourse = async (req, res) => {
         }
 
         // Iterate through orders and filter CartItems
-        const checkOrderType = checkOrder.flatMap(order =>
-            order.CartItems?.filter(item =>
-                ["Google Drive", "Offline", "Live", "Pen Drive"].includes(item.selectedMode?.name)
-            ) || []
-        );
+        // const checkOrderType = checkOrder.flatMap(order =>
+        //     order.CartItems?.filter(item =>
+        //         ["Google Drive", "Offline", "Live", "Pen Drive"].includes(item.selectedMode?.name)
+        //     ) || []
+        // );
 
-        if (!checkOrderType.length) {
-            return res.status(402).json({
-                success: false,
-                message: "No Matching Orders Found"
-            });
-        }
+        // if (!checkOrderType.length) {
+        //     return res.status(402).json({
+        //         success: false,
+        //         message: "No Matching Orders Found"
+        //     });
+        // }
 
         res.status(200).json({
             success: true,
             message: "Orders Found Successfully",
-            data: checkOrderType
+            data: checkOrder
         });
 
     } catch (error) {
@@ -273,7 +273,6 @@ exports.MakeOrder = async (req, res) => {
         const userId = req.user.id;
         const { CartItems, AddressDetails, totalPrice } = req.body;
 
-
         const hasPenDrive = CartItems.some(item => item.selectedMode?.name === "Pen Drive");
         const hasGoogleDrive = CartItems.some(item => item.selectedMode?.name === "Google Drive");
 
@@ -286,7 +285,9 @@ exports.MakeOrder = async (req, res) => {
         if (hasGoogleDrive) {
             const currentDate = new Date();
             CourseStartData = currentDate;
-            CourseEnd = new Date(currentDate.setFullYear(currentDate.getFullYear() + 2));
+            CourseEnd = new Date(currentDate);
+            // CourseEnd = new Date(currentDate.setFullYear(currentDate.getFullYear() + 2));
+            CourseEnd.setFullYear(CourseEnd.getFullYear() + 1);
         }
 
         const newOrder = new OrderModel({
@@ -360,7 +361,7 @@ exports.CreateCheckOut = async (req, res) => {
         };
 
         const response = await axios.request(options);
-        console.log("i am response id ", response?.data?.data?.merchantTransactionId);
+        // console.log("i am response id ", response?.data?.data?.merchantTransactionId);
         const updateOrder = await OrderModel.findById(orderId)
         if (updateOrder) {
             updateOrder.PhonePeOrderId = response?.data?.data?.merchantTransactionId
@@ -416,11 +417,15 @@ exports.checkStatus = async (req, res) => {
                 await findOrder.save();
             }
 
-            const successRedirect = `https://www.panandacademy.com/Order-Confirmed?id=${merchantTransactionId}&success=true`;
+            const successRedirect = `https://www.panandacademy.com/order-confirmed?id=${merchantTransactionId}&success=true&data=${encodeURIComponent(
+                JSON.stringify(findOrder)
+            )}`;
             return res.redirect(successRedirect);
         } else {
-            return res.status(400).json({ success: false, message: "Payment not successful", data });
+            const failureRedirect = `https://www.panandacademy.com/payment-failed`;
+            return res.redirect(failureRedirect);
         }
+
     } catch (error) {
         console.error("Error in checkStatus:", error);
         return res.status(500).json({ success: false, message: "Internal Server Error", error });

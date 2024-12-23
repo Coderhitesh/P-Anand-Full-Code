@@ -1,6 +1,6 @@
 const express = require('express')
 const upload = require("../middlewares/Multer")
-const { register, login, logout, passwordChangeRequest, verifyOtpAndChangePassword, resendOtp, addDeliveryDetails, userDetails, GetDeliveryAddressOfUser, updateDeliveryAddress, getAllUsers } = require('../Controllers/Usercontroller')
+const { register, login, logout, passwordChangeRequest, verifyOtpAndChangePassword, resendOtp, addDeliveryDetails, userDetails, GetDeliveryAddressOfUser, updateDeliveryAddress, getAllUsers, updateProfile } = require('../Controllers/Usercontroller')
 const { protect } = require('../middlewares/Protect')
 const { createBundle, getAllBundles, deleteSingleBundle, updateBundle, getSingleBundle } = require('../Controllers/Bundle.Controller')
 const { createCategory, getAllCategory, singleCategory, deleteCategory, updateCategory } = require('../Controllers/Category.Controller')
@@ -42,6 +42,7 @@ router.get('/user-details', protect, userDetails)
 router.get('/get-Delivery-Address', protect, GetDeliveryAddressOfUser)
 router.post('/update-Delivery-Address', protect, updateDeliveryAddress)
 router.get('/AllUser', getAllUsers)
+router.put('/update-user-profile/:id',updateProfile)
 
 // bundle routers 
 

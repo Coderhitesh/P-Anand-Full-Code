@@ -36,6 +36,8 @@ import FounderPage from './Pages/FounderPage/FounderPage';
 import GalleryPage from './Pages/GalleryPage/GalleryPage';
 import FreeResource from './Pages/FreeResource/FreeResource';
 import TryHit from './TryHit';
+import SuccessPage from './Pages/PaymentStatusPages/SuccessPage';
+import FailurePage from './Pages/PaymentStatusPages/FailurePage';
 
 const SESSION_KEY = 'user_session';
 const SESSION_EXPIRATION_KEY = 'user_session_expiration';
@@ -80,7 +82,7 @@ function App() {
 
   const handleAddToCart = async (product) => {
     try {
-      // console.log(product)
+      console.log("product", product)
 
       // Retrieve session from session storage or generate a new one if not found
       let session = sessionStorage.getItem(SESSION_KEY);
@@ -129,7 +131,15 @@ function App() {
         ...(!isLogin ? { sessionId: session } : { addedBy: "I am Login" }), // Add sessionId if not logged in
         currency: 'INR',
         tax: 0,
+        link: product?.bookPdf
+          ? product?.bookPdf
+          : product?.selectedMode?.name === 'Google Drive'
+            ? product?.courseMode?.find((mode) => mode.modeType === 'Google Drive').courseLink
+            : null,
       };
+      // const test = product?.courseMode?.find((mode) => mode.modeType === 'Google Drive')
+      //       console.log(test.courseLink)
+
 
       // Set loading state to true while making the request
       setIsloading(true);
@@ -174,7 +184,7 @@ function App() {
           <Route path='/bundle-detail/:id' element={<BundleDetail loadingFromCart={loading} handleAddToCart={handleAddToCart} />} />
           <Route path='/category/:id' element={<StudyMaterial />} />
           <Route path='/book-bundle' element={<BookBundlePage />} />
-          <Route path='/Order-Confirmed' element={<OrderSuccess />} />
+          {/* <Route path='/Order-Confirmed' element={<OrderSuccess />} /> */}
           <Route path='/Profile' element={<UserProfile />} />
           <Route path='/*' element={<PageNotFound />} />
           <Route path='/try' element={<TryHit />} />
@@ -189,6 +199,9 @@ function App() {
           {/* <Route path="/founder-page/:name" element={<FounderPage />} /> */}
           <Route path="/founder-page" element={<FounderPage />} />
           <Route path="/free-resource" element={<FreeResource />} />
+
+          <Route path="/order-confirmed" element={<SuccessPage />} />
+          <Route path="/payment-failed" element={<FailurePage />} />
         </Routes>
         <Footer />
         {/* <ToastCon??tainer /> */}

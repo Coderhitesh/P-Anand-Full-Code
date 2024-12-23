@@ -20,9 +20,11 @@ exports.AddProductIncart = async (req, res) => {
             bundleBookId,
             userLoginWhenAdd,
             sessionId,
-            addedBy
+            addedBy,
+            link
         } = req.body;
         console.log(req.body)
+        console.log("link",link)
         // Validate required fields
         if (!productName || !totalPrice || !productPrice || !productCategory || !productImage || !productType || !productId || !productLearningMode || !quantity) {
             return res.status(400).json({ message: 'Please provide all required fields.' });
@@ -78,11 +80,12 @@ exports.AddProductIncart = async (req, res) => {
                 discount,
                 userLoginWhenAdd,
                 sessionId,
-                addedBy
+                addedBy,
+                link
             });
 
             await newCartItem.save();
-            console.log(newCartItem)
+            console.log("newCartItem",newCartItem)
             return res.status(201).json({ message: 'Product added to cart', cart: newCartItem });
         }
     } catch (error) {

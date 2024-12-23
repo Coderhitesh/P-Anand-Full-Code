@@ -116,7 +116,7 @@ const UserProfile = () => {
                         className={`nav-link ${activeTab === 'activeCourse' ? 'active' : ''}`}
                         onClick={() => setActiveTab('activeCourse')}
                     >
-                        Active Course
+                        Orders
                     </button>
                 </li>
                 <li className="nav-item">
@@ -124,7 +124,7 @@ const UserProfile = () => {
                         className={`nav-link ${activeTab === 'bookOrder' ? 'active' : ''}`}
                         onClick={() => setActiveTab('bookOrder')}
                     >
-                        Book Order
+                        Profile update
                     </button>
                 </li>
                 {/* <li className="nav-item">
@@ -140,8 +140,8 @@ const UserProfile = () => {
             {/* Tab Content */}
             <div className="tab-content mt-4">
                 {activeTab === 'activeCourse' && <ActiveCourse courses={courses} />}
-                {activeTab === 'bookOrder' && <BookOrder orders={orders} />}
-                {activeTab === 'order' && <UserOrder orders={orders} />}
+                {activeTab === 'bookOrder' && <BookOrder user={user} />}
+                {/* {activeTab === 'order' && <UserOrder orders={orders} />} */}
             </div>
         </div>
     );

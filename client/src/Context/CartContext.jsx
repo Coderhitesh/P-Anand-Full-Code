@@ -19,7 +19,7 @@ export const CartProvider = ({ children }) => {
     useEffect(() => {
         setUserToken(token);
         fetchData(); // Fetch cart data when the provider mounts to show in header
-    }, [token]);
+    }, []);
 
     // Fetch cart items from API
     const fetchData = async () => {

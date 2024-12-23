@@ -23,11 +23,13 @@ function Cart() {
             .toFixed(2) // Ensure two decimal places
             .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
     };
+
+    console.log("cart",cartItems)
     
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [cartItems]);
 
     return (
         <>
