@@ -333,20 +333,28 @@ exports.CreateCheckOut = async (req, res) => {
             merchantUserId,
             name: "User",
             amount: totalPrice * 100,
-            redirectUrl: `https://www.api.panandacademy.com/api/v1/status-payment/${transactionId}}`,
+            callbackUrl: `https://www.panandacademy.com/payment-failed`,
+            // redirectUrl: `https://www.api.panandacademy.com/api/v1/status-payment/${transactionId}`,
+            redirectUrl: `https://www.api.panandacademy.com/api/v1/status-payment/${transactionId}`,
             redirectMode: 'POST',
             paymentInstrument: {
                 type: 'PAY_PAGE'
             }
         };
 
+        // console.log("data", data)
+
         const payload = JSON.stringify(data);
+        // console.log("payload",payload)
         const payloadMain = Buffer.from(payload).toString('base64');
         const keyIndex = 1;
         const string = payloadMain + '/pg/v1/pay' + apiKey;
         const sha256 = crypto.createHash('sha256').update(string).digest('hex');
         const checksum = sha256 + '###' + keyIndex;
         const prod_URL = "https://api.phonepe.com/apis/hermes/pg/v1/pay";
+        console.log("Checksum:", checksum);
+        console.log("Payload (Base64):", payloadMain);
+
         const options = {
             method: 'POST',
             url: prod_URL,
@@ -362,6 +370,7 @@ exports.CreateCheckOut = async (req, res) => {
 
         const response = await axios.request(options);
         // console.log("i am response id ", response?.data?.data?.merchantTransactionId);
+        // console.log("i am response ", response);
         const updateOrder = await OrderModel.findById(orderId)
         if (updateOrder) {
             updateOrder.PhonePeOrderId = response?.data?.data?.merchantTransactionId
@@ -381,7 +390,9 @@ exports.CreateCheckOut = async (req, res) => {
 }
 
 exports.checkStatus = async (req, res) => {
-    const { transactionId: merchantTransactionId } = req.body;
+    // console.log("pay")
+    const { merchantTransactionId } = req.params;
+    // console.log("merchantTransactionId",merchantTransactionId)
 
     if (!merchantTransactionId) {
         return res.status(400).json({ success: false, message: "Merchant transaction ID not provided" });
@@ -407,22 +418,25 @@ exports.checkStatus = async (req, res) => {
         };
 
         const { data } = await axios.request(options);
-
-        if (data.status === "success") {
+        // console.log("data in", data)
+        if (data.success === true) {
+            // console.log("i am in ")
             const findOrder = await OrderModel.findOne({ PhonePeOrderId: merchantTransactionId });
             if (findOrder) {
-                findOrder.transactionId = data?.data?.transaction;
+                findOrder.transactionId = data?.data?.merchantTransactionId;
                 findOrder.PaymentDone = true;
-                findOrder.paymentStatus = "paid";
+                findOrder.paymentStatus = "Completed";
                 await findOrder.save();
+                // console.log("findOrder in")
             }
+            // console.log("findOrder out",findOrder)
 
-            const successRedirect = `https://www.panandacademy.com/order-confirmed?id=${merchantTransactionId}&success=true&data=${encodeURIComponent(
+            const successRedirect = `https://panandacademy.com/order-confirmed?id=${merchantTransactionId}&success=true&data=${encodeURIComponent(
                 JSON.stringify(findOrder)
             )}`;
             return res.redirect(successRedirect);
         } else {
-            const failureRedirect = `https://www.panandacademy.com/payment-failed`;
+            const failureRedirect = `https://panandacademy.com/payment-failed`;
             return res.redirect(failureRedirect);
         }
 

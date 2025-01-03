@@ -23,8 +23,8 @@ exports.AddProductIncart = async (req, res) => {
             addedBy,
             link
         } = req.body;
-        console.log(req.body)
-        console.log("link",link)
+        // console.log(req.body)
+        // console.log("link",link)
         // Validate required fields
         if (!productName || !totalPrice || !productPrice || !productCategory || !productImage || !productType || !productId || !productLearningMode || !quantity) {
             return res.status(400).json({ message: 'Please provide all required fields.' });
@@ -85,7 +85,7 @@ exports.AddProductIncart = async (req, res) => {
             });
 
             await newCartItem.save();
-            console.log("newCartItem",newCartItem)
+            // console.log("newCartItem",newCartItem)
             return res.status(201).json({ message: 'Product added to cart', cart: newCartItem });
         }
     } catch (error) {

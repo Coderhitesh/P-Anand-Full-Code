@@ -24,7 +24,7 @@ function Cart() {
             .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
     };
 
-    console.log("cart",cartItems)
+    // console.log("cart",cartItems)
     
 
     useEffect(() => {

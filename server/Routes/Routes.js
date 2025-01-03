@@ -183,9 +183,9 @@ router.get('/get-products-by-user/:userId', GetAllByUserIdProductCart);
 
 //Payments Routes
 
-router.post('/Checkout', CreateCheckOut);
 router.post('/Make-Order', protect, MakeOrder);
-router.post('/status-payment/:transactionId',  checkStatus);
+router.post('/Checkout', CreateCheckOut);
+router.post('/status-payment/:merchantTransactionId', checkStatus);
 
 router.get('/my-Order-PenDrive', protect, MyOrderOfPenDrive);
 router.get('/Order-Status/:OrderId', protect, OrderStatusById);
