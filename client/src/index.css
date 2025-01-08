@@ -53,3 +53,25 @@ a{
   align-items: center;
   justify-content: center;
 }
+
+.offer_banner_img{
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.offer_bg_color{
+  background-color: #A46023;
+  color: white;
+}
+
+.offer_border_color{
+  border: 1px solid #A46023;
+  color: #A46023;
+}
+
+@media (max-width:550px) {
+  .offer_banner_img{
+    height: 194px !important;
+  }
+}
