@@ -131,7 +131,7 @@ function Featurecourse() {
         <div className="container">
           <div className="section-title-area">
             <div className="section-title">
-              <h2 className="wow fadeInUp mobile-title" data-wow-delay=".3s">CUET Course (Fastrack Batch)</h2>
+              <h2 className="wow fadeInUp mobile-title" data-wow-delay=".3s">CUET (Fastrack Batch 2025)</h2>
             </div>
             <Link to={'/shop'} className="theme-btn transparent-btn wow fadeInUp mobile-title" data-wow-delay=".5s">
               Explore More <i className="fa-solid fa-arrow-right-long"></i>
