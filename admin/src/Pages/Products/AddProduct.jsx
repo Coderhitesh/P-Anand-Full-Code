@@ -21,7 +21,8 @@ const AddProduct = () => {
         courseImage: null, // Single file
         courseMode: [],
         feature: false,
-        aditionalInfo:''
+        aditionalInfo:'',
+        teacherName: ''
     });
     const [isLoading, setIsLoading] = useState(false);
     const [modes, setModes] = useState([])
@@ -293,6 +294,10 @@ const AddProduct = () => {
                     <div className="col-md-6">
                         <label htmlFor="endingPrice" className="form-label">Ending Price</label>
                         <input type="text" onChange={handleChange} name='endingPrice' value={formData.endingPrice} className="form-control" id="endingPrice" />
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="teacherName" className="form-label">Teacher Name</label>
+                        <input type="text" onChange={handleChange} name='teacherName' value={formData.teacherName} className="form-control" id="teacherName" />
                     </div>
 
                     <div className="col-md-6">

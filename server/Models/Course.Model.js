@@ -62,6 +62,9 @@ const courseSchema = new mongoose.Schema({
     },
     aditionalInfo: {
         type: String
+    },
+    teacherName: {
+        type: String
     }
 })
 

@@ -184,7 +184,8 @@ const AllProduct = () => {
                                 <td>{course.courseSubCategory}</td>
                                 <td>{course.courseDescription.substring(0, 14) + '....'}</td>
                                 <td>{course.aditionalInfo ? course.aditionalInfo.substring(0, 14) + '....' : 'No additional info'}</td>
-                                <td>{getTeacehrById(course.courseTeacherName)}</td>
+                                {/* <td>{getTeacehrById(course.courseTeacherName)}</td> */}
+                                <td>{course.teacherName || 'No Teacher Assigned'}</td>
                                 <td><img src={course.courseImage.url} alt={course.courseName} style={{ width: '50px', height: '50px' }} /></td>
                                 <td>{course.startingPrice}</td>
                                 <td>{course.endingPrice}</td>

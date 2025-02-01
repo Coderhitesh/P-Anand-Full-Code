@@ -136,7 +136,7 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
             .toFixed(2) // Ensure two decimal places
             .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format with commas
     };
-    
+
 
 
     useEffect(() => {
@@ -225,7 +225,7 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                                             <h4 style={{ fontWeight: '700', fontSize: '30px' }} className="course-title text-dark">
                                                 {course.courseName}
                                             </h4>
-                                            <p>By: {getTeacherNameById(course.courseTeacherName)}</p>
+                                            <p>By: {course.teacherName}</p>
                                             <p className="text-muted mb-4"><strong>Category:</strong> {getCategoryNameById(course.courseCategory)}</p>
                                             <div className="d-flex flex-row my-3">
                                                 <div className="text-warning mb-1 me-2">
@@ -247,7 +247,11 @@ function CourseDetail({ handleAddToCart, loadingFromCart }) {
                                                 </div>
                                                 <div>
                                                     <div className="mainprice mt-3">
-                                                        <p style={{ fontSize: '20px' }}><strong>Price :</strong> ₹{formatCurrency(price)}</p>
+                                                        <p style={{ fontSize: '20px' }}><strong>Price :</strong> ₹{formatCurrency(price)}
+                                                            {((course?.courseCategory === '66cc4b3ca51f73c4c01f0a5a' && selectedMode?.id === '66d8494ffe3508950760fa0c') ||
+                                                                (course?.courseCategory === '66cc4b3ca51f73c4c01f0a5a' && selectedMode?.id === '66d84936fe3508950760fa06')) && <>/Month</>}
+
+                                                        </p>
                                                     </div>
                                                     {discountedPrice !== price && (
                                                         <div className="discountPrice">

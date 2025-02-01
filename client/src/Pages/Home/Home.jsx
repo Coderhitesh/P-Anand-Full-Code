@@ -15,6 +15,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Loading from '../../Components/Loading/Loading'
 import FounderHome from '../../Components/FounderHome/FounderHome'
+import TwelfthHome from '../TwelfthHome/TwelfthHome'
 
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -48,10 +49,11 @@ function Home() {
             <Homepost />
             <Featurecourse />
             <Topcategory />
-            <Homeshop />
+            {/* <Homeshop /> */}
             {/* <BundleHome /> */}
             {/* <Homeofferbanner /> */}
             {/* <BookBundle /> */}
+            <TwelfthHome />
             <TopRatedBook />
             <OurClient />
             <FounderHome />

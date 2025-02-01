@@ -92,7 +92,7 @@ function FounderPage() {
           </div>
           <div className="team-row">
             {
-              teacher && teacher.map((item, index) => (
+              teacher && teacher.slice(0,4).map((item, index) => (
                 <div key={index} className="team-box-items forremovemargin">
                   <div className="team-image">
                     <div style={{height:'280px'}} className="thumb">

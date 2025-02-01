@@ -26,12 +26,23 @@ function Featurecourse() {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
       const allData = res.data.data;
-      const filterdata = allData.filter((item) => item.feature === true);
+      const filterdata = allData.filter((item) => item.courseCategory === '66cc4b5da51f73c4c01f0a62');
       setCourse(shuffleArray(filterdata)); // Shuffle the filtered data
     } catch (error) {
       console.log(error);
     }
   };
+
+  // const handleFetchCourse = async () => {
+  //   try {
+  //     const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
+  //     const allData = res.data.data;
+  //     const filterdata = allData.filter((item) => item.feature === true);
+  //     setCourse(shuffleArray(filterdata)); // Shuffle the filtered data
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleResize = () => {
     const windowWidth = window.innerWidth;
@@ -120,7 +131,7 @@ function Featurecourse() {
         <div className="container">
           <div className="section-title-area">
             <div className="section-title">
-              <h2 className="wow fadeInUp mobile-title" data-wow-delay=".3s">Featured Course</h2>
+              <h2 className="wow fadeInUp mobile-title" data-wow-delay=".3s">CUET Course (Fastrack Batch)</h2>
             </div>
             <Link to={'/shop'} className="theme-btn transparent-btn wow fadeInUp mobile-title" data-wow-delay=".5s">
               Explore More <i className="fa-solid fa-arrow-right-long"></i>

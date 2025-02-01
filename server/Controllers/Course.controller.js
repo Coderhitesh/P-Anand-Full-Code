@@ -4,7 +4,7 @@ const fs = require('fs');
 
 exports.createCourse = async (req, res) => {
     try {
-        const { courseName, courseDescription, endingPrice, startingPrice, feature, courseCategory, courseSubCategory, courseTagName, courseRating, courseCountRating, courseTeacherName, courseMode, aditionalInfo } = req.body
+        const { courseName, teacherName, courseDescription, endingPrice, startingPrice, feature, courseCategory, courseSubCategory, courseTagName, courseRating, courseCountRating, courseTeacherName, courseMode, aditionalInfo } = req.body
         // console.log(req.body)
         // console.log(JSON.parse(req.body.courseMode))
         const mode  =JSON.parse(req.body.courseMode)
@@ -17,6 +17,8 @@ exports.createCourse = async (req, res) => {
         if (!courseTagName) emptyField.push('Course Tag Name')
         if (!endingPrice) emptyField.push('Ending Price')
         if (!aditionalInfo) emptyField.push('Aditional Info')
+        if (!aditionalInfo) emptyField.push('Aditional Info')
+        if (!teacherName) emptyField.push('Teacher Name')
 
    
         if (emptyField.length > 0) {
@@ -35,7 +37,8 @@ exports.createCourse = async (req, res) => {
             courseTeacherName,
             courseTagName,
             feature,
-            aditionalInfo
+            aditionalInfo,
+            teacherName
         })
 
         if (req.file) {
@@ -186,7 +189,8 @@ exports.updateCourse = async (req, res) => {
             feature,
             aditionalInfo,
             startingPrice,
-            endingPrice
+            endingPrice,
+            teacherName
         } = req.body
 
         const data = await MainCourse.findById(id)
@@ -210,6 +214,7 @@ exports.updateCourse = async (req, res) => {
         if (aditionalInfo) data.aditionalInfo = aditionalInfo
         if (startingPrice) data.startingPrice = startingPrice
         if (endingPrice) data.endingPrice = endingPrice
+        if (teacherName) data.teacherName = teacherName
 
         // Handle image update
         if (req.file) {

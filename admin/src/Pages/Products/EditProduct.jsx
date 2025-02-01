@@ -24,7 +24,8 @@ const EditProduct = () => {
         feature: false,
         startingPrice: '',
         endingPrice: '',
-        aditionalInfo: '' // Added aditionalInfo
+        aditionalInfo: '', // Added aditionalInfo
+        teacherName: ''
     });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -68,7 +69,8 @@ const EditProduct = () => {
                 feature: data.feature || false,
                 startingPrice: data.startingPrice || '',
                 endingPrice: data.endingPrice || '',
-                aditionalInfo: data.aditionalInfo || '' // Set aditionalInfo
+                aditionalInfo: data.aditionalInfo || '', // Set aditionalInfo
+                teacherName: data.teacherName || '' // Set aditionalInfo
             });
 
             if (data.courseImage) {
@@ -292,7 +294,7 @@ const EditProduct = () => {
                             </div>
 
                             {/* Course Image */}
-                            <div className="col-md-12">
+                            <div className="col-md-6">
                                 <label htmlFor="courseImage" className="form-label">Course Image (800 x 800)</label>
                                 <input
                                     type="file"
@@ -302,6 +304,18 @@ const EditProduct = () => {
                                     accept="image/*"
                                 />
                                 {imagePreview && <img src={imagePreview} style={{ width: '140px' }} alt="Preview" className="img-fluid mt-2" />}
+                            </div>
+
+                            <div className="col-md-6">
+                                <label htmlFor="teacherName" className="form-label">Teacher Name</label>
+                                <input
+                                    type="text"
+                                    name="teacherName"
+                                    value={formData.teacherName}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    id="teacherName"
+                                />
                             </div>
 
                             {/* Course Modes */}
