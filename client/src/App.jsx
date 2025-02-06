@@ -38,6 +38,7 @@ import FreeResource from './Pages/FreeResource/FreeResource';
 import TryHit from './TryHit';
 import SuccessPage from './Pages/PaymentStatusPages/SuccessPage';
 import FailurePage from './Pages/PaymentStatusPages/FailurePage';
+import PaymentSuccessPage from './Pages/PaymentStatusPages/PaymentSuccessPage';
 
 const SESSION_KEY = 'user_session';
 const SESSION_EXPIRATION_KEY = 'user_session_expiration';
@@ -202,6 +203,9 @@ function App() {
 
           <Route path="/order-confirmed" element={<SuccessPage />} />
           <Route path="/payment-failed" element={<FailurePage />} />
+
+          <Route path="/payment-done" element={<PaymentSuccessPage />} />
+          
         </Routes>
         <Footer />
         {/* <ToastCon??tainer /> */}

@@ -25,6 +25,7 @@ const { createGalleryImage, getSingleGalleryImage, getAllGalleryImage, deleteGal
 const { createFreeResourceCategory, updateFreeResourceCategory, getAllFreeResourceCategory, getSingleFreeResourceCategory, deleteFreeResourceCategory } = require('../Controllers/FreeResourcesCategory.controller')
 const { createFreeResource, getFreeResource, getSingleFreeResource, updateFreeResource, deleteFreeResource } = require('../Controllers/FreeResource.Controller')
 const { createCheckOutFunction } = require('../Try/Try')
+const { createPaymentInstant, verifyInstantPayment } = require('../Controllers/PayOnClick.controller')
 const router = express.Router()
 
 // user routers 
@@ -238,6 +239,11 @@ router.get('/get-all-free-resource',getFreeResource)
 router.get('/get-single-free-resource/:_id',getSingleFreeResource)
 router.put('/update-free-resource/:_id',upload.single('FreePDF'),updateFreeResource)
 router.delete('/delete-free-resource/:_id',deleteFreeResource)
+
+// instant payment 
+
+router.post('/create-instant-payment',createPaymentInstant)
+router.post('/verify-instant-payment/:merchantTransactionId',verifyInstantPayment)
 
 
 module.exports = router

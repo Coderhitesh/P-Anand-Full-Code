@@ -21,6 +21,25 @@ function Header() {
     const [isActiveDropDown, setIsActiveDropDown] = useState(false)
     const [isActiveDropDownAbout, setIsActiveDropDownAbout] = useState(false)
     const [isActiveDropDownUsefull, setIsActiveDropDownUsefull] = useState(false)
+    const [amount, setAmount] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const handlePayment = async () => {
+        try {
+            const response = await axios.post("https://www.api.panandacademy.com/api/v1/create-instant-payment", { amount });
+            if (response.data.success) {
+
+                window.location.href = response.data.url;
+            } else {
+                console.error('Error initiating payment:', response.data.message);
+            }
+            toast.success("Payment successful!");
+            setAmount('');
+            setShowModal(false); // Close modal after successful payment
+        } catch (error) {
+            console.log("Internal server error", error);
+            toast.error(error?.response?.data?.message || "Payment failed!");
+        }
+    };
     const handleMobActive = () => {
         setIsMobActive(!isMobActive)
     }
@@ -42,21 +61,21 @@ function Header() {
 
     useEffect(() => {
         const header = document.querySelector('.header-1');
-        
+
         const handleScroll = () => {
-          if (window.scrollY > 0) {
-            header.classList.add('stuck');  // Add the 'stuck' class when scrolling down
-          } else {
-            header.classList.remove('stuck');  // Remove it when at the top
-          }
+            if (window.scrollY > 0) {
+                header.classList.add('stuck');  // Add the 'stuck' class when scrolling down
+            } else {
+                header.classList.remove('stuck');  // Remove it when at the top
+            }
         };
-    
+
         window.addEventListener('scroll', handleScroll);
-        
+
         return () => {
-          window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleScroll);
         };
-      }, []);
+    }, []);
     const token = sessionStorage.getItem('token')
     // console.log(token)
     const handleFetchCategory = async () => {
@@ -268,6 +287,22 @@ function Header() {
                                                         <li>
                                                             <Link to={'/contact'}>Contact us</Link>
                                                         </li>
+                                                        <li>
+                                                            <button
+                                                                onClick={() => setShowModal(true)}
+                                                                style={{
+                                                                    backgroundColor: "#B05F22",
+                                                                    padding: "5px 14px",
+                                                                    color: "white",
+                                                                    borderRadius: "5px",
+                                                                    border: "none",
+                                                                    cursor: "pointer",
+                                                                }}
+                                                            >
+                                                                Pay Now
+                                                            </button>
+                                                        </li>
+
                                                     </ul>
                                                 </nav>
                                             </div>
@@ -335,6 +370,10 @@ function Header() {
                                             <Link to={'/cart'} onClick={handleMobDeActive} className="theme-btn text-center">
                                                 Cart <i className="fa-solid fa-arrow-right-long"></i>
                                             </Link>
+
+                                            <Link onClick={() => { handleMobDeActive(); setShowModal(true); }} className="theme-btn text-center">
+                                                Pay Now <i className="fa-solid fa-arrow-right-long"></i>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -372,136 +411,50 @@ function Header() {
                 </div>
             </header>
 
-            {/* <!-- Login Modal --> */}
-            <div className="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <div className="close-btn">
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            {showModal && (
+                <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Enter Payment Amount</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setShowModal(false)}
+                                ></button>
                             </div>
-                            <div className="identityBox">
-                                <div className="form-wrapper">
-                                    <h1 id="loginModalLabel">welcome back!</h1>
-                                    <input className="inputField" type="email" name="email" placeholder="Email Address" />
-                                    <input className="inputField" type="password" name="password" placeholder="Enter Password" />
-                                    <div className="input-check remember-me">
-                                        <div className="checkbox-wrapper">
-                                            <input type="checkbox" className="form-check-input" name="save-for-next"
-                                                id="saveForNext" />
-                                            <label for="saveForNext">Remember me</label>
-                                        </div>
-                                        <div className="text"> <a href="index-2.html">Forgot Your password?</a> </div>
-                                    </div>
-                                    <div className="loginBtn">
-                                        <a href="index-2.html" className="theme-btn rounded-0"> Log in </a>
-                                    </div>
-                                    <div className="orting-badge">
-                                        Or
-                                    </div>
-                                    <div>
-                                        <a className="another-option" href="https://www.google.com/">
-                                            <img src="assets/img/google.png" alt="google" />
-                                            Continue With Google
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a className="another-option another-option-two" href="https://www.facebook.com/">
-                                            <img src="assets/img/facebook.png" alt="google" />
-                                            Continue With Facebook
-                                        </a>
-                                    </div>
-
-                                    <div className="form-check-3 d-flex align-items-center from-customradio-2 mt-3">
-                                        <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                                        <label className="form-check-label">
-                                            I Accept Your Terms & Conditions
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div className="banner">
-                                    <button type="button" className="rounded-0 login-btn" data-bs-toggle="modal"
-                                        data-bs-target="#loginModal">Log in</button>
-                                    <button type="button" className="theme-btn rounded-0 register-btn" data-bs-toggle="modal"
-                                        data-bs-target="#registrationModal">Create
-                                        Account</button>
-                                    <div className="loginBg">
-                                        <img src="assets/img/signUpbg.jpg" alt="signUpBg" />
-                                    </div>
-                                </div>
+                            <div style={{padding:'10px'}} className="modal-body">
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    placeholder="Enter amount"
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                />
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    className="btn btn-secondary"
+                                    onClick={() => setShowModal(false)}
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    className="btn"
+                                    style={{ backgroundColor: '#B05F22', color: 'white' }}
+                                    onClick={handlePayment}
+                                    disabled={!amount}
+                                >
+                                    Pay Now
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
 
-            {/* <!-- Registration Modal --> */}
-            <div className="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel"
-                aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <div className="close-btn">
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div className="identityBox">
-                                <div className="form-wrapper">
-                                    <h1 id="registrationModalLabel">Create account!</h1>
-                                    <input className="inputField" type="text" name="name" id="name" placeholder="User Name" />
-                                    <input className="inputField" type="email" name="email" placeholder="Email Address" />
-                                    <input className="inputField" type="password" name="password" placeholder="Enter Password" />
-                                    <input className="inputField" type="password" name="password"
-                                        placeholder="Enter Confirm Password" />
-                                    <div className="input-check remember-me">
-                                        <div className="checkbox-wrapper">
-                                            <input type="checkbox" className="form-check-input" name="save-for-next"
-                                                id="rememberMe" />
-                                            <label for="rememberMe">Remember me</label>
-                                        </div>
-                                        <div className="text"> <a href="index-2.html">Forgot Your password?</a> </div>
-                                    </div>
-                                    <div className="loginBtn">
-                                        <a href="index-2.html" className="theme-btn rounded-0"> Log in </a>
-                                    </div>
-                                    <div className="orting-badge">
-                                        Or
-                                    </div>
-                                    <div>
-                                        <a className="another-option" href="https://www.google.com/">
-                                            <img src="assets/img/google.png" alt="google" />
-                                            Continue With Google
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a className="another-option another-option-two" href="https://www.facebook.com/">
-                                            <img src="assets/img/facebook.png" alt="google" />
-                                            Continue With Facebook
-                                        </a>
-                                    </div>
-                                    <div className="form-check-3 d-flex align-items-center from-customradio-2 mt-3">
-                                        <input className="form-check-input" type="radio" name="flexRadioDefault" />
-                                        <label className="form-check-label">
-                                            I Accept Your Terms & Conditions
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div className="banner">
-                                    <button type="button" className="rounded-0 login-btn" data-bs-toggle="modal"
-                                        data-bs-target="#loginModal">Log in</button>
-                                    <button type="button" className="theme-btn rounded-0 register-btn" data-bs-toggle="modal"
-                                        data-bs-target="#registrationModal">Create
-                                        Account</button>
-                                    <div className="signUpBg">
-                                        <img src="assets/img/registrationbg.jpg" alt="signUpBg" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* Modal Backdrop */}
+            {showModal && <div className="modal-backdrop fade show"></div>}
         </div>
     )
 }
