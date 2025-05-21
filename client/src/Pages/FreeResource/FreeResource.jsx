@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './freeResource.css'; // Make sure you style your custom CSS
-import pdf from './pdf.png'
+import pdf from './pdf.png';
 
 function FreeResource() {
     const [categories, setCategories] = useState([]);
     const [activeCategory, setActiveCategory] = useState(null);
     const [resources, setResources] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [showForm, setShowForm] = useState(false);
+    const [selectedPdf, setSelectedPdf] = useState(null);
+    const [formData, setFormData] = useState({
+        name: "",
+        number: "",
+        studenClass: "",
+        location: ""
+    });
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Fetch all categories on component mount
     const fetchCategories = async () => {
@@ -48,6 +58,63 @@ function FreeResource() {
         }
     }, [activeCategory]);
 
+    // Handle form input changes
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    // Validate form
+    const validateForm = () => {
+        let errors = {};
+        if (!formData.name.trim()) errors.name = "Name is required";
+        if (!formData.number.trim()) errors.number = "Number is required";
+        if (!formData.studenClass.trim()) errors.studenClass = "Class is required";
+        if (!formData.location.trim()) errors.location = "Location is required";
+        
+        setFormErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        if (validateForm()) {
+            setIsSubmitting(true);
+            try {
+                await axios.post('https://www.api.panandacademy.com/api/v1/create-download-pdf-detail', formData);
+                
+                // After successful submission, open the PDF
+                window.open(`https://www.api.panandacademy.com/${selectedPdf}`, '_blank');
+                
+                // Reset form and close modal
+                setFormData({
+                    name: "",
+                    number: "",
+                    studenClass: "",
+                    location: ""
+                });
+                setShowForm(false);
+                setSelectedPdf(null);
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                alert("Failed to submit your details. Please try again.");
+            } finally {
+                setIsSubmitting(false);
+            }
+        }
+    };
+
+    // Handle PDF click
+    const handlePdfClick = (pdfPath) => {
+        setSelectedPdf(pdfPath);
+        setShowForm(true);
+    };
+
     return (
         <div className='free-resource-section'>
             <div className="container">
@@ -72,18 +139,21 @@ function FreeResource() {
                             {resources.map((resource) => (
                                 <div className="col-md-3 forwidth" key={resource._id}>
                                     <div className="card mb-4 text-center">
-                                        <div className="card-body ">
+                                        <div className="card-body">
                                             <img
-                                                src={pdf} // Replace with your PDF image/icon URL
+                                                src={pdf}
                                                 alt="PDF Thumbnail"
                                                 className="pdf-image"
                                             />
                                             <div className="card-footer">
                                                 <h5 className="card-title">{resource.name}</h5>
                                             </div>
-                                            <a href={`https://www.api.panandacademy.com/${resource.FreePDF}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-2">
+                                            <button 
+                                                onClick={() => handlePdfClick(resource.FreePDF)} 
+                                                className="btn btn-primary mt-2"
+                                            >
                                                 View PDF
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -94,6 +164,74 @@ function FreeResource() {
                     )}
                 </div>
             </div>
+
+            {/* Inquiry Form Modal */}
+            {showForm && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h3>Please provide your details to view the PDF</h3>
+                            <button className="close-btn" onClick={() => setShowForm(false)}>×</button>
+                        </div>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="name">Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                    className={`form-control ${formErrors.name ? 'is-invalid' : ''}`}
+                                />
+                                {formErrors.name && <div className="invalid-feedback">{formErrors.name}</div>}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="number">Phone Number</label>
+                                <input
+                                    type="text"
+                                    id="number"
+                                    name="number"
+                                    value={formData.number}
+                                    onChange={handleInputChange}
+                                    className={`form-control ${formErrors.number ? 'is-invalid' : ''}`}
+                                />
+                                {formErrors.number && <div className="invalid-feedback">{formErrors.number}</div>}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="studenClass">Class</label>
+                                <input
+                                    type="text"
+                                    id="studenClass"
+                                    name="studenClass"
+                                    value={formData.studenClass}
+                                    onChange={handleInputChange}
+                                    className={`form-control ${formErrors.studenClass ? 'is-invalid' : ''}`}
+                                />
+                                {formErrors.studenClass && <div className="invalid-feedback">{formErrors.studenClass}</div>}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="location">Location</label>
+                                <input
+                                    type="text"
+                                    id="location"
+                                    name="location"
+                                    value={formData.location}
+                                    onChange={handleInputChange}
+                                    className={`form-control ${formErrors.location ? 'is-invalid' : ''}`}
+                                />
+                                {formErrors.location && <div className="invalid-feedback">{formErrors.location}</div>}
+                            </div>
+                            <div className="button-group">
+                                <button type="button" className="btn btn-secondary" onClick={() => setShowForm(false)}>Cancel</button>
+                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                    {isSubmitting ? 'Submitting...' : 'Submit & View PDF'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

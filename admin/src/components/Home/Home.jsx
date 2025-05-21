@@ -77,6 +77,11 @@ import AddFreeResourceCategory from '../../Pages/FreeResourceCategory/AddFreeRes
 import AllFreeResource from '../../Pages/FreeResource/AllFreeResource'
 import AddFreeResource from '../../Pages/FreeResource/AddFreeResource'
 import EditFreeResource from '../../Pages/FreeResource/EditFreeResource'
+import AllPdfEnquiryDetail from '../../Pages/PdfEnquiryDetail/AllPdfEnquiryDetail'
+import AllEnquiry from '../AllEnquiry/AllEnquiry'
+import AllFaq from '../../Pages/Faq/AllFaq'
+import AddFaq from '../../Pages/Faq/AddFaq'
+import EditFaq from '../../Pages/Faq/EditFaq'
 
 
 const Home = () => {
@@ -224,6 +229,21 @@ const Home = () => {
           <Route path={'/add-free-resource'} element={<AddFreeResource />} />
           <Route path={'/edit-free-resource/:id'} element={<EditFreeResource />} />
 
+          {/* free resource enquiry detail router  */}
+
+          <Route path={'/all-pdf-enquiry-detail'} element={<AllPdfEnquiryDetail />} />
+         
+
+          {/* contact enquiry detail router  */}
+
+          <Route path={'/all-enquiry'} element={<AllEnquiry />} />
+
+          {/* contact enquiry detail router  */}
+
+          <Route path={'/all-faq'} element={<AllFaq />} />
+          <Route path={'/add-faq'} element={<AddFaq />} />
+          <Route path={'/edit-faq/:id'} element={<EditFaq />} />
+         
           {/* all-shop */}
 
         </Routes>

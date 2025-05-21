@@ -1,19 +1,24 @@
-const mongoose = require('mongoose')
-require('dotenv').config()
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-const connectDB = async (req, res) => {
+const connectDB = async () => {
     try {
-        const MONOGO_LINK = process.env.MONGO_LINK
-        // mongoose.connect(MONOGO_LINK)
-        mongoose.connect(MONOGO_LINK);
-        console.log('MongoDB Connected...')
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            success: false,
-            message: 'Internal Server Error'
-        })
-    }
-}
+        const MONGO_LINK = process.env.MONGO_LINK;
 
-module.exports = connectDB
+        if (!MONGO_LINK) {
+            throw new Error('MONGO_LINK not defined in environment variables');
+        }
+
+        await mongoose.connect(MONGO_LINK, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        console.log('MongoDB Connected...');
+    } catch (error) {
+        console.error('Database connection error:', error.message);
+        process.exit(1); // Exit the process to avoid continuing with a broken DB connection
+    }
+};
+
+module.exports = connectDB;

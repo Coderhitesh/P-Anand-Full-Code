@@ -26,6 +26,20 @@ const AllCategory = () => {
             console.error('There was an error fetching the categories!', error);
         }
     }
+
+    const handleChangeCategoryStatus = async (id, currentStatus) => {
+        try {
+            const res = await axios.put(`https://www.api.panandacademy.com/api/v1/update-category-status/${id}`, {
+                isActive: !currentStatus,
+            });
+            toast.success("Status updated successfully");
+            handleFetch();
+        } catch (error) {
+            console.log("Internal server error", error);
+            toast.error("Failed to update status");
+        }
+    };
+
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -100,6 +114,7 @@ const AllCategory = () => {
                             <th scope="col">Position</th>
                             <th scope="col">Sub-Category Name</th>
                             <th scope="col">Image</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
@@ -120,6 +135,17 @@ const AllCategory = () => {
                                         <span>No Image</span>
                                     )}
                                 </td>
+                                <td>
+                                    <div className="form-check form-switch">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            checked={category.isActive}
+                                            onChange={() => handleChangeCategoryStatus(category._id, category.isActive)}
+                                        />
+                                    </div>
+                                </td>
+
                                 <td><Link to={`/edit-category/${category._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
                                 <td><Link onClick={() => { handleDelete(category._id) }} className="bt delete">Delete <i className="fa-solid fa-trash"></i></Link></td>
                             </tr>

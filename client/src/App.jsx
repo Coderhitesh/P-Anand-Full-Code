@@ -39,6 +39,7 @@ import TryHit from './TryHit';
 import SuccessPage from './Pages/PaymentStatusPages/SuccessPage';
 import FailurePage from './Pages/PaymentStatusPages/FailurePage';
 import PaymentSuccessPage from './Pages/PaymentStatusPages/PaymentSuccessPage';
+import Faq from './Pages/Faq/Faq';
 
 const SESSION_KEY = 'user_session';
 const SESSION_EXPIRATION_KEY = 'user_session_expiration';
@@ -205,6 +206,8 @@ function App() {
           <Route path="/payment-failed" element={<FailurePage />} />
 
           <Route path="/payment-done" element={<PaymentSuccessPage />} />
+
+          <Route path="/faq" element={<Faq />} />
           
         </Routes>
         <Footer />

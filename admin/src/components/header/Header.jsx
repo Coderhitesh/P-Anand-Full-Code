@@ -86,6 +86,33 @@ const Header = () => {
             </li>
             <li>
               <Link
+                to="/all-pdf-enquiry-detail"
+                onClick={() => handleTabClick('all-pdf-enquiry-detail')}
+                className={activeTab === 'all-pdf-enquiry-detail' ? 'active' : ''}
+              >
+                <i className="fa-solid fa-layer-group me-1"></i> Manage PDF Enquiry
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/all-enquiry"
+                onClick={() => handleTabClick('all-enquiry')}
+                className={activeTab === 'all-enquiry' ? 'active' : ''}
+              >
+                <i className="fa-solid fa-layer-group me-1"></i> Manage Enquiry
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/all-faq"
+                onClick={() => handleTabClick('all-faq')}
+                className={activeTab === 'all-faq' ? 'active' : ''}
+              >
+                <i className="fa-solid fa-layer-group me-1"></i> Manage FAQ
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/all-teacher"
                 onClick={() => handleTabClick('all-teacher')}
                 className={activeTab === 'all-teacher' ? 'active' : ''}

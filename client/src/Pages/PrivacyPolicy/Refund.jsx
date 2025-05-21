@@ -20,8 +20,8 @@ function Refund() {
               </p>
 
               <h3 className="text-center mb-3">Need help?</h3>
-              <p className="text-center">
-                Contact us at <strong>p.anandacademy@gmail.com</strong> for any questions related to refunds.
+               <p className="text-center">
+                Contact us at <strong>p.anandacademy@gmail.com</strong> or call us at <strong>9971262737</strong> for any questions related to refunds.
               </p>
             </div>
           </div>

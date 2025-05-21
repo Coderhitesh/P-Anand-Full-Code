@@ -3,7 +3,7 @@ const upload = require("../middlewares/Multer")
 const { register, login, logout, passwordChangeRequest, verifyOtpAndChangePassword, resendOtp, addDeliveryDetails, userDetails, GetDeliveryAddressOfUser, updateDeliveryAddress, getAllUsers, updateProfile } = require('../Controllers/Usercontroller')
 const { protect } = require('../middlewares/Protect')
 const { createBundle, getAllBundles, deleteSingleBundle, updateBundle, getSingleBundle } = require('../Controllers/Bundle.Controller')
-const { createCategory, getAllCategory, singleCategory, deleteCategory, updateCategory } = require('../Controllers/Category.Controller')
+const { createCategory, getAllCategory, singleCategory, deleteCategory, updateCategory, updateCategoryStatus } = require('../Controllers/Category.Controller')
 const { createBanner, getAllBanner, deletebanner, updateBanner } = require('../Controllers/Banner.controller')
 const { createCourse, getAllCourse, getSingleCourse, deleteCourse, updateCourse, updateCourseFeature, getCoursesByCategory } = require('../Controllers/Course.controller')
 const { createTag, getAllTag, getSingleTag, updateTag, deleteTag } = require('../Controllers/Tag.Controller')
@@ -26,6 +26,9 @@ const { createFreeResourceCategory, updateFreeResourceCategory, getAllFreeResour
 const { createFreeResource, getFreeResource, getSingleFreeResource, updateFreeResource, deleteFreeResource } = require('../Controllers/FreeResource.Controller')
 const { createCheckOutFunction } = require('../Try/Try')
 const { createPaymentInstant, verifyInstantPayment } = require('../Controllers/PayOnClick.controller')
+const { createPdfDownloadDetail, getAllPdfDownloadDetails, getSinglePdfDownloadDetail, deletePdfDownloadDetail } = require('../Controllers/PdfDownloadDetail.controller')
+const { createEnquiry, getAllEnquiries, deleteEnquiry } = require('../Controllers/Enquiry.Controller')
+const { getSingleFaq, createFaq, getAllFaq, updateFaq, deleteFaq } = require('../Controllers/Faq.controller')
 const router = express.Router()
 
 // user routers 
@@ -60,6 +63,7 @@ router.get('/get-all-category', getAllCategory)
 router.get('/single-category/:_id', singleCategory)
 router.delete('/delete-category/:_id', deleteCategory)
 router.put('/update-category/:_id', upload.single('categoryImage'), updateCategory)
+router.put('/update-category-status/:id', updateCategoryStatus)
 
 // banner routers 
 
@@ -244,6 +248,27 @@ router.delete('/delete-free-resource/:_id',deleteFreeResource)
 
 router.post('/create-instant-payment',createPaymentInstant)
 router.post('/verify-instant-payment/:merchantTransactionId',verifyInstantPayment)
+
+// download pdf detail route here 
+
+router.post('/create-download-pdf-detail',createPdfDownloadDetail)
+router.get('/get-all-download-pdf-detail',getAllPdfDownloadDetails)
+router.get('/get-single-download-pdf-detail/:_id',getSinglePdfDownloadDetail)
+router.delete('/delete-download-pdf-detail/:_id',deletePdfDownloadDetail)
+
+// enquiry route here 
+
+router.post('/create-enquiry',createEnquiry)
+router.get('/get-all-enquiry',getAllEnquiries)
+router.delete('/delete-enquiry/:id',deleteEnquiry)
+
+// faq route here 
+
+router.post('/create-faq',createFaq)
+router.get('/get-all-faq',getAllFaq)
+router.get('/get-single-faq/:id',getSingleFaq)
+router.put('/update-faq/:id',updateFaq)
+router.delete('/delete-faq/:id',deleteFaq)
 
 
 module.exports = router

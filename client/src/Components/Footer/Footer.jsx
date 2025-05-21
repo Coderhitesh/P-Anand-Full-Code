@@ -8,7 +8,9 @@ function Footer() {
     const handleFetchCategory = async () => {
         try {
             const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-category')
-            const sortedCategories = res.data.data.sort((a, b) => a.position - b.position);
+             const category = res.data.data
+            const filterData = category.filter((item) => item.isActive === true);
+            const sortedCategories = filterData.sort((a, b) => a.position - b.position);
             setCategory(sortedCategories);
         } catch (error) {
             console.log(error)
@@ -130,15 +132,15 @@ function Footer() {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/Book">
-                                                <i class="fa-solid fa-chevrons-right"></i>
-                                                Books
-                                            </Link>
-                                        </li>
-                                        <li>
                                             <Link to="/free-resource">
                                                 <i class="fa-solid fa-chevrons-right"></i>
                                                 Free Resources
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/faq">
+                                                <i class="fa-solid fa-chevrons-right"></i>
+                                                FAQ's
                                             </Link>
                                         </li>
                                         
@@ -162,6 +164,13 @@ function Footer() {
                                                 </li>
                                             ))
                                         }
+                                        
+                                        <li>
+                                            <Link to="/Book">
+                                                <i class="fa-solid fa-chevrons-right"></i>
+                                                Books
+                                            </Link>
+                                        </li>
                                         {/* <li>
                                             <Link to="/Book">
                                                 <i class="fa-solid fa-chevrons-right"></i>

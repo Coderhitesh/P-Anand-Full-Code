@@ -13,7 +13,7 @@ exports.createCategory = async (req, res) => {
             });
         }
 
-        if(!position){
+        if (!position) {
             return res.status(400).json({
                 success: false,
                 message: 'Position is required'
@@ -37,7 +37,7 @@ exports.createCategory = async (req, res) => {
         try {
             const imgUrl = await uploadImage(req.file.path);
             const { image, public_id } = imgUrl;
-            category.categoryImage.url =  image;
+            category.categoryImage.url = image;
             category.categoryImage.public_id = public_id;
             try {
                 fs.unlinkSync(req.file.path);
@@ -171,7 +171,7 @@ exports.updateCategory = async (req, res) => {
             }
         }
 
-        if(position) category.position = position;
+        if (position) category.position = position;
 
         // Handle image update
         if (req.file) {
@@ -221,3 +221,31 @@ exports.updateCategory = async (req, res) => {
         });
     }
 };
+
+
+exports.updateCategoryStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const category = await mainCategory.findById(id);
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: 'Category not found',
+            });
+        }
+        category.isActive = req.body.isActive;
+        await category.save();
+        res.status(200).json({
+            success: true,
+            message: 'Category status updated successfully',
+            data: category,
+        });
+    } catch (error) {
+        console.log("Internal server error", error)
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error',
+            error: error.message
+        })
+    }
+}

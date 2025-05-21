@@ -19,6 +19,10 @@ const CategoryModel = new mongoose.Schema({
     },
     position:{
         type:Number
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 })
 
