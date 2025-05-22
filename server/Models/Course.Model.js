@@ -65,6 +65,10 @@ const courseSchema = new mongoose.Schema({
     },
     teacherName: {
         type: String
+    },
+    status: {
+        type: Boolean,
+        default: true
     }
 })
 

@@ -5,7 +5,7 @@ const { protect } = require('../middlewares/Protect')
 const { createBundle, getAllBundles, deleteSingleBundle, updateBundle, getSingleBundle } = require('../Controllers/Bundle.Controller')
 const { createCategory, getAllCategory, singleCategory, deleteCategory, updateCategory, updateCategoryStatus } = require('../Controllers/Category.Controller')
 const { createBanner, getAllBanner, deletebanner, updateBanner } = require('../Controllers/Banner.controller')
-const { createCourse, getAllCourse, getSingleCourse, deleteCourse, updateCourse, updateCourseFeature, getCoursesByCategory } = require('../Controllers/Course.controller')
+const { createCourse, getAllCourse, getSingleCourse, deleteCourse, updateCourse, updateCourseFeature, getCoursesByCategory, updateCourseStatus } = require('../Controllers/Course.controller')
 const { createTag, getAllTag, getSingleTag, updateTag, deleteTag } = require('../Controllers/Tag.Controller')
 const { createTeacher, getAllTeacher, getSingleTeacher, deleteTeacher, updateTeacher } = require('../Controllers/Teacher.controller')
 const { createTeacherRating, getAllTeacherRating, singleTeacherRating, updateTeacherRating, deleteTeacherRating } = require('../Controllers/TeacherRating.controller')
@@ -89,6 +89,7 @@ router.delete('/delete-course/:_id', deleteCourse)
 router.put('/update-course/:_id', upload.single('courseImage'), updateCourse)
 router.put('/update-course-feature/:id', updateCourseFeature)
 router.get('/get-courses-by-category/:categoryId', getCoursesByCategory)
+router.put('/update-course-status/:id', updateCourseStatus)
 
 // Teacher routers
 

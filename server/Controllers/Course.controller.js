@@ -290,3 +290,16 @@ exports.getCoursesByCategory = async (req, res) => {
         });
     }
 };
+
+exports.updateCourseStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+        const course = await MainCourse.findByIdAndUpdate(req.params.id, { status }, { new: true });
+        if (!course) {
+            return res.status(404).json({ message: "Course not found" });
+        }
+        res.status(200).json({ success: true, message: "Course status updated successfully", course });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+}

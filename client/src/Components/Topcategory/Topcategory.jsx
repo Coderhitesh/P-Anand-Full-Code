@@ -16,13 +16,15 @@ function Topcategory() {
   const handleFetchCategory = async (pageNumber) => {
     try {
       const res = await axios.get(`https://www.api.panandacademy.com/api/v1/get-all-category`);
-      console.log(res.data.data); // Log the response to see its structure
-      setCategory((prevCategories) => [...prevCategories, ...res.data.data]); // Adjust this based on the actual structure
+      // console.log(res.data.data); // Log the response to see its structure
+      const category = res.data.data
+      const filterData = category.filter((item) => item.isActive === true);
+      setCategory((prevCategories) => [...prevCategories, ...filterData]); // Adjust this based on the actual structure
     } catch (error) {
       console.error("Error fetching categories: ", error.response ? error.response.data : error.message);
     }
   };
-  
+
 
   const loadMoreCategories = () => {
     setLoadingMore(true);
@@ -80,7 +82,7 @@ function Topcategory() {
                   slidesPerView: 3, // Show 4 slides
                   spaceBetween: 30, // Adjust space between slides
                 },
-                1200:{
+                1200: {
                   slidesPerView: 4, // Show 4 slides
                   spaceBetween: 30, // Adjust space between slides
                 },
@@ -94,7 +96,7 @@ function Topcategory() {
               {allCategory && allCategory.map((item, index) => (
                 <SwiperSlide key={index} virtualIndex={index}>
                   <Link to={`/category/${item._id}`} className="book-catagories-items">
-                    <div className="book-thumb" style={{overflow:'hidden'}}>
+                    <div className="book-thumb" style={{ overflow: 'hidden' }}>
                       <img src={item.categoryImage.url || 'assets/img/book-categori/online-record-class.webp'} alt={item.categoryName} />
                       {/* <img src={img} alt={item.categoryName} /> */}
                       {/* <div className="circle-shape">
