@@ -26,7 +26,8 @@ const TwelfthHome = () => {
       try {
         const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
         const allData = res.data.data;
-        const filterdata = allData.filter((item) => item.courseCategory === '66cc4b3ca51f73c4c01f0a5a');
+        const activeCourse = allData.filter((item) => item.status === true);
+        const filterdata = activeCourse.filter((item) => item.courseCategory === '66cc4b3ca51f73c4c01f0a5a');
         setCourse(shuffleArray(filterdata)); // Shuffle the filtered data
       } catch (error) {
         console.log(error);

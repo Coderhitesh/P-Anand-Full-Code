@@ -43,7 +43,8 @@ function StudyMaterial() {
         try {
             const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
             const allCourse = res.data.data;
-            const filterData = allCourse.filter((item) => item.courseCategory === id);
+             const activeCourse = allCourse.filter((item) => item.status === true);
+            const filterData = activeCourse.filter((item) => item.courseCategory === id);
             setFilterCourse(filterData);
         } catch (error) {
             console.log(error);

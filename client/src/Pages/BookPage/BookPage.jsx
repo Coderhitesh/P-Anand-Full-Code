@@ -9,7 +9,7 @@ function BookPage() {
     const [tag, setTag] = useState([])
     const [book, setBook] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6; // Number of items per page
+    const itemsPerPage = 8; // Number of items per page
 
     const [loading, setLoading] = useState(true);
 
@@ -42,7 +42,8 @@ function BookPage() {
     const handleFetchBook = async () => {
         try {
             const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-book');
-            setBook(res.data.data)
+            const filterData = res.data.data.filter((item) => item.status === true);
+            setBook(filterData)
         } catch (error) {
             console.log(error);
         }

@@ -23,7 +23,8 @@ function TopRatedBook() {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
       const allCourse = res.data.data;
-      const filter = allCourse.filter((item) => item.courseRating >= 4.0);
+      const activeCourse = allData.filter((item) => item.status === true);
+      const filter = activeCourse.filter((item) => item.courseRating >= 4.0);
       setTopRate(filter);
     } catch (error) {
       console.log(error);

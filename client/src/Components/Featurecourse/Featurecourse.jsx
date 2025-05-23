@@ -26,7 +26,8 @@ function Featurecourse() {
     try {
       const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
       const allData = res.data.data;
-      const filterdata = allData.filter((item) => item.courseCategory === '66cc4b5da51f73c4c01f0a62');
+      const activeCourse = allData.filter((item) => item.status === true);
+      const filterdata = activeCourse.filter((item) => item.courseCategory === '66cc4b5da51f73c4c01f0a62');
       setCourse(shuffleArray(filterdata)); // Shuffle the filtered data
     } catch (error) {
       console.log(error);

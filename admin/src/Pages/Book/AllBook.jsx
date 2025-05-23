@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 
 function AllBook() {
-    const [teacher,setTeacher] = useState([])
+    const [teacher, setTeacher] = useState([])
     const [course, setCourse] = useState([]);
     const [category, setCategory] = useState([]);
     const [tags, setTags] = useState([]);
@@ -94,6 +94,17 @@ function AllBook() {
         }
     };
 
+    const handleupdateStatus = async (id, currentStatus) => {
+        try {
+            const updatedStatus = !currentStatus;
+            await axios.put(`https://www.api.panandacademy.com/api/v1/update-book-status/${id}`, { status: updatedStatus });
+            handleFetchCourses(); // Refresh the course list to reflect changes
+            toast.success("Book status updated successfully!");
+        } catch (error) {
+            console.log("Internal server error", error)
+        }
+    }
+
     const paginateData = (data, pageNumber) => {
         const indexOfLastItem = pageNumber * itemPerPage;
         const indexOfFirstItem = indexOfLastItem - itemPerPage;
@@ -167,6 +178,7 @@ function AllBook() {
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Price</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Discount %</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">After Discount Price</th>
+                            <th style={{ whiteSpace: 'nowrap' }} scope="col">Active Status</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Tag</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Feature</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Rating</th>
@@ -188,6 +200,16 @@ function AllBook() {
                                 <td>{course.bookPrice}</td>
                                 <td>{course.bookDiscountPresent}</td>
                                 <td>{course.bookAfterDiscount}</td>
+                                <td>
+                                    <div className="form-check form-switch">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            checked={course.status}
+                                            onChange={() => handleupdateStatus(course._id, course.status)}
+                                        />
+                                    </div>
+                                </td>
                                 <td>{getTagNameById(course.bookTagName)}</td>
                                 <td>
                                     <BootstrapSwitchButton
@@ -199,7 +221,7 @@ function AllBook() {
                                 </td>
                                 {/* <td>{courseRatings[course._id]?.rating || 'N/A'}</td>
                                 <td>{courseRatings[course._id]?.ratingCount || 0}</td> */}
-                                <td>{course.bookRating|| 'N/A'}</td>
+                                <td>{course.bookRating || 'N/A'}</td>
                                 <td>{course.bookCountRating || 0}</td>
                                 <td>
                                     <Link to={`/edit-book/${course._id}`}>

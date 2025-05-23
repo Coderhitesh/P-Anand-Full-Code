@@ -12,7 +12,7 @@ const { createTeacherRating, getAllTeacherRating, singleTeacherRating, updateTea
 const { createCourseRating, getAllCourseRating, singleCourseRating, updateCourseRating, deleteCourseRating } = require('../Controllers/CourseRating.controller')
 const { createHomeBanner, getAllHomeBanner, deleteHomeBanner, getSingleHomeBanner, updateHomeBanner } = require('../Controllers/HomeBanner.Controller')
 const { createCourseTitle, getAllCourseTitle, deleteCourseTitle, updateCourseTitle, getSingleCourseTitle } = require('../Controllers/CourseTitle.controller')
-const { createBook, getAllBook, getSingleBook, deleteBook, updateBook, updateBookFeature, getBookByCategory, updateBookFeatureById } = require('../Controllers/BookController')
+const { createBook, getAllBook, getSingleBook, deleteBook, updateBook, updateBookFeature, getBookByCategory, updateBookFeatureById, updateBookStatus } = require('../Controllers/BookController')
 const { createBookCategory, getAllBookCategory, singleBookCategory, deleteBookCategory, updateBookCategory } = require('../Controllers/BookCategory.controller')
 const { createBookTag, getAllBookTags, getSingleBookTag, deleteBookTag, updateBookTag } = require('../Controllers/BookTag.controller')
 const { createBookRating, getAllBookRating, singleBookRating, updateBookRating, deleteBookRating } = require('../Controllers/BookRating.controller')
@@ -200,6 +200,7 @@ router.get('/book-order', protect, BookOrder);
 router.get('/all-orders', protect, getAllOrders);
 router.put('/update-penDrive-order-status/:OrderId', protect, updateOrderStatus);
 router.delete('/delete-order/:id',deleteOrder)
+router.put('/update-book-status/:id',updateBookStatus)
 
 router.post('/try',createCheckOutFunction)
 

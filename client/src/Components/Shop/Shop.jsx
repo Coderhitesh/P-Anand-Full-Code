@@ -44,7 +44,8 @@ function Shop() {
         try {
             const res = await axios.get('https://www.api.panandacademy.com/api/v1/get-all-course');
             // setCourse(res.data.data);
-            const shuffledCourses = shuffleArray(res.data.data);
+            const activeCourse = res.data.data.filter((item) => item.status === true);
+            const shuffledCourses = shuffleArray(activeCourse);
             setCourse(shuffledCourses);
         } catch (error) {
             console.log(error);

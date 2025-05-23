@@ -4,7 +4,7 @@ const fs = require('fs');
 
 exports.createBook = async (req, res) => {
     try {
-        console.log(req.body);
+        // console.log(req.body);
         const { bookName, bookCategory, bookSubCategory, bookDescription, bookTagName, bookAuthor, feature, bookPrice, bookAfterDiscount, bookDiscountPresent, BookHSNCode, aditionalInfo } = req.body;
         const emptyField = [];
 
@@ -66,7 +66,7 @@ exports.createBook = async (req, res) => {
         if (!newBookSave) {
             if (newBook.bookImage.public_id) await deleteImageFromCloudinary(newBook.bookImage.public_id);
             // if (newBook.bookPdf.public_id) await deletePdfFromCloudinary(newBook.bookPdf.public_id);
-            if(newBook.bookPdf) fs.promises.unlink(newBook.bookPdf)
+            if (newBook.bookPdf) fs.promises.unlink(newBook.bookPdf)
             return res.status(400).json({ success: false, message: 'Failed to save Book' });
         }
 
@@ -293,7 +293,7 @@ exports.getBookByCategory = async (req, res) => {
     }
 };
 
-exports.updateBookFeatureById = async (req,res) => {
+exports.updateBookFeatureById = async (req, res) => {
     const id = req.params._id;
     const { feature } = req.body;
 
@@ -308,6 +308,24 @@ exports.updateBookFeatureById = async (req,res) => {
         res.status(500).json({
             success: false,
             message: "Internal server error in update book feature by id "
+        })
+    }
+}
+
+exports.updateBookStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+        const book = await BookSchema.findByIdAndUpdate(req.params.id, { status }, { new: true });
+        if (!book) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
+        return res.status(200).json({ message: 'Book status updated', book });
+    } catch (error) {
+        console.log("Internal server error", error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error in update book status ",
+            error: error.message
         })
     }
 }

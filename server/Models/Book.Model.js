@@ -60,6 +60,10 @@ const BookSchema = new mongoose.Schema({
     },
     aditionalInfo: {
         type: String
+    },
+    status: {
+        type: Boolean,
+        default: true
     }
 })
 

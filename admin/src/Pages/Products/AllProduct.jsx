@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 
 const AllProduct = () => {
-    const [teacher,setTeacher] = useState([])
+    const [teacher, setTeacher] = useState([])
     const [course, setCourse] = useState([]);
     const [category, setCategory] = useState([]);
     const [tags, setTags] = useState([]);
@@ -95,6 +95,18 @@ const AllProduct = () => {
         }
     };
 
+    const handleUpdateCourseStatus = async (courseId, currentStatus) => {
+        try {
+            const updatedStatus = !currentStatus;
+            await axios.put(`https://www.api.panandacademy.com/api/v1/update-course-status/${courseId}`, { status: updatedStatus });
+            handleFetchCourses(); // Refresh the course list to reflect changes
+            toast.success("Course status updated successfully!");
+        } catch (error) {
+            console.error('Error updating course status:', error);
+            toast.error("Failed to update course status.");
+        }
+    };
+
     const paginateData = (data, pageNumber) => {
         const indexOfLastItem = pageNumber * itemPerPage;
         const indexOfFirstItem = indexOfLastItem - itemPerPage;
@@ -167,6 +179,7 @@ const AllProduct = () => {
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Starting Price</th>
                             {/* <th style={{ whiteSpace: 'nowrap' }} scope="col">Discount %</th> */}
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Ending Price</th>
+                            <th style={{ whiteSpace: 'nowrap' }} scope="col">Active Status</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Tag</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Feature</th>
                             <th style={{ whiteSpace: 'nowrap' }} scope="col">Rating</th>
@@ -189,6 +202,16 @@ const AllProduct = () => {
                                 <td><img src={course.courseImage.url} alt={course.courseName} style={{ width: '50px', height: '50px' }} /></td>
                                 <td>{course.startingPrice}</td>
                                 <td>{course.endingPrice}</td>
+                                <td>
+                                    <div className="form-check form-switch">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            checked={course.status}
+                                            onChange={() => handleUpdateCourseStatus(course._id, course.status)}
+                                        />
+                                    </div>
+                                </td>
                                 {/* <td>{course.coursePriceAfterDiscount}</td> */}
                                 <td>{getTagNameById(course.courseTagName)}</td>
                                 <td>
@@ -201,7 +224,7 @@ const AllProduct = () => {
                                 </td>
                                 {/* <td>{courseRatings[course._id]?.rating || 'N/A'}</td>
                                 <td>{courseRatings[course._id]?.ratingCount || 0}</td> */}
-                                <td>{course.courseRating|| 'N/A'}</td>
+                                <td>{course.courseRating || 'N/A'}</td>
                                 <td>{course.courseCountRating || 0}</td>
                                 <td>
                                     <Link to={`/edit-course/${course._id}`}>
