@@ -1,7 +1,7 @@
 import React from 'react'
 import './FounderHome.css'
 import founder1 from './vikash-small.jpg'
-import founder2 from './prasannjeet-founder.webp'
+import founder2 from './prasannjeet-small.jpg'
 import founder3 from './kashish-small.jpg'
 import { Link } from 'react-router-dom'
 
