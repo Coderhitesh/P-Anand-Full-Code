@@ -92,7 +92,7 @@ function FounderPage() {
             </div>
             <div className="founder-info">
               <h3>Meet Your Mentor and Faculty: Prof. Neeraj Sir              </h3>
-              <p>Co-Founder</p>
+              <p>Faculty</p>
               <p className='about'>Neeraj Sir is a dedicated and experienced Mathematics teacher at P Anand Academy, known for his clear explanations and student-friendly teaching methods. With a strong command over concepts and a passion for numbers, he makes even the most complex topics easy
                 to understand. His approach focuses on building strong fundamentals, encouraging logical thinking, and boosting problem-solving skills. Neeraj Sir’s patient guidance and motivating attitude have helped numerous students overcome their fear of Math and achieve
                 academic excellence. He believes in making learning interactive and enjoyable, turning Mathematics into a subject students look forward to mastering.</p>

@@ -1,29 +1,29 @@
 import React from 'react'
 import './FounderHome.css'
-import founder1 from './kausal-foundar.webp'
+import founder1 from './vikash-small.jpg'
 import founder2 from './prasannjeet-founder.webp'
-import founder3 from './vikash-founder.webp'
+import founder3 from './kashish-small.jpg'
 import { Link } from 'react-router-dom'
 
 function FounderHome() {
     const data = [
         {
             id: 1,
-            name: 'CA Prasanjeet Sir',
+            name: 'CA Prasannjeet Sir',
             img: founder2,
             position: 'Co-Founder'
         },
         {
             id: 2,
-            name: 'CA Kausal Sir',
+            name: 'CA Vikas Sir',
             img: founder1,
             position: 'Co-Founder'
         },
         {
             id: 3,
-            name: 'CA Vikash Sir',
+            name: "Kashish Ma'am",
             img: founder3,
-            position: 'Co-Founder'
+            position: 'Business Developer'
         },
     ]
     return (
