@@ -7,6 +7,7 @@ import founder3 from './vikash.jpg'
 import founder4 from './rocky.jpg'
 import founder5 from './neeraj.jpg'
 import founder6 from './Kashish.jpg'
+import founder7 from './b.jpg'
 import axios from 'axios'
 
 function FounderPage() {
@@ -111,9 +112,9 @@ function FounderPage() {
               </p>
             </div>
           </div> */}
-          {/* <div className="founder-detail">
+          <div className="founder-detail">
             <div className="img">
-              <img src={founder3} alt="" />
+              <img src={founder7} alt="" />
             </div>
             <div className="founder-info">
               <h3>Meet our Strategic Manager:  CA Barkha Ma'am             </h3>
@@ -121,7 +122,7 @@ function FounderPage() {
               <p className='about'>CA Barkha Chaturvedi is a dynamic Chartered Accountant known for her dedication, precision, and unwavering drive. With expertise in taxation, audit, and financial advisory, she empowers businesses to grow with clarity and compliance. Passionate about learning and
                 leadership, she believes that perseverance and a positive mindset can turn any obstacle into a stepping stone. Her journey inspires aspiring professionals to pursue excellence with confidence and integrity.</p>
             </div>
-          </div> */}
+          </div>
           <div className="founder-detail">
             <div className="img">
               <img src={founder6} alt="" />
