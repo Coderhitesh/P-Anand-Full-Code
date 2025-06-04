@@ -63,7 +63,7 @@ function FounderPage() {
               <img src={founder3} alt="" />
             </div>
             <div className="founder-info">
-              <h3>Meet Your Mentor and Co-Founder: CA Vikas Paswan              </h3>
+              <h3>Meet Your Mentor and Co-Founder: CA Vikas Paswan</h3>
               <p>Co-Founder</p>
               <p className='about'>CA Vikas Paswan is a dynamic Chartered Accountant and visionary educator who co-founded P Anand Academy with the mission to empower students through quality education and expert mentorship. With a strong foundation in finance and a passion for teaching, he
                 brings real-world insights and academic excellence to the classroom. His unique teaching approach blends conceptual clarity with practical application, making complex topics easily understandable for students. At P Anand Academy, CA Vikas Paswan plays a key role in
@@ -78,8 +78,7 @@ function FounderPage() {
               <img src={founder4} alt="" />
             </div>
             <div className="founder-info">
-              <h3>Meet Your Mentor and Faculty:  CA Rockey Sir
-              </h3>
+              <h3>Meet Your Mentor and Faculty:  CA Rockey Sir</h3>
               <p>Faculty</p>
               <p className='about'>CA Ravinder is a highly knowledgeable and result-oriented Economics faculty member at P Anand Academy. With a deep understanding of both theoretical and practical aspects of Economics, he brings clarity and relevance to every concept he teaches. His ability to
                 simplify complex economic ideas and relate them to real-life scenarios makes learning engaging and effective for students. CA Ravinder emphasizes conceptual understanding, analytical thinking, and exam-oriented preparation, helping students perform exceptionally well
@@ -91,7 +90,7 @@ function FounderPage() {
               <img src={founder5} alt="" />
             </div>
             <div className="founder-info">
-              <h3>Meet Your Mentor and Faculty: Prof. Neeraj Sir              </h3>
+              <h3>Meet Your Mentor and Faculty: Prof. Neeraj Sir</h3>
               <p>Faculty</p>
               <p className='about'>Neeraj Sir is a dedicated and experienced Mathematics teacher at P Anand Academy, known for his clear explanations and student-friendly teaching methods. With a strong command over concepts and a passion for numbers, he makes even the most complex topics easy
                 to understand. His approach focuses on building strong fundamentals, encouraging logical thinking, and boosting problem-solving skills. Neeraj Sir’s patient guidance and motivating attitude have helped numerous students overcome their fear of Math and achieve
@@ -117,7 +116,7 @@ function FounderPage() {
               <img src={founder7} alt="" />
             </div>
             <div className="founder-info">
-              <h3>Meet our Strategic Manager:  CA Barkha Ma'am             </h3>
+              <h3>Meet our Strategic Manager:  CA Barkha Ma'am</h3>
               <p>Strategic Manager</p>
               <p className='about'>CA Barkha Chaturvedi is a dynamic Chartered Accountant known for her dedication, precision, and unwavering drive. With expertise in taxation, audit, and financial advisory, she empowers businesses to grow with clarity and compliance. Passionate about learning and
                 leadership, she believes that perseverance and a positive mindset can turn any obstacle into a stepping stone. Her journey inspires aspiring professionals to pursue excellence with confidence and integrity.</p>
@@ -128,8 +127,7 @@ function FounderPage() {
               <img src={founder6} alt="" />
             </div>
             <div className="founder-info">
-              <h3>Meet Your Mentor and Business Developer:  Kashish Ma'am
-              </h3>
+              <h3>Meet Your Mentor and Business Developer:  Kashish Ma'am </h3>
               <p>Business Developer</p>
               <p className='about'>Kashish, a dynamic and student-focused Business Developer at P. Anand Academy, is also pursuing Chartered Accountancy, showcasing her dedication and multi-talented nature. She brings a unique student perspective to her role, understanding the challenges and
                 aspirations of learners. Passionate and hardworking, Kashish actively engages with students to ensure their needs are met while driving initiatives that make quality education more accessible and effective. Her ability to balance her own academic journey with strategic
@@ -141,7 +139,7 @@ function FounderPage() {
               <img src={founder3} alt="" />
             </div>
             <div className="founder-info">
-              <h3>Meet our Strategic Manager:  CA Barkha Ma'am             </h3>
+              <h3>Meet our Strategic Manager:  CA Barkha Ma'am </h3>
               <p>Strategic Manager</p>
               <p className='about'>CA Barkha Chaturvedi is a dynamic Chartered Accountant known for her dedication, precision, and unwavering drive. With expertise in taxation, audit, and financial advisory, she empowers businesses to grow with clarity and compliance. Passionate about learning and
                 leadership, she believes that perseverance and a positive mindset can turn any obstacle into a stepping stone. Her journey inspires aspiring professionals to pursue excellence with confidence and integrity.</p>

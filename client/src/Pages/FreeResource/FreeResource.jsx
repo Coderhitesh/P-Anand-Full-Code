@@ -49,6 +49,10 @@ function FreeResource() {
     // Fetch categories on component mount
     useEffect(() => {
         fetchCategories();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
     }, []);
 
     // Fetch resources when the active category changes

@@ -6,6 +6,7 @@ import founder3 from './kashish-small.jpg'
 import { Link } from 'react-router-dom'
 
 function FounderHome() {
+    
     const data = [
         {
             id: 1,
@@ -19,13 +20,14 @@ function FounderHome() {
             img: founder1,
             position: 'Co-Founder'
         },
-        {
-            id: 3,
-            name: "Kashish Ma'am",
-            img: founder3,
-            position: 'Business Developer'
-        },
+        // {
+        //     id: 3,
+        //     name: "Kashish Ma'am",
+        //     img: founder3,
+        //     position: 'Business Developer'
+        // },
     ]
+    
     return (
         <>
             <div className="founder-section">
